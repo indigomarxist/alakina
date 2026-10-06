@@ -27,10 +27,9 @@ export const profile = {
     'Guitar',
   ],
   training: {
-    school: 'American Musical and Dramatic Academy, New York',
-    program: 'Professional Conservatory Program in Musical Theatre',
+    school: 'American Musical and Dramatic Academy, NYC',
+    program: 'Musical Theatre Conservatory',
     years: '2024–2026',
-    detail: 'Acting, voice, dance and performance.',
   },
   files: {
     compCard: '/files/alakina-lee-comp-card.pdf',

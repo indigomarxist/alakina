@@ -46,13 +46,14 @@ const sections = [
     <div class="block cols">
       <div>
         <h3>Training</h3>
-        <p class="strong">{profile.training.school}</p>
-        <p>{profile.training.program}, {profile.training.years}</p>
-        <p class="muted">{profile.training.detail}</p>
+        <div class="row">
+          <p class="row__title">{profile.training.school}</p>
+          <p class="row__meta">{profile.training.program} · {profile.training.years}</p>
+        </div>
       </div>
       <div>
         <h3>Skills</h3>
-        <ul>{profile.skills.map((s) => <li>{s}</li>)}</ul>
+        <ul class="skills">{profile.skills.map((s) => <li>{s}</li>)}</ul>
       </div>
     </div>
   </div>
@@ -79,11 +80,11 @@ const sections = [
   td { width: 28%; }
   .company { color: var(--muted); }
   .cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); }
-  .cols p { margin: 0.75rem 0 0; }
-  .strong { font-family: var(--serif); font-size: 1.3rem; }
-  .muted { color: var(--muted); }
-  ul { margin: 0.75rem 0 0; padding-left: 1.1rem; }
-  li { padding: 0.15rem 0; }
+  .row { padding: 0.95rem 0; border-bottom: 1px solid var(--line); }
+  .row__title { margin: 0; font-family: var(--serif); font-size: 1.3rem; font-weight: 500; }
+  .row__meta { margin: 0.2rem 0 0; color: var(--muted); }
+  .skills { list-style: none; margin: 0; padding: 0; }
+  .skills li { padding: 0.95rem 0; border-bottom: 1px solid var(--line); font-family: var(--serif); font-size: 1.3rem; font-weight: 500; line-height: 1.3; }
   @media (max-width: 700px) {
     table, tbody, tr, tbody th, td { display: block; }
     tr { padding: 0.9rem 0; }
