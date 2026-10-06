@@ -1,0 +1,129 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const photos = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+
+// Large versions for the lightbox, generated at build time.
+const items = await Promise.all(
+  photos.map(async (p) => ({
+    ...p,
+    full: await getImage({ src: p.data.image, width: Math.min(1800, p.data.image.width), format: 'webp' }),
+  })),
+);
+---
+
+<section class="section" id="portfolio">
+  <div class="container">
+    <p class="eyebrow">Portfolio</p>
+    <h2 class="section-title">Digitals &amp; headshots</h2>
+    <ul class="grid">
+      {
+        items.map((p, i) => (
+          <li>
+            <button class="grid__item" type="button" data-index={i} data-full={p.full.src} data-alt={p.data.alt} aria-label={`View larger: ${p.data.alt}`}>
+              <Image src={p.data.image} alt={p.data.alt} widths={[400, 640, 900]} sizes="(max-width: 640px) 50vw, 25vw" format="avif" />
+            </button>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <dialog class="lightbox" aria-label="Photo viewer">
+    <img class="lightbox__img" alt="" />
+    <button class="lightbox__btn lightbox__close" type="button" aria-label="Close">×</button>
+    <button class="lightbox__btn lightbox__prev" type="button" aria-label="Previous photo">‹</button>
+    <button class="lightbox__btn lightbox__next" type="button" aria-label="Next photo">›</button>
+  </dialog>
+</section>
+
+<style>
+  .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.5rem, 1.5vw, 1rem);
+  }
+  @media (max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); } }
+  .grid__item {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: var(--surface);
+    cursor: zoom-in;
+    overflow: hidden;
+  }
+  .grid__item :global(img) {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    transition: transform 0.6s ease, opacity 0.3s;
+  }
+  .grid__item:hover :global(img) { transform: scale(1.03); }
+
+  .lightbox {
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(15, 14, 13, 0.94);
+  }
+  .lightbox::backdrop { background: transparent; }
+  .lightbox[open] { display: grid; place-items: center; }
+  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; }
+  .lightbox__btn {
+    position: absolute;
+    background: none;
+    border: 0;
+    color: #f7f5f2;
+    font-size: 2.5rem;
+    line-height: 1;
+    padding: 0.5rem 0.9rem;
+    cursor: pointer;
+    font-family: var(--serif);
+  }
+  .lightbox__close { top: 0.75rem; right: 0.75rem; }
+  .lightbox__prev { left: 0.5rem; top: 50%; transform: translateY(-50%); }
+  .lightbox__next { right: 0.5rem; top: 50%; transform: translateY(-50%); }
+  @media (max-width: 640px) {
+    .lightbox__img { max-width: 100vw; }
+    .lightbox__prev, .lightbox__next { top: auto; bottom: 0.75rem; transform: none; }
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.lightbox')!;
+  const img = dialog.querySelector<HTMLImageElement>('.lightbox__img')!;
+  const items = [...document.querySelectorAll<HTMLButtonElement>('.grid__item')];
+  let current = 0;
+
+  const show = (i: number) => {
+    current = (i + items.length) % items.length;
+    img.src = items[current].dataset.full!;
+    img.alt = items[current].dataset.alt!;
+  };
+
+  items.forEach((btn, i) =>
+    btn.addEventListener('click', () => {
+      show(i);
+      dialog.showModal();
+    }),
+  );
+  dialog.querySelector('.lightbox__close')!.addEventListener('click', () => dialog.close());
+  dialog.querySelector('.lightbox__prev')!.addEventListener('click', () => show(current - 1));
+  dialog.querySelector('.lightbox__next')!.addEventListener('click', () => show(current + 1));
+  dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
+  dialog.addEventListener('close', () => items[current].focus());
+  document.addEventListener('keydown', (e) => {
+    if (!dialog.open) return;
+    if (e.key === 'ArrowLeft') show(current - 1);
+    if (e.key === 'ArrowRight') show(current + 1);
+  });
+</script>

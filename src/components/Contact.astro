@@ -1,0 +1,96 @@
+---
+import { profile } from '../data/profile';
+
+const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
+---
+
+<section class="section contact" id="contact">
+  <div class="container contact__inner">
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 class="section-title">Booking &amp; casting</h2>
+      <p class="lead">For agency, casting, editorial and collaboration inquiries, get in touch directly.</p>
+      <dl class="details">
+        <div>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${profile.email}`}>{profile.email}</a></dd>
+        </div>
+        <div>
+          <dt>Instagram</dt>
+          <dd><a href={`https://www.instagram.com/${profile.instagram}/`} rel="noopener">@{profile.instagram}</a></dd>
+        </div>
+        <div>
+          <dt>Based in</dt>
+          <dd>{profile.based}</dd>
+        </div>
+      </dl>
+      <div class="downloads">
+        <a class="btn" href={profile.files.compCard} download>Comp card (PDF)</a>
+        <a class="btn" href={profile.files.resume} download>Resume (PDF)</a>
+      </div>
+    </div>
+
+    {
+      formspreeId ? (
+        <form class="form" action={`https://formspree.io/f/${formspreeId}`} method="POST">
+          <label>
+            Name
+            <input name="name" autocomplete="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>
+            Company / agency
+            <input name="company" autocomplete="organization" />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="5" required />
+          </label>
+          <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+          <button class="btn btn--solid" type="submit">Send inquiry</button>
+        </form>
+      ) : (
+        <div class="form form--fallback">
+          <p>Prefer email? Send a note with the project, dates and location, and Alakina will get back to you.</p>
+          <a class="btn btn--solid" href={`mailto:${profile.email}?subject=Booking%20inquiry`}>Email Alakina</a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .contact { background: var(--surface); }
+  .contact__inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
+  .lead { color: var(--muted); max-width: 46ch; margin: 0 0 2rem; }
+  .details { margin: 0 0 2rem; }
+  .details div { display: grid; grid-template-columns: 8rem 1fr; padding: 0.75rem 0; border-bottom: 1px solid var(--line); }
+  dt { font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); align-self: center; }
+  dd { margin: 0; font-family: var(--serif); font-size: 1.3rem; overflow-wrap: anywhere; }
+  dd a { text-decoration: none; border-bottom: 1px solid var(--line); }
+  dd a:hover { border-color: var(--text); }
+  .downloads { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .form { display: grid; gap: 1.1rem; background: var(--bg); padding: clamp(1.5rem, 4vw, 2.5rem); }
+  .form--fallback p { margin: 0 0 0.5rem; color: var(--muted); }
+  .form--fallback .btn { justify-self: start; }
+  label { display: grid; gap: 0.4rem; font-size: 0.7rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  input, textarea {
+    font: inherit;
+    font-size: 1rem;
+    letter-spacing: normal;
+    text-transform: none;
+    color: var(--text);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    padding: 0.5rem 0;
+    resize: vertical;
+  }
+  input:focus, textarea:focus { outline: none; border-color: var(--text); }
+  .form button { justify-self: start; margin-top: 0.5rem; }
+  @media (max-width: 800px) { .contact__inner { grid-template-columns: 1fr; } }
+  @media (max-width: 420px) { .details div { grid-template-columns: 1fr; gap: 0.2rem; } }
+</style>

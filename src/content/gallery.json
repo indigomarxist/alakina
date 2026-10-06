@@ -1,0 +1,6 @@
+[
+  { "id": "full-length", "image": "../assets/photos/full-length.jpg", "alt": "Alakina Lee, full-length digital in a black bodysuit and relaxed jeans against a grey studio backdrop", "order": 1, "category": "digitals" },
+  { "id": "headshot", "image": "../assets/photos/headshot.jpg", "alt": "Alakina Lee, headshot looking into the camera", "order": 2, "category": "headshots" },
+  { "id": "three-quarter", "image": "../assets/photos/three-quarter.jpg", "alt": "Alakina Lee, three-quarter length digital, hands in pockets", "order": 3, "category": "digitals" },
+  { "id": "profile", "image": "../assets/photos/profile.jpg", "alt": "Alakina Lee, profile looking to the right", "order": 4, "category": "headshots" }
+]

@@ -1,0 +1,14 @@
+[
+  { "id": "not-a-cig", "section": "stage-film", "title": "This Is Not a Cig", "role": "Lead", "company": "Sean Song Film", "order": 1 },
+  { "id": "cleobis-biton", "section": "stage-film", "title": "Cleobis & Biton", "role": "Supporting", "company": "Sean Song Film", "order": 2 },
+  { "id": "cabaret", "section": "stage-film", "title": "Cabaret Performance", "role": "Singer", "company": "Don't Tell Mama, NYC", "order": 3 },
+  { "id": "last-five-years", "section": "stage-film", "title": "The Last Five Years", "role": "Cathy", "company": "American Musical and Dramatic Academy, NYC", "order": 4 },
+  { "id": "hsm", "section": "stage-film", "title": "High School Musical", "role": "Sharpay Evans", "company": "Charitable Acts Theater, Utah", "order": 5 },
+  { "id": "shrek", "section": "stage-film", "title": "Shrek the Musical", "role": "Fiona", "company": "Hale Center Theater, Utah", "order": 6 },
+  { "id": "chitty", "section": "stage-film", "title": "Chitty Chitty Bang Bang", "role": "Truly Scrumptious", "company": "Utah Arts Collective", "order": 7 },
+  { "id": "annie", "section": "stage-film", "title": "Annie", "role": "Miss Hannigan / Lily St. Regis", "company": "Utah Arts Collective", "order": 8 },
+  { "id": "christmas-carol", "section": "stage-film", "title": "A Christmas Carol", "role": "Dancer", "company": "High Valley Arts, Utah", "order": 9 },
+  { "id": "utah-fashion", "section": "modeling", "title": "Utah Fashion Show", "role": "Athletic Wear", "company": "Daniel Grahm Fashion", "order": 1 },
+  { "id": "ablaze", "section": "modeling", "title": "Ablaze Magazine", "role": "Featured", "company": "Captured by Abbey", "order": 2 },
+  { "id": "viperera", "section": "modeling", "title": "Viperera", "role": "Streetwear", "company": "Viperera NYC", "order": 3 }
+]

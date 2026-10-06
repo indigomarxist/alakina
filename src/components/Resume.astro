@@ -1,0 +1,94 @@
+---
+import { getCollection } from 'astro:content';
+import { profile } from '../data/profile';
+
+const credits = (await getCollection('credits')).sort((a, b) => a.data.order - b.data.order);
+const sections = [
+  { key: 'stage-film', heading: 'Stage & Film' },
+  { key: 'modeling', heading: 'Modeling' },
+] as const;
+---
+
+<section class="section" id="resume">
+  <div class="container">
+    <div class="resume__head">
+      <div>
+        <p class="eyebrow">Resume</p>
+        <h2 class="section-title">Credits</h2>
+      </div>
+      <a class="btn" href={profile.files.resume} download>Download resume (PDF)</a>
+    </div>
+
+    {
+      sections.map(({ key, heading }) => (
+        <div class="block">
+          <h3>{heading}</h3>
+          <table>
+            <thead class="visually-hidden">
+              <tr><th scope="col">Production</th><th scope="col">Role</th><th scope="col">Company</th></tr>
+            </thead>
+            <tbody>
+              {credits
+                .filter((c) => c.data.section === key)
+                .map((c) => (
+                  <tr>
+                    <th scope="row">{c.data.title}</th>
+                    <td>{c.data.role}</td>
+                    <td class="company">{c.data.company}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      ))
+    }
+
+    <div class="block cols">
+      <div>
+        <h3>Training</h3>
+        <p class="strong">{profile.training.school}</p>
+        <p>{profile.training.program}, {profile.training.years}</p>
+        <p class="muted">{profile.training.detail}</p>
+      </div>
+      <div>
+        <h3>Skills</h3>
+        <ul>{profile.skills.map((s) => <li>{s}</li>)}</ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .resume__head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1.5rem; flex-wrap: wrap; }
+  .resume__head .section-title { margin-bottom: 0; }
+  .block { margin-top: clamp(2.5rem, 6vw, 4rem); }
+  h3 {
+    font-family: var(--sans);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--text);
+    margin-bottom: 0.5rem;
+  }
+  table { width: 100%; border-collapse: collapse; }
+  tr { border-bottom: 1px solid var(--line); }
+  th, td { text-align: left; padding: 0.95rem 1rem 0.95rem 0; vertical-align: top; }
+  tbody th { font-family: var(--serif); font-size: 1.3rem; font-weight: 500; width: 36%; }
+  td { width: 28%; }
+  .company { color: var(--muted); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2rem, 6vw, 5rem); }
+  .cols p { margin: 0.75rem 0 0; }
+  .strong { font-family: var(--serif); font-size: 1.3rem; }
+  .muted { color: var(--muted); }
+  ul { margin: 0.75rem 0 0; padding-left: 1.1rem; }
+  li { padding: 0.15rem 0; }
+  @media (max-width: 700px) {
+    table, tbody, tr, tbody th, td { display: block; }
+    tr { padding: 0.9rem 0; }
+    tbody th, td { width: auto; padding: 0; }
+    td { font-size: 0.9rem; }
+    .cols { grid-template-columns: 1fr; }
+  }
+</style>

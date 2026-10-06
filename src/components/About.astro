@@ -1,0 +1,50 @@
+---
+import { Image } from 'astro:assets';
+import portrait from '../assets/photos/three-quarter.jpg';
+import { profile } from '../data/profile';
+---
+
+<section class="section" id="about">
+  <div class="container about">
+    <div class="about__photo">
+      <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
+    </div>
+    <div>
+      <p class="eyebrow">About</p>
+      <h2 class="section-title">Storytelling first.</h2>
+      {profile.bio.map((p) => <p class="about__text">{p}</p>)}
+
+      <dl class="stats" aria-label="Measurements">
+        {
+          profile.stats.map(([label, value]) => (
+            <div>
+              <dt>{label}</dt>
+              <dd>{value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>
+
+<style>
+  .about { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
+  .about__photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
+  .about__text { color: var(--muted); max-width: 58ch; margin: 0 0 1.25rem; }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 2.5rem 0 0;
+    border-top: 1px solid var(--line);
+  }
+  .stats div { padding: 1rem 0; border-bottom: 1px solid var(--line); }
+  dt { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  dd { margin: 0.2rem 0 0; font-family: var(--serif); font-size: 1.5rem; }
+  @media (max-width: 800px) {
+    .about { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 480px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>

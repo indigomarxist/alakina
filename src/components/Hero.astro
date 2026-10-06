@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import hero from '../assets/photos/full-length.jpg';
+import { profile } from '../data/profile';
+---
+
+<section class="hero" id="top">
+  <div class="container hero__inner">
+    <div class="hero__text">
+      <p class="eyebrow">{profile.based}</p>
+      <h1>{profile.name}</h1>
+      <p class="hero__tagline">{profile.tagline}</p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#contact">Booking inquiries</a>
+        <a class="btn" href={profile.files.compCard} download>Comp card</a>
+      </div>
+    </div>
+    <div class="hero__photo">
+      <Image
+        src={hero}
+        alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
+        widths={[480, 720, 960, 1280]}
+        sizes="(max-width: 800px) 100vw, 45vw"
+        loading="eager"
+        fetchpriority="high"
+        format="avif"
+      />
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-block: clamp(2.5rem, 6vw, 5rem); }
+  .hero__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: clamp(2rem, 6vw, 6rem);
+  }
+  h1 { font-size: clamp(3.5rem, 9vw, 7.5rem); letter-spacing: -0.01em; }
+  .hero__tagline {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    color: var(--muted);
+    margin: 1rem 0 2.5rem;
+  }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .hero__photo { background: var(--surface); }
+  .hero__photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+  @media (max-width: 800px) {
+    .hero__inner { grid-template-columns: 1fr; }
+    .hero__photo { order: -1; }
+  }
+</style>

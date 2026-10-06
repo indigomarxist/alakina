@@ -1,0 +1,56 @@
+---
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import ogSource from '../assets/photos/three-quarter.jpg';
+import { profile } from '../data/profile';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = `${profile.name} | ${profile.tagline}`,
+  description = `${profile.name} is an AMDA-trained actor, model and singer based in ${profile.based}. Portfolio, resume, measurements and booking contact.`,
+} = Astro.props;
+
+const og = await getImage({ src: ogSource, width: 1200, height: 1500, fit: 'cover', format: 'jpeg' });
+const ogUrl = new URL(og.src, Astro.site);
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: profile.name,
+  jobTitle: ['Actor', 'Model', 'Singer'],
+  email: `mailto:${profile.email}`,
+  url: Astro.site?.toString(),
+  sameAs: [`https://www.instagram.com/${profile.instagram}/`],
+  alumniOf: profile.training.school,
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="theme-color" content="#f7f5f2" />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

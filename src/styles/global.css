@@ -1,0 +1,81 @@
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import '@fontsource-variable/inter';
+
+:root {
+  --bg: #f7f5f2;
+  --surface: #efebe6;
+  --text: #1b1a19;
+  --muted: #6d6863;
+  --line: #d9d3cc;
+  --accent: #8a5a3c;
+  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
+  --sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --max: 1200px;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+
+h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; margin: 0; }
+
+.container { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
+
+.section { padding-block: clamp(4rem, 10vw, 8rem); }
+.section + .section { border-top: 1px solid var(--line); }
+
+.eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 1rem;
+}
+
+.section-title { font-size: clamp(2.25rem, 5vw, 3.5rem); margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  border: 1px solid var(--text);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn:hover, .btn:focus-visible { background: var(--text); color: var(--bg); }
+.btn--solid { background: var(--text); color: var(--bg); }
+.btn--solid:hover, .btn--solid:focus-visible { background: transparent; color: var(--text); }
+
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
