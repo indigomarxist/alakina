@@ -1,6 +1,6 @@
 # alakina-portfolio
 
-Portfolio site for Alakina Lee (actor, model, singer). Astro 7, static output, deployed on Cloudflare Pages.
+Portfolio site for Alakina Lee (actor, model, singer). Astro 7, static output, deployed on Cloudflare Workers.
 
 ## Develop
 
@@ -26,8 +26,8 @@ Her phone number is intentionally not on the site.
 
 ## Contact form
 
-Set `PUBLIC_FORMSPREE_ID` (see `.env.example`, or the Cloudflare Pages environment variables) to show the booking form. Without it the section shows an email button.
+Set `PUBLIC_FORMSPREE_ID` (see `.env.example`, or the Worker build variables in Cloudflare) to show the booking form. Without it the section shows an email button.
 
-## Deploy (Cloudflare Pages)
+## Deploy (Cloudflare Workers)
 
-Connect the GitHub repo in Cloudflare Pages with framework preset **Astro**, build command `npm run build`, output directory `dist`, and `NODE_VERSION=22`. Update `site` in `astro.config.mjs` when the domain is set.
+Deployed as a Cloudflare Worker with static assets (`wrangler.jsonc`), live at https://alakina.jahexhibit.workers.dev. On every push to `main`, Cloudflare builds with `npm run build` and deploys with `npx wrangler deploy` (`NODE_VERSION=22`). Update `site` in `astro.config.mjs` when a custom domain is set.
