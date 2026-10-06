@@ -39,14 +39,18 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
       }
 
       <div class="tt">
-        <div class="tt__embed" data-tiktok-user={profile.tiktok}>
-          <p class="tt__title">@{profile.tiktok}</p>
-          <p class="tt__text">Videos, performances and behind the scenes on TikTok.</p>
-          <div class="tt__actions">
-            <button type="button" class="btn btn--solid tt__load">Load TikTok profile</button>
-            <a class="btn" href={tiktokUrl} rel="noopener">Open TikTok</a>
-          </div>
-          <p class="tt__note">Loading the profile connects to TikTok.</p>
+        <div class="tt__embed">
+          <blockquote
+            class="tiktok-embed"
+            cite={tiktokUrl}
+            data-unique-id={profile.tiktok}
+            data-embed-type="creator"
+            style="max-width: 780px; min-width: 288px;"
+          >
+            <section>
+              <a target="_blank" rel="noopener" href={`${tiktokUrl}?refer=creator_embed`}>@{profile.tiktok}</a>
+            </section>
+          </blockquote>
         </div>
         {posts.length === 0 && <a class="handle" href={instagramUrl} rel="noopener">@{profile.instagram} on Instagram →</a>}
       </div>
@@ -64,41 +68,26 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
   .handle { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
   .handle:hover { color: var(--text); }
   .tt { display: grid; gap: 1.25rem; }
-  .tt__embed { background: var(--surface); padding: clamp(1.5rem, 4vw, 2.5rem); min-height: 16rem; display: flex; flex-direction: column; justify-content: center; }
-  .tt__embed--loaded { background: none; padding: 0; min-height: 0; }
-  .tt__title { font-family: var(--serif); font-size: 1.9rem; margin: 0; }
-  .tt__text { color: var(--muted); margin: 0.5rem 0 1.5rem; }
-  .tt__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .tt__note { font-size: 0.75rem; color: var(--muted); margin: 1rem 0 0; }
+  .tt__embed { min-height: 22rem; }
   .tt__embed :global(blockquote) { margin: 0; }
   @media (max-width: 800px) { .social { grid-template-columns: 1fr; } }
 </style>
 
 <script>
-  // TikTok's creator embed pulls in a heavy script and third-party cookies, so it only loads on request.
-  const container = document.querySelector<HTMLElement>('.tt__embed');
-  container?.querySelector('.tt__load')?.addEventListener('click', () => {
-    const user = container.dataset.tiktokUser!;
-    const quote = document.createElement('blockquote');
-    quote.className = 'tiktok-embed';
-    quote.cite = `https://www.tiktok.com/@${user}`;
-    quote.dataset.uniqueId = user;
-    quote.dataset.embedType = 'creator';
-    quote.style.cssText = 'max-width: 780px; min-width: 288px;';
-    const section = document.createElement('section');
-    const link = document.createElement('a');
-    link.href = `https://www.tiktok.com/@${user}?refer=creator_embed`;
-    link.target = '_blank';
-    link.textContent = `@${user}`;
-    section.append(link);
-    quote.append(section);
-
-    container.replaceChildren(quote);
-    container.classList.add('tt__embed--loaded');
-
-    const script = document.createElement('script');
-    script.src = 'https://www.tiktok.com/embed.js';
-    script.async = true;
-    document.body.append(script);
-  });
+  // TikTok's embed script is heavy, so fetch it only when the section approaches the viewport.
+  const embed = document.querySelector('.tt__embed');
+  if (embed) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        observer.disconnect();
+        const script = document.createElement('script');
+        script.src = 'https://www.tiktok.com/embed.js';
+        script.async = true;
+        document.body.append(script);
+      },
+      { rootMargin: '600px' },
+    );
+    observer.observe(embed);
+  }
 </script>

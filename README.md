@@ -31,7 +31,7 @@ Set `PUBLIC_FORMSPREE_ID` (see `.env.example`, or the Worker build variables in 
 ## Social feeds
 
 - **Instagram:** `src/lib/instagram.ts` pulls her latest 9 posts at build time through the Instagram API with Instagram Login, and Astro optimizes the images like local photos. The grid only renders when `INSTAGRAM_ACCESS_TOKEN` is set, and any API error just hides it, so a bad token never breaks a deploy.
-- **TikTok:** the official creator-profile embed, loaded only when a visitor clicks "Load TikTok profile" (it pulls a heavy script and third-party cookies).
+- **TikTok:** the official creator-profile embed, shown by default; its script loads when the section nears the viewport so it does not slow the first paint.
 - **Daily rebuild:** `.github/workflows/daily-rebuild.yml` runs every morning, refreshes the 60-day Instagram token, rebuilds and deploys with `wrangler`. Needs repo secrets `INSTAGRAM_ACCESS_TOKEN`, `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`. Pushes to `main` still deploy through Cloudflare's Git integration, so `INSTAGRAM_ACCESS_TOKEN` must also be a build variable there.
 
 ## Deploy (Cloudflare Workers)
