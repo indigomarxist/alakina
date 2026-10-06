@@ -5,6 +5,7 @@ export const profile = {
   based: 'New York City',
   email: 'alakina421@icloud.com',
   instagram: 'alakina.lee',
+  tiktok: 'alakina.lee',
   bio: [
     "Alakina is a performer who loves musical theater, acting, singing and modeling. Storytelling is at the heart of her work, and she loves bringing characters to life while connecting with an audience.",
     "Trained at the American Musical and Dramatic Academy in New York, she has performed on stage, worked in runway, editorial and commercial modeling, and appeared in film. She is building a career across theater, film, television and fashion, and is always looking for new collaborators.",

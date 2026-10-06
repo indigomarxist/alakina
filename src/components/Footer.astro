@@ -6,7 +6,10 @@ const year = new Date().getFullYear();
 <footer class="footer">
   <div class="container footer__inner">
     <p>© {year} {profile.name}</p>
-    <a href={`https://www.instagram.com/${profile.instagram}/`} rel="noopener">Instagram</a>
+    <div class="footer__links">
+      <a href={`https://www.instagram.com/${profile.instagram}/`} rel="noopener">Instagram</a>
+      <a href={`https://www.tiktok.com/@${profile.tiktok}`} rel="noopener">TikTok</a>
+    </div>
   </div>
 </footer>
 
@@ -14,6 +17,7 @@ const year = new Date().getFullYear();
   .footer { padding-block: 2rem; border-top: 1px solid var(--line); }
   .footer__inner { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   p { margin: 0; }
+  .footer__links { display: flex; gap: 1.5rem; }
   a { text-decoration: none; }
   a:hover { color: var(--text); }
 </style>

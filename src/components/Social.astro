@@ -1,0 +1,104 @@
+---
+import { Image } from 'astro:assets';
+import { getInstagramPosts } from '../lib/instagram';
+import { profile } from '../data/profile';
+
+const posts = await getInstagramPosts(9);
+const instagramUrl = `https://www.instagram.com/${profile.instagram}/`;
+const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
+---
+
+<section class="section" id="social">
+  <div class="container">
+    <p class="eyebrow">Social</p>
+    <h2 class="section-title">Follow along</h2>
+
+    <div class:list={['social', { 'social--no-feed': posts.length === 0 }]}>
+      {
+        posts.length > 0 && (
+          <div class="ig">
+            <ul class="ig__grid">
+              {posts.map((p) => (
+                <li>
+                  <a href={p.permalink} rel="noopener" class="ig__item">
+                    <Image
+                      src={p.imageUrl}
+                      inferSize
+                      alt={p.caption ? `Instagram post: ${p.caption}` : 'Instagram post by Alakina Lee'}
+                      widths={[240, 400, 600]}
+                      sizes="(max-width: 800px) 33vw, 20vw"
+                      format="avif"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a class="handle" href={instagramUrl} rel="noopener">@{profile.instagram} on Instagram →</a>
+          </div>
+        )
+      }
+
+      <div class="tt">
+        <div class="tt__embed" data-tiktok-user={profile.tiktok}>
+          <p class="tt__title">@{profile.tiktok}</p>
+          <p class="tt__text">Videos, performances and behind the scenes on TikTok.</p>
+          <div class="tt__actions">
+            <button type="button" class="btn btn--solid tt__load">Load TikTok profile</button>
+            <a class="btn" href={tiktokUrl} rel="noopener">Open TikTok</a>
+          </div>
+          <p class="tt__note">Loading the profile connects to TikTok.</p>
+        </div>
+        {posts.length === 0 && <a class="handle" href={instagramUrl} rel="noopener">@{profile.instagram} on Instagram →</a>}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .social { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
+  .social--no-feed { grid-template-columns: minmax(0, 40rem); }
+  .ig__grid { list-style: none; margin: 0 0 1.25rem; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.35rem, 1vw, 0.6rem); }
+  .ig__item { display: block; background: var(--surface); overflow: hidden; }
+  .ig__item :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.6s ease; }
+  .ig__item:hover :global(img) { transform: scale(1.04); }
+  .handle { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
+  .handle:hover { color: var(--text); }
+  .tt { display: grid; gap: 1.25rem; }
+  .tt__embed { background: var(--surface); padding: clamp(1.5rem, 4vw, 2.5rem); min-height: 16rem; display: flex; flex-direction: column; justify-content: center; }
+  .tt__embed--loaded { background: none; padding: 0; min-height: 0; }
+  .tt__title { font-family: var(--serif); font-size: 1.9rem; margin: 0; }
+  .tt__text { color: var(--muted); margin: 0.5rem 0 1.5rem; }
+  .tt__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .tt__note { font-size: 0.75rem; color: var(--muted); margin: 1rem 0 0; }
+  .tt__embed :global(blockquote) { margin: 0; }
+  @media (max-width: 800px) { .social { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  // TikTok's creator embed pulls in a heavy script and third-party cookies, so it only loads on request.
+  const container = document.querySelector<HTMLElement>('.tt__embed');
+  container?.querySelector('.tt__load')?.addEventListener('click', () => {
+    const user = container.dataset.tiktokUser!;
+    const quote = document.createElement('blockquote');
+    quote.className = 'tiktok-embed';
+    quote.cite = `https://www.tiktok.com/@${user}`;
+    quote.dataset.uniqueId = user;
+    quote.dataset.embedType = 'creator';
+    quote.style.cssText = 'max-width: 780px; min-width: 288px;';
+    const section = document.createElement('section');
+    const link = document.createElement('a');
+    link.href = `https://www.tiktok.com/@${user}?refer=creator_embed`;
+    link.target = '_blank';
+    link.textContent = `@${user}`;
+    section.append(link);
+    quote.append(section);
+
+    container.replaceChildren(quote);
+    container.classList.add('tt__embed--loaded');
+
+    const script = document.createElement('script');
+    script.src = 'https://www.tiktok.com/embed.js';
+    script.async = true;
+    document.body.append(script);
+  });
+</script>
