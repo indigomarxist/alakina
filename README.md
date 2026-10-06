@@ -1,6 +1,6 @@
 # alakina-portfolio
 
-Portfolio site for Alakina Lee (model, actor, singer). Astro 7, static output, deployed on Cloudflare Workers.
+Portfolio site for Alakina Lee (model, actress, singer). Astro 7, static output, deployed on Cloudflare Workers.
 
 ## Develop
 
