@@ -1,7 +1,7 @@
 // Site-wide profile details. The phone number is intentionally omitted.
 export const profile = {
   name: 'Alakina Lee',
-  tagline: 'Actor · Model · Singer',
+  tagline: 'Model · Actor · Singer',
   based: 'New York City',
   email: 'alakina421@icloud.com',
   instagram: 'alakina.lee',

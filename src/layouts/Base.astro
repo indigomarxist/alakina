@@ -11,7 +11,7 @@ interface Props {
 
 const {
   title = `${profile.name} | ${profile.tagline}`,
-  description = `${profile.name} is an AMDA-trained actor, model and singer based in ${profile.based}. Portfolio, resume, measurements and booking contact.`,
+  description = `${profile.name} is an AMDA-trained model, actor and singer based in ${profile.based}. Portfolio, resume, measurements and booking contact.`,
 } = Astro.props;
 
 const og = await getImage({ src: ogSource, width: 1200, height: 1500, fit: 'cover', format: 'jpeg' });
@@ -22,7 +22,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: profile.name,
-  jobTitle: ['Actor', 'Model', 'Singer'],
+  jobTitle: ['Model', 'Actor', 'Singer'],
   email: `mailto:${profile.email}`,
   url: Astro.site?.toString(),
   sameAs: [`https://www.instagram.com/${profile.instagram}/`],
