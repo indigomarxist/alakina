@@ -30,4 +30,4 @@ Set `PUBLIC_FORMSPREE_ID` (see `.env.example`, or the Worker build variables in 
 
 ## Deploy (Cloudflare Workers)
 
-Deployed as a Cloudflare Worker with static assets (`wrangler.jsonc`), live at https://alakina.jahexhibit.workers.dev. On every push to `main`, Cloudflare builds with `npm run build` and deploys with `npx wrangler deploy` (`NODE_VERSION=22`). Update `site` in `astro.config.mjs` when a custom domain is set.
+Deployed as a Cloudflare Worker with static assets (`wrangler.jsonc`), live at https://alakinalee.com (also https://alakina.jahexhibit.workers.dev). On every push to `main`, Cloudflare builds with `npm run build` and deploys with `npx wrangler deploy` (`NODE_VERSION=22`).

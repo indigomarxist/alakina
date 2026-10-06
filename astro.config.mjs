@@ -2,8 +2,7 @@
 import { defineConfig } from 'astro/config';
 
 export default defineConfig({
-  // Switch to the custom domain once one is set up.
-  site: 'https://alakina.jahexhibit.workers.dev',
+  site: 'https://alakinalee.com',
   image: {
     responsiveStyles: true,
   },
