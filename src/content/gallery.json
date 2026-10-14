@@ -198,7 +198,7 @@
   {
     "id": "stage-blue-gown",
     "image": "../assets/photos/stage-blue-gown.jpg",
-    "alt": "Alakina in a pale blue period gown, holding a basket of flowers",
+    "alt": "Alakina Lee in a pale blue gown with a basket of flowers, from Shrek the Musical",
     "order": 29,
     "category": "stage"
   },
@@ -247,7 +247,7 @@
   {
     "id": "stage-cake",
     "image": "../assets/photos/stage-cake.jpg",
-    "alt": "Alakina Lee in a comedic stage scene, hit with a cake",
+    "alt": "Alakina Lee as Sharpay Evans in High School Musical, hit with a cake on stage",
     "order": 36,
     "category": "stage"
   },
