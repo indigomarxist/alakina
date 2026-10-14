@@ -205,9 +205,9 @@
   {
     "id": "stage-magazines",
     "image": "../assets/photos/stage-magazines.jpg",
-    "alt": "Alakina Lee reading a magazine at a desk on stage",
+    "alt": "Alakina Lee reading magazines in an editorial shoot for Machine Is Ablaze Magazine",
     "order": 30,
-    "category": "stage"
+    "category": "editorial"
   },
   {
     "id": "editorial-park",
