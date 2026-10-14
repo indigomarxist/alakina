@@ -9,7 +9,7 @@ const gallery = defineCollection({
       image: image(),
       alt: z.string(),
       order: z.number(),
-      category: z.enum(['digitals', 'editorial', 'headshots', 'stage', 'film']),
+      category: z.enum(['headshots', 'digitals', 'editorial', 'runway', 'stage']),
     }),
 });
 
@@ -24,4 +24,28 @@ const credits = defineCollection({
   }),
 });
 
-export const collections = { gallery, credits };
+// Short clips are self-hosted in public/video; longer ones (reel, songs) embed from YouTube.
+const videos = defineCollection({
+  loader: file('src/content/videos.json'),
+  schema: ({ image }) =>
+    z.discriminatedUnion('kind', [
+      z.object({
+        kind: z.literal('file'),
+        title: z.string(),
+        caption: z.string().optional(),
+        order: z.number(),
+        src: z.string().startsWith('/video/'),
+        poster: image(),
+        orientation: z.enum(['portrait', 'landscape']).default('landscape'),
+      }),
+      z.object({
+        kind: z.literal('youtube'),
+        title: z.string(),
+        caption: z.string().optional(),
+        order: z.number(),
+        youtubeId: z.string(),
+      }),
+    ]),
+});
+
+export const collections = { gallery, credits, videos };

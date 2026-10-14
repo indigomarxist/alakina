@@ -16,11 +16,12 @@ npm run build    # static site in dist/
 | What | Where |
 |---|---|
 | Name, bio, stats, skills, training, contact | `src/data/profile.ts` |
-| Gallery photos (order, alt text, category) | `src/content/gallery.json` + `src/assets/photos/` |
+| Gallery photos (order, alt text, category: headshots, digitals, editorial, runway, stage) | `src/content/gallery.json` + `src/assets/photos/` |
+| Videos (self-hosted clips or YouTube IDs) | `src/content/videos.json` + `public/video/` (posters in `src/assets/video/`) |
 | Stage, film and modeling credits | `src/content/credits.json` |
 | Comp card and resume PDFs | `public/files/` |
 
-To add a photo, drop it in `src/assets/photos/` (any size; Astro generates AVIF/WebP at build time) and add an entry to `gallery.json`. Schemas live in `src/content.config.ts`, so a typo fails the build instead of shipping.
+To add a photo, drop it in `src/assets/photos/` (any size; Astro generates AVIF/WebP at build time) and add an entry to `gallery.json`. Short clips go in `public/video/` as H.264 MP4 (keep each under ~20 MB; Workers caps static files at 25 MiB); longer pieces like a reel are better as an unlisted YouTube video with `"kind": "youtube"`. Schemas live in `src/content.config.ts`, so a typo fails the build instead of shipping.
 
 Her phone number is intentionally not on the site.
 

@@ -1,6 +1,268 @@
 [
-  { "id": "full-length", "image": "../assets/photos/full-length.jpg", "alt": "Alakina Lee, full-length digital in a black bodysuit and relaxed jeans against a grey studio backdrop", "order": 1, "category": "digitals" },
-  { "id": "headshot", "image": "../assets/photos/headshot.jpg", "alt": "Alakina Lee, headshot looking into the camera", "order": 2, "category": "headshots" },
-  { "id": "three-quarter", "image": "../assets/photos/three-quarter.jpg", "alt": "Alakina Lee, three-quarter length digital, hands in pockets", "order": 3, "category": "digitals" },
-  { "id": "profile", "image": "../assets/photos/profile.jpg", "alt": "Alakina Lee, profile looking to the right", "order": 4, "category": "headshots" }
+  {
+    "id": "editorial-red-trench",
+    "image": "../assets/photos/editorial-red-trench.jpg",
+    "alt": "Alakina Lee in a red patent trench coat over a black lace corset and leather trousers",
+    "order": 1,
+    "category": "editorial"
+  },
+  {
+    "id": "headshot-smile",
+    "image": "../assets/photos/headshot-smile.jpg",
+    "alt": "Alakina Lee, smiling color headshot in a black tank",
+    "order": 2,
+    "category": "headshots"
+  },
+  {
+    "id": "editorial-nyc-street",
+    "image": "../assets/photos/editorial-nyc-street.jpg",
+    "alt": "Alakina Lee kicking up a heel on a tree-lined New York street, rainbow scarf flying",
+    "order": 3,
+    "category": "editorial"
+  },
+  {
+    "id": "runway-tie-dye",
+    "image": "../assets/photos/runway-tie-dye.jpg",
+    "alt": "Alakina walking the runway in a rust tie-dye jacket and trousers, carrying a plaid tote",
+    "order": 4,
+    "category": "runway"
+  },
+  {
+    "id": "runway-burgundy",
+    "image": "../assets/photos/runway-burgundy.jpg",
+    "alt": "Alakina Lee walking a runway in a burgundy crop top and wide-leg trousers",
+    "order": 5,
+    "category": "runway"
+  },
+  {
+    "id": "stage-cabaret",
+    "image": "../assets/photos/stage-cabaret.jpg",
+    "alt": "Alakina Lee singing into a microphone on a cabaret stage in a black corset",
+    "order": 6,
+    "category": "stage"
+  },
+  {
+    "id": "beauty-mirror",
+    "image": "../assets/photos/beauty-mirror.jpg",
+    "alt": "Alakina Lee posed against a mirror, reflection beside her",
+    "order": 7,
+    "category": "headshots"
+  },
+  {
+    "id": "full-length",
+    "image": "../assets/photos/full-length.jpg",
+    "alt": "Alakina Lee, full-length digital in a black bodysuit and relaxed jeans against a grey studio backdrop",
+    "order": 8,
+    "category": "digitals"
+  },
+  {
+    "id": "editorial-pinstripe-hair",
+    "image": "../assets/photos/editorial-pinstripe-hair.jpg",
+    "alt": "Alakina Lee with platinum hair in motion, wearing a pinstripe jacket",
+    "order": 9,
+    "category": "editorial"
+  },
+  {
+    "id": "stage-shrek-fiona",
+    "image": "../assets/photos/stage-shrek-fiona.jpg",
+    "alt": "Alakina Lee as Fiona in Shrek the Musical, in a green and gold gown",
+    "order": 10,
+    "category": "stage"
+  },
+  {
+    "id": "editorial-knit-dress",
+    "image": "../assets/photos/editorial-knit-dress.jpg",
+    "alt": "Alakina Lee smiling on a studio floor in a patterned knit dress, arm on a white stool",
+    "order": 11,
+    "category": "editorial"
+  },
+  {
+    "id": "stage-shrek-promo",
+    "image": "../assets/photos/stage-shrek-promo.jpg",
+    "alt": "Alakina as Princess Fiona, running outdoors with Shrek and Donkey",
+    "order": 12,
+    "category": "stage"
+  },
+  {
+    "id": "headshot-smile-bw",
+    "image": "../assets/photos/headshot-smile-bw.jpg",
+    "alt": "Alakina Lee, black-and-white smiling headshot",
+    "order": 13,
+    "category": "headshots"
+  },
+  {
+    "id": "editorial-graffiti",
+    "image": "../assets/photos/editorial-graffiti.jpg",
+    "alt": "Alakina Lee shouting with arms spread against a graffiti wall, red scarf over her hair",
+    "order": 14,
+    "category": "editorial"
+  },
+  {
+    "id": "editorial-red-tank",
+    "image": "../assets/photos/editorial-red-tank.jpg",
+    "alt": "Alakina Lee in warm low light, red tank top, hands raised above her head",
+    "order": 15,
+    "category": "editorial"
+  },
+  {
+    "id": "runway-lace",
+    "image": "../assets/photos/runway-lace.jpg",
+    "alt": "Alakina Lee on a runway in a cream lace mini dress",
+    "order": 16,
+    "category": "runway"
+  },
+  {
+    "id": "stage-band-crouch",
+    "image": "../assets/photos/stage-band-crouch.jpg",
+    "alt": "Alakina singing with a band on an outdoor stage, crouching at the mic",
+    "order": 17,
+    "category": "stage"
+  },
+  {
+    "id": "beauty-closeup",
+    "image": "../assets/photos/beauty-closeup.jpg",
+    "alt": "Alakina Lee, close-up beauty portrait with her hand at her face",
+    "order": 18,
+    "category": "headshots"
+  },
+  {
+    "id": "stage-band",
+    "image": "../assets/photos/stage-band.jpg",
+    "alt": "Alakina Lee singing with a band on an outdoor stage",
+    "order": 19,
+    "category": "stage"
+  },
+  {
+    "id": "editorial-duo-trench",
+    "image": "../assets/photos/editorial-duo-trench.jpg",
+    "alt": "Alakina Lee with a red trench coat over her shoulder, posing beside another model",
+    "order": 20,
+    "category": "editorial"
+  },
+  {
+    "id": "runway-lineup",
+    "image": "../assets/photos/runway-lineup.jpg",
+    "alt": "Alakina in a red patent trench coat, standing in a fashion presentation lineup with other models",
+    "order": 21,
+    "category": "runway"
+  },
+  {
+    "id": "editorial-white-skirt",
+    "image": "../assets/photos/editorial-white-skirt.jpg",
+    "alt": "Alakina Lee dancing barefoot in a white tiered skirt and denim vest against a white brick wall",
+    "order": 22,
+    "category": "editorial"
+  },
+  {
+    "id": "headshot",
+    "image": "../assets/photos/headshot.jpg",
+    "alt": "Alakina Lee, headshot looking into the camera",
+    "order": 23,
+    "category": "headshots"
+  },
+  {
+    "id": "stage-fiona-daisy",
+    "image": "../assets/photos/stage-fiona-daisy.jpg",
+    "alt": "Alakina as Princess Fiona on stage in a green gown, holding a daisy",
+    "order": 24,
+    "category": "stage"
+  },
+  {
+    "id": "editorial-film-closeup",
+    "image": "../assets/photos/editorial-film-closeup.jpg",
+    "alt": "Film-strip frame of Alakina Lee with platinum hair, hands clasped at her chin",
+    "order": 25,
+    "category": "editorial"
+  },
+  {
+    "id": "editorial-pinstripe-kick",
+    "image": "../assets/photos/editorial-pinstripe-kick.jpg",
+    "alt": "Alakina Lee kicking one heel up in a pinstripe jacket and ruffle socks",
+    "order": 26,
+    "category": "editorial"
+  },
+  {
+    "id": "three-quarter",
+    "image": "../assets/photos/three-quarter.jpg",
+    "alt": "Alakina Lee, three-quarter length digital, hands in pockets",
+    "order": 27,
+    "category": "digitals"
+  },
+  {
+    "id": "headshot-bw",
+    "image": "../assets/photos/headshot-bw.jpg",
+    "alt": "Alakina Lee, black-and-white headshot in a black tank",
+    "order": 28,
+    "category": "headshots"
+  },
+  {
+    "id": "stage-blue-gown",
+    "image": "../assets/photos/stage-blue-gown.jpg",
+    "alt": "Alakina in a pale blue period gown, holding a basket of flowers",
+    "order": 29,
+    "category": "stage"
+  },
+  {
+    "id": "stage-magazines",
+    "image": "../assets/photos/stage-magazines.jpg",
+    "alt": "Alakina Lee reading a magazine at a desk on stage",
+    "order": 30,
+    "category": "stage"
+  },
+  {
+    "id": "editorial-park",
+    "image": "../assets/photos/editorial-park.jpg",
+    "alt": "Alakina Lee in a blue crop top and trousers with a rainbow scarf on a sunlit park path",
+    "order": 31,
+    "category": "editorial"
+  },
+  {
+    "id": "stage-band-pigtails",
+    "image": "../assets/photos/stage-band-pigtails.jpg",
+    "alt": "Alakina singing with a band outdoors, leaning into the microphone",
+    "order": 32,
+    "category": "stage"
+  },
+  {
+    "id": "editorial-film-lighter",
+    "image": "../assets/photos/editorial-film-lighter.jpg",
+    "alt": "Film-strip frame of Alakina Lee with platinum hair lighting a candle",
+    "order": 33,
+    "category": "editorial"
+  },
+  {
+    "id": "editorial-pinstripe-pose",
+    "image": "../assets/photos/editorial-pinstripe-pose.jpg",
+    "alt": "Alakina Lee posing in a pinstripe jacket, lace shorts and kitten heels",
+    "order": 34,
+    "category": "editorial"
+  },
+  {
+    "id": "profile",
+    "image": "../assets/photos/profile.jpg",
+    "alt": "Alakina Lee, profile looking to the right",
+    "order": 35,
+    "category": "headshots"
+  },
+  {
+    "id": "stage-cake",
+    "image": "../assets/photos/stage-cake.jpg",
+    "alt": "Alakina Lee in a comedic stage scene, hit with a cake",
+    "order": 36,
+    "category": "stage"
+  },
+  {
+    "id": "editorial-pinstripe-arm",
+    "image": "../assets/photos/editorial-pinstripe-arm.jpg",
+    "alt": "Alakina Lee with one arm arched over her head in a pinstripe jacket",
+    "order": 37,
+    "category": "editorial"
+  },
+  {
+    "id": "editorial-duo-floor",
+    "image": "../assets/photos/editorial-duo-floor.jpg",
+    "alt": "Alakina Lee lying on the studio floor beneath another model in a styled duo shot",
+    "order": 38,
+    "category": "editorial"
+  }
 ]

@@ -4,6 +4,15 @@ import { getCollection } from 'astro:content';
 
 const photos = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
 
+const filters = [
+  ['all', 'All'],
+  ['headshots', 'Headshots'],
+  ['digitals', 'Digitals'],
+  ['editorial', 'Editorial'],
+  ['runway', 'Runway'],
+  ['stage', 'Stage'],
+].filter(([key]) => key === 'all' || photos.some((p) => p.data.category === key));
+
 // Large versions for the lightbox, generated at build time.
 const items = await Promise.all(
   photos.map(async (p) => ({
@@ -16,13 +25,22 @@ const items = await Promise.all(
 <section class="section" id="portfolio">
   <div class="container">
     <p class="eyebrow">Portfolio</p>
-    <h2 class="section-title">Digitals &amp; headshots</h2>
-    <ul class="grid">
+    <h2 class="section-title">Selected work</h2>
+    <div class="filters" role="group" aria-label="Filter photos">
       {
-        items.map((p, i) => (
-          <li>
-            <button class="grid__item" type="button" data-index={i} data-full={p.full.src} data-alt={p.data.alt} aria-label={`View larger: ${p.data.alt}`}>
-              <Image src={p.data.image} alt={p.data.alt} widths={[400, 640, 900]} sizes="(max-width: 640px) 50vw, 25vw" format="avif" />
+        filters.map(([key, label], i) => (
+          <button class="filters__btn" type="button" data-filter={key} aria-pressed={i === 0 ? 'true' : 'false'}>
+            {label}
+          </button>
+        ))
+      }
+    </div>
+    <ul class="masonry">
+      {
+        items.map((p) => (
+          <li data-category={p.data.category}>
+            <button class="masonry__item" type="button" data-full={p.full.src} data-alt={p.data.alt} aria-label={`View larger: ${p.data.alt}`}>
+              <Image src={p.data.image} alt={p.data.alt} widths={[400, 640, 900]} sizes="(max-width: 800px) 50vw, 33vw" format="avif" />
             </button>
           </li>
         ))
@@ -39,16 +57,42 @@ const items = await Promise.all(
 </section>
 
 <style>
-  .grid {
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.5rem;
+    margin: -1rem 0 clamp(1.5rem, 4vw, 2.5rem);
+  }
+  .filters__btn {
+    background: none;
+    border: 0;
+    border-bottom: 1px solid transparent;
+    padding: 0.35rem 0;
+    font: inherit;
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .filters__btn:hover { color: var(--text); }
+  .filters__btn[aria-pressed='true'] { color: var(--text); border-bottom-color: var(--text); }
+
+  .masonry {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: clamp(0.5rem, 1.5vw, 1rem);
+    columns: 3;
+    column-gap: clamp(0.5rem, 1.5vw, 1rem);
   }
-  @media (max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); } }
-  .grid__item {
+  @media (max-width: 800px) { .masonry { columns: 2; } }
+  .masonry li {
+    break-inside: avoid;
+    margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+  }
+  .masonry li[hidden] { display: none; }
+  .masonry__item {
     display: block;
     width: 100%;
     padding: 0;
@@ -57,13 +101,13 @@ const items = await Promise.all(
     cursor: zoom-in;
     overflow: hidden;
   }
-  .grid__item :global(img) {
+  .masonry__item :global(img) {
+    display: block;
     width: 100%;
-    aspect-ratio: 2 / 3;
-    object-fit: cover;
-    transition: transform 0.6s ease, opacity 0.3s;
+    height: auto;
+    transition: transform 0.6s ease;
   }
-  .grid__item:hover :global(img) { transform: scale(1.03); }
+  .masonry__item:hover :global(img) { transform: scale(1.03); }
 
   .lightbox {
     width: 100vw;
@@ -101,26 +145,39 @@ const items = await Promise.all(
 <script>
   const dialog = document.querySelector<HTMLDialogElement>('.lightbox')!;
   const img = dialog.querySelector<HTMLImageElement>('.lightbox__img')!;
-  const items = [...document.querySelectorAll<HTMLButtonElement>('.grid__item')];
+  const cells = [...document.querySelectorAll<HTMLLIElement>('.masonry li')];
+  const filterBtns = [...document.querySelectorAll<HTMLButtonElement>('.filters__btn')];
+  let visible = cells.map((li) => li.querySelector<HTMLButtonElement>('.masonry__item')!);
   let current = 0;
 
-  const show = (i: number) => {
-    current = (i + items.length) % items.length;
-    img.src = items[current].dataset.full!;
-    img.alt = items[current].dataset.alt!;
-  };
-
-  items.forEach((btn, i) =>
+  filterBtns.forEach((btn) =>
     btn.addEventListener('click', () => {
-      show(i);
-      dialog.showModal();
+      const f = btn.dataset.filter!;
+      filterBtns.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      cells.forEach((li) => (li.hidden = f !== 'all' && li.dataset.category !== f));
+      visible = cells.filter((li) => !li.hidden).map((li) => li.querySelector<HTMLButtonElement>('.masonry__item')!);
     }),
   );
+
+  // The lightbox only steps through photos in the active filter.
+  const show = (i: number) => {
+    current = (i + visible.length) % visible.length;
+    img.src = visible[current].dataset.full!;
+    img.alt = visible[current].dataset.alt!;
+  };
+
+  cells.forEach((li) => {
+    const btn = li.querySelector<HTMLButtonElement>('.masonry__item')!;
+    btn.addEventListener('click', () => {
+      show(visible.indexOf(btn));
+      dialog.showModal();
+    });
+  });
   dialog.querySelector('.lightbox__close')!.addEventListener('click', () => dialog.close());
   dialog.querySelector('.lightbox__prev')!.addEventListener('click', () => show(current - 1));
   dialog.querySelector('.lightbox__next')!.addEventListener('click', () => show(current + 1));
   dialog.addEventListener('click', (e) => { if (e.target === dialog) dialog.close(); });
-  dialog.addEventListener('close', () => items[current].focus());
+  dialog.addEventListener('close', () => visible[current].focus());
   document.addEventListener('keydown', (e) => {
     if (!dialog.open) return;
     if (e.key === 'ArrowLeft') show(current - 1);

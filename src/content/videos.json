@@ -1,0 +1,12 @@
+[
+  {
+    "id": "runway-walk",
+    "kind": "file",
+    "title": "Runway",
+    "caption": "Walking for a New York fashion show",
+    "order": 1,
+    "src": "/video/runway-walk.mp4",
+    "poster": "../assets/video/runway-walk-poster.jpg",
+    "orientation": "portrait"
+  }
+]

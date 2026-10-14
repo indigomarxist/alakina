@@ -1,0 +1,65 @@
+---
+import { getImage } from 'astro:assets';
+import { getCollection } from 'astro:content';
+
+const videos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
+const items = await Promise.all(
+  videos.map(async ({ id, data }) => ({
+    id,
+    data,
+    poster: data.kind === 'file' ? (await getImage({ src: data.poster, width: 1080, format: 'webp' })).src : undefined,
+  })),
+);
+---
+
+{
+  items.length > 0 && (
+    <section class="section" id="video">
+      <div class="container">
+        <p class="eyebrow">Video</p>
+        <h2 class="section-title">In motion</h2>
+        <ul class="videos">
+          {items.map(({ id, data, poster }) => (
+            <li class:list={['videos__item', data.kind === 'file' && `videos__item--${data.orientation}`]}>
+              <div class="videos__frame">
+                {data.kind === 'file' ? (
+                  <video src={data.src} poster={poster} controls playsinline preload="none" aria-label={data.title} />
+                ) : (
+                  <iframe
+                    src={`https://www.youtube-nocookie.com/embed/${data.youtubeId}?rel=0`}
+                    title={data.title}
+                    loading="lazy"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+                    allowfullscreen
+                  />
+                )}
+              </div>
+              <p class="videos__title">{data.title}</p>
+              {data.caption && <p class="videos__caption">{data.caption}</p>}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  )
+}
+
+<style>
+  .videos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    align-items: flex-start;
+  }
+  .videos__item { flex: 1 1 32rem; max-width: 48rem; }
+  .videos__item--portrait { flex: 0 1 22rem; }
+  .videos__frame { background: var(--text); aspect-ratio: 16 / 9; }
+  .videos__item--portrait .videos__frame { aspect-ratio: 9 / 16; }
+  .videos__frame video,
+  .videos__frame iframe { display: block; width: 100%; height: 100%; border: 0; object-fit: cover; }
+  .videos__title { font-family: var(--serif); font-size: 1.5rem; margin: 1rem 0 0.25rem; }
+  .videos__caption { color: var(--muted); font-size: 0.9rem; margin: 0; }
+</style>
