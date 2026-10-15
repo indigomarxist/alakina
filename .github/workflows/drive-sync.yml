@@ -55,6 +55,14 @@ jobs:
       - if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
         run: npm ci
 
+      - name: Restore converted video clips
+        if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
+        uses: actions/cache@v4
+        with:
+          path: .cache/drive-videos
+          key: drive-videos-${{ github.run_id }}
+          restore-keys: drive-videos-
+
       - if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
         run: npm run build
 

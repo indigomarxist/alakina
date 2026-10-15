@@ -32,6 +32,7 @@ Alakina adds photos by dropping them into a shared Google Drive folder, one subf
 
 - Env: `GOOGLE_SERVICE_ACCOUNT_KEY` (the whole JSON key) and `DRIVE_FOLDER_ID`. Without them the sync is skipped and the site builds from the repo photos only. With them, a Drive error fails the build instead of deploying without her photos.
 - **Videos:** any Google Doc in the top folder or in a "Videos" folder can list YouTube links, one per line, optionally as `Title - link`. They show first in the video section; without a title, the YouTube title is used.
+- **Clips:** video files in the Drive "Videos" folder are converted with `ffmpeg-static` to 720p H.264 MP4s sized to stay under the 25 MiB Workers limit (anything over about 4 minutes is skipped; use YouTube), get a poster frame, and are written to `public/video/drive/` (gitignored). Once there are any, they replace the clips in `videos.json`. Converted clips are cached in `.cache/drive-videos` (an Actions cache in CI).
 - They must be set in **both** GitHub Actions secrets and the Cloudflare build variables, because pushes to `main` build on Cloudflare.
 - `.github/workflows/drive-sync.yml` fingerprints the folder every 15 minutes and rebuilds and deploys only when it changed.
 - `npm run sync:photos` pulls them locally (with the env vars in `.env` exported).

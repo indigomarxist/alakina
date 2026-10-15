@@ -8,9 +8,23 @@ const repoVideos = (await getCollection('videos')).sort((a, b) => a.data.order -
 type DriveVideo = { id: string; title: string };
 const driveVideos: DriveVideo[] =
   Object.values(import.meta.glob<DriveVideo[]>('../assets/photos/drive/videos.json', { eager: true, import: 'default' }))[0] ?? [];
+// Short clips from her Drive "Videos" folder, converted at build time. Once there are
+// any, they replace the self-hosted clips kept in the repo.
+type DriveClip = { id: string; title: string; src: string; poster: string; orientation: 'portrait' | 'landscape' };
+const driveClips: DriveClip[] =
+  Object.values(import.meta.glob<DriveClip[]>('../assets/photos/drive/clips.json', { eager: true, import: 'default' }))[0] ?? [];
+const posters = import.meta.glob<ImageMetadata>('../assets/photos/drive/posters/*.jpg', { eager: true, import: 'default' });
+const clipVideos = driveClips
+  .filter((c) => posters[`../assets/photos/drive/${c.poster}`])
+  .map((c) => ({
+    id: `drive-clip-${c.id}`,
+    data: { kind: 'file' as const, title: c.title, caption: undefined, order: 0, src: c.src, poster: posters[`../assets/photos/drive/${c.poster}`], orientation: c.orientation },
+  }));
+
 const videos = [
   ...driveVideos.map((v) => ({ id: `drive-${v.id}`, data: { kind: 'youtube' as const, title: v.title, youtubeId: v.id, caption: undefined, order: 0 } })),
-  ...repoVideos,
+  ...clipVideos,
+  ...repoVideos.filter((v) => clipVideos.length === 0 || v.data.kind !== 'file'),
 ];
 const items = await Promise.all(
   videos.map(async ({ id, data }) => ({
