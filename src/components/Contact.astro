@@ -1,12 +1,15 @@
 ---
 import { profile } from '../data/profile';
 import Sparkle from './Sparkle.astro';
+import Flower from './Flower.astro';
 
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 ---
 
-<section class="section contact" id="contact">
-  <Sparkle color="var(--butter)" size="3rem" style="top:12%;right:10%" />
+<section class="section contact pat-gingham scallop-top" id="contact">
+  <Flower size="5rem" style="top:14%;right:9%" />
+  <Flower petals="var(--blush)" center="var(--butter)" size="3.2rem" style="bottom:16%;right:18%;animation-delay:-2s" />
+  <Sparkle color="var(--butter)" size="3rem" style="top:45%;right:5%" />
   <Sparkle color="var(--blush)" size="1.6rem" style="top:30%;right:22%;animation-delay:-1.5s" />
   <Sparkle color="var(--sky)" size="2.2rem" style="bottom:14%;right:6%;animation-delay:-2.7s" />
   <div class:list={["container", "contact__inner", { "contact__inner--single": !formspreeId }]}>
@@ -67,7 +70,7 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 </section>
 
 <style>
-  .contact { background: var(--cherry); color: var(--cream); overflow: hidden; }
+  .contact { --pat-bg: var(--cherry); --pat-ink: rgb(80 0 20 / 0.16); --pat-size: 48px; --sc: var(--cherry); color: var(--cream); overflow-x: clip; }
   .contact .eyebrow { color: var(--butter); }
   .contact h2 em { color: var(--butter); }
   .contact__inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
@@ -100,6 +103,9 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
   input:focus, textarea:focus { outline: 3px solid var(--cobalt); outline-offset: 1px; }
   .form button { justify-self: start; margin-top: 0.5rem; }
   .form .btn--solid { background: var(--cherry); color: #fff; }
-  @media (max-width: 800px) { .contact__inner { grid-template-columns: 1fr; } }
+  @media (max-width: 800px) {
+    .contact__inner { grid-template-columns: 1fr; }
+    .contact > :global(svg) { display: none; }
+  }
   @media (max-width: 420px) { .details div { grid-template-columns: 1fr; gap: 0.2rem; } }
 </style>

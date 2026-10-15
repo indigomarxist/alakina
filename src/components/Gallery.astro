@@ -22,7 +22,7 @@ const items = await Promise.all(
 );
 ---
 
-<section class="section" id="portfolio">
+<section class="section gallery-section pat-dots" id="portfolio">
   <div class="container">
     <p class="eyebrow">Portfolio</p>
     <h2 class="section-title">Selected <em>work</em></h2>
@@ -57,6 +57,7 @@ const items = await Promise.all(
 </section>
 
 <style>
+  .gallery-section { --pat-bg: var(--cream); --pat-ink: rgb(249 224 139 / 0.35); --pat-size: 30px; }
   .filters {
     display: flex;
     flex-wrap: wrap;

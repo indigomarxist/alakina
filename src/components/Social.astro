@@ -8,7 +8,7 @@ const instagramUrl = `https://www.instagram.com/${profile.instagram}/`;
 const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 ---
 
-<section class="section social-section" id="social">
+<section class="section social-section pat-waves scallop-top" id="social">
   <div class="container">
     <p class="eyebrow">Social</p>
     <h2 class="section-title">Follow <em>along</em></h2>
@@ -59,7 +59,7 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 </section>
 
 <style>
-  .social-section { background: var(--cobalt); color: var(--cream); border-block: 2px solid var(--ink); }
+  .social-section { --pat-bg: var(--cobalt); --sc: var(--cobalt); color: var(--cream); }
   .social-section .eyebrow { color: var(--butter); }
   .social-section :global(h2 em) { color: var(--butter); }
   .social { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }

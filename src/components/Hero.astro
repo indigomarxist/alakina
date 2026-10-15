@@ -3,12 +3,13 @@ import { Image } from 'astro:assets';
 import hero from '../assets/photos/full-length.jpg';
 import { profile } from '../data/profile';
 import Sparkle from './Sparkle.astro';
+import Flower from './Flower.astro';
 
 const roles = profile.tagline.split('·').map((r) => r.trim());
 const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
 ---
 
-<section class="hero" id="top">
+<section class="hero pat-gingham" id="top">
   <div class="container hero__inner">
     <div class="hero__text">
       <p class="eyebrow">{profile.based}</p>
@@ -23,7 +24,7 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
     </div>
 
     <div class="hero__art">
-      <div class="hero__arch" aria-hidden="true"></div>
+      <div class="hero__arch pat-stripes" aria-hidden="true"></div>
       <div class="hero__photo">
         <Image
           src={hero}
@@ -41,6 +42,8 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
         <text><textPath href="#ring" textLength="452">{ring}</textPath></text>
         <path class="hero__badge-star" d="M100 70C102 88 112 98 130 100C112 102 102 112 100 130C98 112 88 102 70 100C88 98 98 88 100 70Z" />
       </svg>
+      <Flower size="4.5rem" style="top:-1.5rem;right:-1.5rem" />
+      <Flower petals="var(--blush)" center="var(--cherry)" size="3rem" style="bottom:-1rem;right:22%;animation-delay:-3s" />
       <Sparkle color="var(--cherry)" size="2.4rem" style="top:6%;left:-4%" />
       <Sparkle color="var(--cobalt)" size="1.4rem" style="top:22%;right:-3%;animation-delay:-1.2s" />
       <Sparkle color="var(--tangerine)" size="1.8rem" style="bottom:12%;right:-5%;animation-delay:-2.4s" />
@@ -52,9 +55,9 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
   .hero {
     position: relative;
     padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3.5rem, 7vw, 6rem);
-    background:
-      radial-gradient(40rem 30rem at 85% 10%, color-mix(in srgb, var(--blush) 80%, transparent), transparent 70%),
-      radial-gradient(30rem 24rem at 0% 100%, color-mix(in srgb, var(--sky) 70%, transparent), transparent 70%);
+    --pat-bg: var(--cream);
+    --pat-ink: rgb(247 211 217 / 0.45);
+    --pat-size: 44px;
   }
   .hero__inner {
     display: grid;
@@ -63,17 +66,17 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
     gap: clamp(2.5rem, 6vw, 6rem);
   }
   h1 {
-    font-size: clamp(4rem, 11vw, 9rem);
-    letter-spacing: -0.03em;
-    line-height: 0.92;
-    font-variation-settings: 'SOFT' 100, 'WONK' 0, 'opsz' 144;
+    font-size: clamp(3.6rem, 9.5vw, 7.75rem);
+    line-height: 0.95;
+    color: var(--ink);
+    text-shadow: 4px 4px 0 var(--butter);
   }
-  h1 em { display: block; padding-left: 0.6em; }
+  h1 em { display: block; padding-left: 1.1em; margin-top: 0.12em; font-size: 1.3em; line-height: 0.9; text-shadow: none; }
   .hero__tagline {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin: 1.75rem 0 2.25rem;
+    margin: 2.5rem 0 2.25rem;
     padding: 0;
   }
   .role {
@@ -94,7 +97,8 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
     position: absolute;
     inset: 1.25rem -1.25rem -1.25rem 1.25rem;
     border-radius: 999px 999px var(--radius) var(--radius);
-    background: var(--butter);
+    --pat-bg: var(--butter);
+    --pat-ink: rgb(255 255 255 / 0.55);
     border: 2px solid var(--ink);
   }
   .hero__photo {

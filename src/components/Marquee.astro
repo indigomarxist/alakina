@@ -7,6 +7,7 @@ const run = [...words, ...words];
 
 <div class="marquee-wrap" aria-hidden="true">
 <div class="marquee">
+  <div class="marquee__edge pat-checks"></div>
   <div class="marquee__track">
     {[0, 1].map(() => (
       <ul>
@@ -14,6 +15,7 @@ const run = [...words, ...words];
       </ul>
     ))}
   </div>
+  <div class="marquee__edge pat-checks"></div>
 </div>
 </div>
 
@@ -23,19 +25,20 @@ const run = [...words, ...words];
     background: var(--cherry);
     color: var(--cream);
     border-block: 2px solid var(--ink);
+    box-shadow: 0 -12px 0 -2px var(--cream), 0 12px 0 -2px var(--cream);
     transform: rotate(-1.5deg);
     margin-inline: -2rem;
     overflow: hidden;
     position: relative;
     z-index: 1;
   }
+  .marquee__edge { height: 10px; border-block: 2px solid var(--ink); background-size: 10px 10px; }
   .marquee__track { display: flex; width: max-content; animation: scroll 38s linear infinite; }
-  ul { display: flex; list-style: none; margin: 0; padding: 0.7rem 0; }
+  ul { display: flex; list-style: none; margin: 0; padding: 0.35rem 0 0.5rem; }
   li {
-    font-family: var(--serif);
-    font-style: italic;
-    font-variation-settings: 'SOFT' 100, 'WONK' 1;
-    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+    font-family: var(--script);
+    font-size: clamp(2rem, 3.8vw, 2.8rem);
+    line-height: 1.1;
     white-space: nowrap;
     padding-inline: 1.4rem;
     display: flex;
