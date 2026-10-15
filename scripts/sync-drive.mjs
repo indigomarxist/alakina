@@ -2,6 +2,9 @@
 // before the build. The Drive folder has one subfolder per gallery category
 // (Digitals, Performance, Photoshoots, Runway); whatever is in them is what the
 // site shows. Photos are downscaled here so Astro's AVIF encoding stays quick.
+// A Google Doc in the top folder with "video" or "link" in its name lists YouTube
+// links, one per line (optionally "Title - link"); those become embeds in the
+// video section.
 //
 // Needs GOOGLE_SERVICE_ACCOUNT_KEY (the service account's JSON key) and
 // DRIVE_FOLDER_ID. Without them it does nothing, so local builds keep working.
@@ -30,10 +33,14 @@ if (!keyJson || !folderId) {
 
 const token = await getAccessToken(JSON.parse(keyJson));
 const photos = await listPhotos();
+const linkDocs = await listChildren(folderId, "mimeType = 'application/vnd.google-apps.document'").then((docs) =>
+  docs.filter((d) => /video|youtube|link/i.test(d.name)),
+);
 
 if (fingerprintOnly) {
   const hash = createHash('sha256');
   for (const p of photos) hash.update(`${p.id}|${p.modifiedTime}|${p.category}|${p.description ?? ''}\n`);
+  for (const d of linkDocs) hash.update(`doc|${d.id}|${d.modifiedTime}\n`);
   const fp = hash.digest('hex').slice(0, 16);
   console.log(`[drive] ${photos.length} photos, fingerprint ${fp}`);
   if (process.env.GITHUB_OUTPUT) await appendFile(process.env.GITHUB_OUTPUT, `fingerprint=${fp}\n`);
@@ -41,6 +48,7 @@ if (fingerprintOnly) {
 }
 
 await sync(photos);
+await syncVideoLinks(linkDocs);
 
 async function getAccessToken(sa) {
   const now = Math.floor(Date.now() / 1000);
@@ -78,7 +86,7 @@ async function listChildren(parent, extraQuery) {
   do {
     const res = await api('/files', {
       q: `'${parent}' in parents and trashed = false and ${extraQuery}`,
-      fields: 'nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, description, thumbnailLink)',
+      fields: 'nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, description, thumbnailLink, md5Checksum)',
       includeItemsFromAllDrives: 'true',
       pageSize: '1000',
       ...(pageToken && { pageToken }),
@@ -108,8 +116,19 @@ async function listPhotos() {
     const images = await listChildren(folder.id, "mimeType contains 'image/'");
     photos.push(...images.map((f) => ({ ...f, category })));
   }
-  // Newest uploads first.
-  return photos.sort((a, b) => b.createdTime.localeCompare(a.createdTime) || a.id.localeCompare(b.id));
+  // Newest uploads first. The same file uploaded twice (same bytes) shows once.
+  photos.sort((a, b) => b.createdTime.localeCompare(a.createdTime) || a.id.localeCompare(b.id));
+  const seen = new Map();
+  return photos.filter((p) => {
+    if (!p.md5Checksum) return true;
+    const first = seen.get(p.md5Checksum);
+    if (first) {
+      console.warn(`[drive] skipping "${p.category}/${p.name}": same file as "${first.category}/${first.name}"`);
+      return false;
+    }
+    seen.set(p.md5Checksum, p);
+    return true;
+  });
 }
 
 // Her Drive "Description" field wins; otherwise the filename, unless it's a camera
@@ -177,4 +196,32 @@ async function sync(photos) {
 
   await writeFile(manifestPath, JSON.stringify(manifest, null, 2) + '\n');
   console.log(`[drive] ${manifest.length} photos (${fetched} downloaded, ${previous.size} removed)`);
+}
+
+async function youtubeTitle(id) {
+  try {
+    const res = await fetch(`https://www.youtube.com/oembed?format=json&url=https://www.youtube.com/watch?v=${id}`);
+    if (res.ok) return (await res.json()).title;
+  } catch {}
+  return undefined;
+}
+
+// Each line with a YouTube link becomes a video; text before the link is its title,
+// otherwise the title is fetched from YouTube. Lines without a link are ignored.
+async function syncVideoLinks(docs) {
+  const YOUTUBE_ID = /(?:youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/)|youtu\.be\/)([\w-]{11})/;
+  const videos = [];
+  const seen = new Set();
+  for (const doc of docs) {
+    const text = await (await api(`/files/${doc.id}/export`, { mimeType: 'text/plain' })).text();
+    for (const line of text.split(/\r?\n/)) {
+      const id = line.match(YOUTUBE_ID)?.[1];
+      if (!id || seen.has(id)) continue;
+      seen.add(id);
+      const label = line.slice(0, line.search(/https?:\/\/|(www\.)?youtu/)).replace(/[\s\-–—:|•*]+$/, '').replace(/^[\s\-–—•*\d.)]+/, '').trim();
+      videos.push({ id, title: label || (await youtubeTitle(id)) || 'Video' });
+    }
+  }
+  await writeFile(path.join(OUT, 'videos.json'), JSON.stringify(videos, null, 2) + '\n');
+  console.log(`[drive] ${videos.length} YouTube videos from ${docs.length} link doc(s)`);
 }

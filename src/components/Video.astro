@@ -2,7 +2,16 @@
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
-const videos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
+const repoVideos = (await getCollection('videos')).sort((a, b) => a.data.order - b.data.order);
+
+// YouTube links from Alakina's Drive links doc (scripts/sync-drive.mjs), shown first.
+type DriveVideo = { id: string; title: string };
+const driveVideos: DriveVideo[] =
+  Object.values(import.meta.glob<DriveVideo[]>('../assets/photos/drive/videos.json', { eager: true, import: 'default' }))[0] ?? [];
+const videos = [
+  ...driveVideos.map((v) => ({ id: `drive-${v.id}`, data: { kind: 'youtube' as const, title: v.title, youtubeId: v.id, caption: undefined, order: 0 } })),
+  ...repoVideos,
+];
 const items = await Promise.all(
   videos.map(async ({ id, data }) => ({
     id,
