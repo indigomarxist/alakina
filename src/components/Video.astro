@@ -1,4 +1,7 @@
 ---
+import Cutout from './Cutout.astro';
+import Win from './Win.astro';
+import Sticker from './Sticker.astro';
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
@@ -37,13 +40,16 @@ const items = await Promise.all(
 
 {
   items.length > 0 && (
-    <section class="section video pat-dots scallop-top" id="video">
+    <section class="section video velvet dust torn-top" id="video">
       <div class="container">
+        <Sticker kind="star" size="3.5rem" rotate={14} style="top:-1rem;right:6%" />
+        <Sticker kind="lips" size="3.2rem" rotate={-12} style="top:30%;left:-1rem;animation-delay:-2s" />
         <p class="eyebrow">Video</p>
-        <h2 class="section-title">In <em>motion</em></h2>
+        <h2 class="section-title">In <Cutout text="motion" /></h2>
         <ul class="videos">
           {items.map(({ id, data, poster }) => (
             <li class:list={['videos__item', data.kind === 'file' && `videos__item--${data.orientation}`]}>
+              <Win title={`${data.title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')}.${data.kind === 'file' ? 'mov' : 'avi'}`} class="videos__win">
               <div class="videos__frame">
                 {data.kind === 'file' ? (
                   <video src={data.src} poster={poster} controls playsinline preload="none" aria-label={data.title} />
@@ -57,6 +63,7 @@ const items = await Promise.all(
                   />
                 )}
               </div>
+              </Win>
               <p class="videos__title">{data.title}</p>
               {data.caption && <p class="videos__caption">{data.caption}</p>}
             </li>
@@ -68,30 +75,28 @@ const items = await Promise.all(
 }
 
 <style>
+  .video .container { position: relative; }
   .videos {
     list-style: none;
     margin: 0;
     padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: clamp(1.5rem, 4vw, 3rem);
+    gap: clamp(2rem, 5vw, 3.5rem);
     align-items: flex-start;
     justify-content: center;
   }
   .videos__item { flex: 1 1 32rem; max-width: 48rem; }
   .videos__item--portrait { flex: 0 1 22rem; }
-  .video { --accent: var(--cherry-deep); --pat-bg: var(--blush); --pat-ink: rgb(255 255 255 / 0.55); --sc: var(--blush); text-align: center; }
-  .videos__frame {
-    background: var(--ink);
-    aspect-ratio: 16 / 9;
-    border: 2px solid var(--ink);
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: 8px 8px 0 var(--cherry);
-  }
-  .videos__item--portrait .videos__frame { aspect-ratio: 9 / 16; border-radius: 999px 999px var(--radius) var(--radius); }
+  .videos__item:nth-child(odd) { transform: rotate(-1.5deg); }
+  .videos__item:nth-child(even) { transform: rotate(1.5deg); }
+  .video { --v: var(--olive); --sc: var(--olive); text-align: center; }
+  .video :global(.eyebrow) { margin-inline: auto; }
+  .videos__win :global(.win__body) { padding: 0.4rem; }
+  .videos__frame { background: var(--ink); aspect-ratio: 16 / 9; overflow: hidden; }
+  .videos__item--portrait .videos__frame { aspect-ratio: 9 / 16; }
   .videos__frame video,
   .videos__frame iframe { display: block; width: 100%; height: 100%; border: 0; object-fit: cover; }
-  .videos__title { font-family: var(--script); font-size: 2.6rem; line-height: 1; margin: 1.5rem 0 0.2rem; color: var(--cherry-deep); }
-  .videos__caption { color: var(--ink-soft); margin: 0; }
+  .videos__title { font-family: var(--hand); font-weight: 700; font-size: 2rem; line-height: 1; margin: 1.1rem 0 0.2rem; color: var(--blush); }
+  .videos__caption { color: var(--muted); margin: 0; }
 </style>

@@ -1,21 +1,21 @@
 ---
+import Cutout from './Cutout.astro';
+import Win from './Win.astro';
+import Sticker from './Sticker.astro';
+import { Image } from 'astro:assets';
+import portrait from '../assets/photos/headshot-bw.jpg';
 import { profile } from '../data/profile';
 import Sparkle from './Sparkle.astro';
-import Flower from './Flower.astro';
 
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 ---
 
-<section class="section contact pat-gingham scallop-top" id="contact">
-  <Flower size="5rem" style="top:14%;right:9%" />
-  <Flower petals="var(--blush)" center="var(--butter)" size="3.2rem" style="bottom:16%;right:18%;animation-delay:-2s" />
-  <Sparkle color="var(--butter)" size="3rem" style="top:45%;right:5%" />
-  <Sparkle color="var(--blush)" size="1.6rem" style="top:30%;right:22%;animation-delay:-1.5s" />
-  <Sparkle color="var(--sky)" size="2.2rem" style="bottom:14%;right:6%;animation-delay:-2.7s" />
+<section class="section contact velvet torn-top" id="contact">
   <div class:list={["container", "contact__inner", { "contact__inner--single": !formspreeId }]}>
     <div>
       <p class="eyebrow">Contact</p>
-      <h2 class="section-title">Booking &amp; <em>casting</em></h2>
+      <h2 class="section-title">Booking &amp; <Cutout text="casting" /></h2>
+      <Win title="send_love.exe" class="contact__win">
       <p class="lead">For agency, casting, editorial and collaboration inquiries, get in touch directly.</p>
       <dl class="details">
         <div>
@@ -40,6 +40,7 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
         <a class="btn" href={profile.files.compCard} download>Comp card (PDF)</a>
         <a class="btn" href={profile.files.resume} download>Resume (PDF)</a>
       </div>
+      </Win>
     </div>
 
     {
@@ -64,48 +65,70 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
           <input type="text" name="_gotcha" class="visually-hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <button class="btn btn--solid" type="submit">Send inquiry</button>
         </form>
-      ) : null
+      ) : (
+        <div class="contact__photo">
+          <Sticker kind="star" size="4.5rem" rotate={-14} style="top:-2rem;right:-1.5rem" />
+          <Sticker kind="bow" size="3.4rem" rotate={10} float={false} style="bottom:-1.2rem;left:-1rem" />
+          <p class="contact__scribble hand" aria-hidden="true">say hi!</p>
+          <Sparkle color="var(--gold-light)" size="2rem" style="top:-0.75rem;left:-1.5rem;z-index:1" />
+          <Sparkle color="var(--blush)" size="1.2rem" style="bottom:18%;right:-1.25rem;z-index:1;animation-delay:-2.2s" />
+          <Image src={portrait} alt="Alakina Lee, black and white headshot" widths={[400, 640, 900]} sizes="(max-width: 800px) 0px, 36vw" format="avif" />
+        </div>
+      )
     }
   </div>
 </section>
 
 <style>
-  .contact { --pat-bg: var(--cherry); --pat-ink: rgb(80 0 20 / 0.16); --pat-size: 48px; --sc: var(--cherry); color: var(--cream); overflow-x: clip; }
-  .contact .eyebrow { color: var(--butter); }
-  .contact h2 em { color: var(--butter); }
+  .contact {
+    --sc: var(--wine);
+    --v: var(--wine);
+  }
   .contact__inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
-  .contact__inner--single { grid-template-columns: minmax(0, 42rem); }
-  .lead { max-width: 46ch; margin: 0 0 2rem; font-size: 1.15rem; }
-  .details { margin: 0 0 2.25rem; }
-  .details div { display: grid; grid-template-columns: 8rem 1fr; padding: 0.8rem 0; border-bottom: 2px dotted color-mix(in srgb, var(--cream) 45%, transparent); }
-  dt { font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; align-self: center; }
-  dd { margin: 0; font-family: var(--serif); font-size: 1.4rem; overflow-wrap: anywhere; }
-  dd a { display: inline-block; padding-block: 0.4rem; text-decoration: none; text-decoration-line: underline; text-decoration-color: var(--butter); text-decoration-thickness: 2px; text-underline-offset: 0.3em; }
-  dd a:hover { color: var(--butter); }
+  .contact__inner--single { grid-template-columns: 7fr 5fr; align-items: center; }
+  .contact__win { transform: rotate(-1deg); }
+  .contact__win :global(.win__body) { padding: clamp(1.1rem, 3vw, 1.75rem); }
+  .contact__scribble { position: absolute; z-index: 4; top: 42%; left: -4.5rem; margin: 0; font-size: 2.2rem; color: var(--gold-light); transform: rotate(-12deg); }
+  .contact__photo { position: relative; }
+  .contact__photo::before {
+    content: '';
+    position: absolute;
+    inset: -1.1rem 1.1rem 1.1rem -1.1rem;
+    border: 1px solid var(--gold-light);
+    border-radius: 999px 999px var(--radius) var(--radius);
+    pointer-events: none;
+  }
+  .contact__photo :global(img) { box-shadow: 0 0 0 1.5px var(--gold), 0 0 0 5px var(--wine), 0 0 0 6px var(--gold-light); }
+  .contact__photo :global(img) { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 999px 999px var(--radius) var(--radius); }
+  .lead { max-width: 46ch; margin: 0 0 1.5rem; font-family: var(--pixel); font-size: 1.45rem; line-height: 1.2; }
+  .details { margin: 0 0 2.5rem; border-top: 1px solid var(--line); }
+  .details div { display: grid; grid-template-columns: 8.5rem 1fr; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
+  dt { font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); align-self: center; }
+  dd { margin: 0; font-family: var(--serif); font-size: 1.35rem; overflow-wrap: anywhere; }
+  dd a { display: inline-block; padding-block: 0.4rem; text-decoration: none; background: linear-gradient(var(--hot), var(--hot)) 0 88% / 0 2px no-repeat; transition: background-size 0.4s var(--ease); }
+  dd a:hover { background-size: 100% 2px; }
   .downloads { display: flex; flex-wrap: wrap; gap: 1rem; }
-  .contact .btn--solid { background: var(--butter); color: var(--ink); }
-  .contact .btn--solid:hover, .contact .btn--solid:focus-visible { background: var(--cream); }
-  .contact :focus-visible { outline-color: var(--butter); }
-  .form { display: grid; gap: 1.1rem; background: var(--cream); color: var(--ink); padding: clamp(1.5rem, 4vw, 2.5rem); border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 8px 8px 0 var(--ink); }
-  label { display: grid; gap: 0.4rem; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); }
+    .form { display: grid; gap: 1.25rem; }
+  label { display: grid; gap: 0.4rem; font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
   input, textarea {
     font: inherit;
-    font-size: 1rem;
+    font-size: 1.05rem;
     letter-spacing: normal;
     text-transform: none;
-    color: var(--ink);
-    background: #fff;
-    border: 2px solid var(--ink);
-    border-radius: 0.75rem;
-    padding: 0.65rem 0.85rem;
+    color: var(--cream);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--cream) 50%, transparent);
+    border-radius: 0;
+    padding: 0.6rem 0;
     resize: vertical;
   }
-  input:focus, textarea:focus { outline: 3px solid var(--cobalt); outline-offset: 1px; }
-  .form button { justify-self: start; margin-top: 0.5rem; }
-  .form .btn--solid { background: var(--cherry); color: #fff; }
+  input:focus, textarea:focus { outline: none; border-bottom-color: var(--gold-light); }
+  .form button { justify-self: start; margin-top: 0.75rem; }
   @media (max-width: 800px) {
-    .contact__inner { grid-template-columns: 1fr; }
-    .contact > :global(svg) { display: none; }
+    .contact__inner, .contact__inner--single { grid-template-columns: 1fr; }
+    .contact__photo { display: none; }
+    .contact__win { transform: none; }
   }
   @media (max-width: 420px) { .details div { grid-template-columns: 1fr; gap: 0.2rem; } }
 </style>

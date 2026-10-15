@@ -5,9 +5,7 @@ const words = [...profile.tagline.split('·').map((r) => r.trim()), profile.base
 const run = [...words, ...words];
 ---
 
-<div class="marquee-wrap" aria-hidden="true">
-<div class="marquee">
-  <div class="marquee__edge pat-checks"></div>
+<div class="marquee" aria-hidden="true">
   <div class="marquee__track">
     {[0, 1].map(() => (
       <ul>
@@ -15,43 +13,43 @@ const run = [...words, ...words];
       </ul>
     ))}
   </div>
-  <div class="marquee__edge pat-checks"></div>
-</div>
 </div>
 
 <style>
-  .marquee-wrap { overflow: hidden; padding-block: 0.75rem; margin-block: -0.75rem; position: relative; z-index: 1; }
   .marquee {
-    background: var(--cherry);
-    color: var(--cream);
-    border-block: 2px solid var(--ink);
-    box-shadow: 0 -12px 0 -2px var(--cream), 0 12px 0 -2px var(--cream);
-    transform: rotate(-1.5deg);
-    margin-inline: -2rem;
     overflow: hidden;
+    background: var(--rose);
+    color: var(--wine);
     position: relative;
-    z-index: 1;
+    z-index: 2;
+    margin: -0.6rem -2rem;
+    transform: rotate(-1.8deg);
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 0.5);
   }
-  .marquee__edge { height: 10px; border-block: 2px solid var(--ink); background-size: 10px 10px; }
-  .marquee__track { display: flex; width: max-content; animation: scroll 38s linear infinite; }
-  ul { display: flex; list-style: none; margin: 0; padding: 0.35rem 0 0.5rem; }
+  .marquee::before,
+  .marquee::after { content: ''; position: absolute; left: 0; right: 0; height: 9px; background: var(--zebra) 0 0 / 90px 90px; }
+  .marquee::before { top: 0; }
+  .marquee::after { bottom: 0; }
+  .marquee__track { display: flex; width: max-content; animation: scroll 50s linear infinite; }
+  ul { display: flex; list-style: none; margin: 0; padding: 1.05rem 0 1.25rem; }
   li {
-    font-family: var(--script);
-    font-size: clamp(2rem, 3.8vw, 2.8rem);
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
     line-height: 1.1;
     white-space: nowrap;
-    padding-inline: 1.4rem;
+    padding-inline: 1.6rem;
     display: flex;
     align-items: center;
-    gap: 2.8rem;
+    gap: 3.2rem;
   }
   li::after {
     content: '';
-    width: 1rem;
-    height: 1rem;
-    background: var(--butter);
+    width: 0.85rem;
+    height: 0.85rem;
+    background: var(--wine);
     clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-    margin-right: -1.4rem;
+    margin-right: -1.6rem;
   }
   @keyframes scroll { to { transform: translateX(-50%); } }
 </style>

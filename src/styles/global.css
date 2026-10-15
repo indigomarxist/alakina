@@ -1,45 +1,58 @@
-@import '@fontsource-variable/fraunces/full.css';
-@import '@fontsource-variable/fraunces/full-italic.css';
+@import '@fontsource-variable/bodoni-moda/opsz.css';
+@import '@fontsource-variable/bodoni-moda/opsz-italic.css';
 @import '@fontsource-variable/jost';
-@import '@fontsource/shrikhand';
 @import '@fontsource/great-vibes';
+@import '@fontsource/caveat/400.css';
+@import '@fontsource/caveat/700.css';
+@import '@fontsource/vt323';
 
 /*
-  Direction: "chic, whimsical and timeless, yet still fun and colorful."
-  Cream paper, deep plum ink, and a candy palette used one colour per section.
-  Shrikhand (retro display) for headings with Great Vibes script accents,
-  Fraunces italic for small flourishes, Jost (geometric, Parisian) for text.
-  Patterns (gingham, polka dots, candy stripes, waves, checks, scallops) are pure CSS.
+  Direction (round 5, from Alakina's Pinterest boards): eclectic, collaged and
+  velvety. Moody jewel tones (wine, dusty rose, olive, teal, cocoa) on aged
+  cream paper, leopard and zebra used as trims, gilt frames, taped prints and
+  sparkle stickers for the Y2K whimsy. Bodoni Moda (high-contrast Didone, like
+  the ornate type on the boards) with Great Vibes script flourishes; Jost body.
+  Dark "velvet" sections get a soft sheen gradient; paper sections get grain.
 */
 :root {
-  --cream: #fff8ee;
-  --paper: #fbefdf;
-  --ink: #2b1b24;
-  --ink-soft: #664b57;
-  --cherry: #c21f3a;
-  --cherry-deep: #9e1830;
-  --blush: #f7d3d9;
-  --butter: #f9e08b;
-  --cobalt: #2a46b8;
-  --sky: #cfe0ff;
-  --sage: #c9dcbf;
-  --tangerine: #f2894f;
+  --paper: #efe4d2;
+  --paper-2: #e6d6bf;
+  --ink: #2a1617;
+  --ink-soft: #634a46;
+  --wine: #4b1020;
+  --burgundy: #7d1f35;
+  --rose: #c98892;
+  --blush: #ecc9c6;
+  --olive: #4e5628;
+  --teal: #17403e;
+  --cocoa: #36201a;
+  --gold: #c39a57;
+  --gold-light: #e4c88f;
+  --cream: #f6eee2;
 
-  --bg: var(--cream);
+  --bg: var(--paper);
   --text: var(--ink);
   --muted: var(--ink-soft);
-  --line: color-mix(in srgb, var(--ink) 16%, transparent);
-  --accent: var(--cherry);
+  --line: color-mix(in srgb, var(--ink) 20%, transparent);
+  --accent: var(--burgundy);
 
-  --serif: 'Fraunces Variable', 'Times New Roman', serif;
+  --serif: 'Bodoni Moda Variable', 'Didot', 'Bodoni 72', 'Times New Roman', serif;
   --sans: 'Jost Variable', system-ui, -apple-system, sans-serif;
-  --display: 'Shrikhand', 'Fraunces Variable', serif;
-  --script: 'Great Vibes', 'Fraunces Variable', cursive;
+  --script: 'Great Vibes', 'Bodoni Moda Variable', cursive;
+  --hand: 'Caveat', 'Comic Sans MS', cursive;
+  --pixel: 'VT323', ui-monospace, monospace;
+  --hot: #ff5ea8;
+  --lilac: #c084fc;
+  --sky: #7dd3fc;
   --gutter: clamp(1.25rem, 5vw, 4rem);
   --max: 1200px;
-  --radius: 1.25rem;
-  --shadow: 4px 4px 0 var(--ink);
-  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --radius: 0.4rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --leopard: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Crect width='160' height='160' fill='%23c9955c'/%3E%3Cellipse cx='16.8' cy='13.7' rx='6.8' ry='5.5' fill='%23a86d3a' transform='rotate(48 16.8 13.7)'/%3E%3Cellipse cx='19.2' cy='21.2' rx='5.4' ry='3.0' fill='%232b1810' transform='rotate(160 19.2 21.2)'/%3E%3Cellipse cx='10.6' cy='19.4' rx='5.0' ry='2.5' fill='%232b1810' transform='rotate(217 10.6 19.4)'/%3E%3Cellipse cx='8.7' cy='10.3' rx='3.2' ry='2.8' fill='%232b1810' transform='rotate(281 8.7 10.3)'/%3E%3Cellipse cx='20.5' cy='6.6' rx='4.7' ry='2.1' fill='%232b1810' transform='rotate(388 20.5 6.6)'/%3E%3Cellipse cx='25.9' cy='13.4' rx='3.8' ry='2.4' fill='%232b1810' transform='rotate(464 25.9 13.4)'/%3E%3Cellipse cx='16.8' cy='173.7' rx='6.8' ry='5.5' fill='%23a86d3a' transform='rotate(48 16.8 173.7)'/%3E%3Cellipse cx='19.2' cy='181.2' rx='5.4' ry='3.0' fill='%232b1810' transform='rotate(160 19.2 181.2)'/%3E%3Cellipse cx='10.6' cy='179.4' rx='5.0' ry='2.5' fill='%232b1810' transform='rotate(217 10.6 179.4)'/%3E%3Cellipse cx='8.7' cy='170.3' rx='3.2' ry='2.8' fill='%232b1810' transform='rotate(281 8.7 170.3)'/%3E%3Cellipse cx='20.5' cy='166.6' rx='4.7' ry='2.1' fill='%232b1810' transform='rotate(388 20.5 166.6)'/%3E%3Cellipse cx='25.9' cy='173.4' rx='3.8' ry='2.4' fill='%232b1810' transform='rotate(464 25.9 173.4)'/%3E%3Cellipse cx='176.8' cy='13.7' rx='6.8' ry='5.5' fill='%23a86d3a' transform='rotate(48 176.8 13.7)'/%3E%3Cellipse cx='179.2' cy='21.2' rx='5.4' ry='3.0' fill='%232b1810' transform='rotate(160 179.2 21.2)'/%3E%3Cellipse cx='170.6' cy='19.4' rx='5.0' ry='2.5' fill='%232b1810' transform='rotate(217 170.6 19.4)'/%3E%3Cellipse cx='168.7' cy='10.3' rx='3.2' ry='2.8' fill='%232b1810' transform='rotate(281 168.7 10.3)'/%3E%3Cellipse cx='180.5' cy='6.6' rx='4.7' ry='2.1' fill='%232b1810' transform='rotate(388 180.5 6.6)'/%3E%3Cellipse cx='185.9' cy='13.4' rx='3.8' ry='2.4' fill='%232b1810' transform='rotate(464 185.9 13.4)'/%3E%3Cellipse cx='176.8' cy='173.7' rx='6.8' ry='5.5' fill='%23a86d3a' transform='rotate(48 176.8 173.7)'/%3E%3Cellipse cx='179.2' cy='181.2' rx='5.4' ry='3.0' fill='%232b1810' transform='rotate(160 179.2 181.2)'/%3E%3Cellipse cx='170.6' cy='179.4' rx='5.0' ry='2.5' fill='%232b1810' transform='rotate(217 170.6 179.4)'/%3E%3Cellipse cx='168.7' cy='170.3' rx='3.2' ry='2.8' fill='%232b1810' transform='rotate(281 168.7 170.3)'/%3E%3Cellipse cx='180.5' cy='166.6' rx='4.7' ry='2.1' fill='%232b1810' transform='rotate(388 180.5 166.6)'/%3E%3Cellipse cx='185.9' cy='173.4' rx='3.8' ry='2.4' fill='%232b1810' transform='rotate(464 185.9 173.4)'/%3E%3Cellipse cx='32.7' cy='52.3' rx='8.9' ry='7.1' fill='%23a86d3a' transform='rotate(177 32.7 52.3)'/%3E%3Cellipse cx='20.9' cy='51.3' rx='5.4' ry='2.9' fill='%232b1810' transform='rotate(261 20.9 51.3)'/%3E%3Cellipse cx='38.8' cy='43.6' rx='3.9' ry='2.3' fill='%232b1810' transform='rotate(406 38.8 43.6)'/%3E%3Cellipse cx='44.4' cy='54.2' rx='3.8' ry='2.8' fill='%232b1810' transform='rotate(476 44.4 54.2)'/%3E%3Cellipse cx='30.2' cy='62.2' rx='5.0' ry='2.0' fill='%232b1810' transform='rotate(542 30.2 62.2)'/%3E%3Cellipse cx='20.6' cy='97.6' rx='8.4' ry='6.7' fill='%23a86d3a' transform='rotate(151 20.6 97.6)'/%3E%3Cellipse cx='13.5' cy='104.9' rx='4.0' ry='2.8' fill='%232b1810' transform='rotate(207 13.5 104.9)'/%3E%3Cellipse cx='11.2' cy='92.4' rx='4.3' ry='2.8' fill='%232b1810' transform='rotate(291 11.2 92.4)'/%3E%3Cellipse cx='25.6' cy='89.0' rx='5.3' ry='2.2' fill='%232b1810' transform='rotate(388 25.6 89.0)'/%3E%3Cellipse cx='31.8' cy='97.3' rx='4.8' ry='2.7' fill='%232b1810' transform='rotate(453 31.8 97.3)'/%3E%3Cellipse cx='22.6' cy='107.0' rx='4.3' ry='2.9' fill='%232b1810' transform='rotate(512 22.6 107.0)'/%3E%3Cellipse cx='22.0' cy='-19.9' rx='7.9' ry='6.3' fill='%23a86d3a' transform='rotate(76 22.0 -19.9)'/%3E%3Cellipse cx='18.6' cy='-11.4' rx='3.7' ry='3.0' fill='%232b1810' transform='rotate(207 18.6 -11.4)'/%3E%3Cellipse cx='11.9' cy='-22.1' rx='4.7' ry='2.4' fill='%232b1810' transform='rotate(264 11.9 -22.1)'/%3E%3Cellipse cx='26.1' cy='-28.1' rx='3.3' ry='2.5' fill='%232b1810' transform='rotate(363 26.1 -28.1)'/%3E%3Cellipse cx='31.0' cy='-15.2' rx='4.6' ry='2.2' fill='%232b1810' transform='rotate(470 31.0 -15.2)'/%3E%3Cellipse cx='22.0' cy='140.1' rx='7.9' ry='6.3' fill='%23a86d3a' transform='rotate(76 22.0 140.1)'/%3E%3Cellipse cx='18.6' cy='148.6' rx='3.7' ry='3.0' fill='%232b1810' transform='rotate(207 18.6 148.6)'/%3E%3Cellipse cx='11.9' cy='137.9' rx='4.7' ry='2.4' fill='%232b1810' transform='rotate(264 11.9 137.9)'/%3E%3Cellipse cx='26.1' cy='131.9' rx='3.3' ry='2.5' fill='%232b1810' transform='rotate(363 26.1 131.9)'/%3E%3Cellipse cx='31.0' cy='144.8' rx='4.6' ry='2.2' fill='%232b1810' transform='rotate(470 31.0 144.8)'/%3E%3Cellipse cx='51.7' cy='18.8' rx='7.4' ry='5.9' fill='%23a86d3a' transform='rotate(128 51.7 18.8)'/%3E%3Cellipse cx='42.6' cy='15.6' rx='4.8' ry='2.4' fill='%232b1810' transform='rotate(295 42.6 15.6)'/%3E%3Cellipse cx='49.0' cy='10.7' rx='4.3' ry='2.8' fill='%232b1810' transform='rotate(344 49.0 10.7)'/%3E%3Cellipse cx='59.5' cy='13.7' rx='4.2' ry='2.2' fill='%232b1810' transform='rotate(407 59.5 13.7)'/%3E%3Cellipse cx='61.1' cy='21.2' rx='5.2' ry='3.2' fill='%232b1810' transform='rotate(473 61.1 21.2)'/%3E%3Cellipse cx='51.4' cy='27.2' rx='5.1' ry='3.1' fill='%232b1810' transform='rotate(547 51.4 27.2)'/%3E%3Cellipse cx='44.7' cy='24.8' rx='4.7' ry='2.5' fill='%232b1810' transform='rotate(591 44.7 24.8)'/%3E%3Cellipse cx='51.7' cy='178.8' rx='7.4' ry='5.9' fill='%23a86d3a' transform='rotate(128 51.7 178.8)'/%3E%3Cellipse cx='42.6' cy='175.6' rx='4.8' ry='2.4' fill='%232b1810' transform='rotate(295 42.6 175.6)'/%3E%3Cellipse cx='49.0' cy='170.7' rx='4.3' ry='2.8' fill='%232b1810' transform='rotate(344 49.0 170.7)'/%3E%3Cellipse cx='59.5' cy='173.7' rx='4.2' ry='2.2' fill='%232b1810' transform='rotate(407 59.5 173.7)'/%3E%3Cellipse cx='61.1' cy='181.2' rx='5.2' ry='3.2' fill='%232b1810' transform='rotate(473 61.1 181.2)'/%3E%3Cellipse cx='51.4' cy='187.2' rx='5.1' ry='3.1' fill='%232b1810' transform='rotate(547 51.4 187.2)'/%3E%3Cellipse cx='44.7' cy='184.8' rx='4.7' ry='2.5' fill='%232b1810' transform='rotate(591 44.7 184.8)'/%3E%3Cellipse cx='62.3' cy='52.6' rx='8.6' ry='6.9' fill='%23a86d3a' transform='rotate(178 62.3 52.6)'/%3E%3Cellipse cx='70.8' cy='59.1' rx='4.0' ry='3.0' fill='%232b1810' transform='rotate(133 70.8 59.1)'/%3E%3Cellipse cx='62.7' cy='62.4' rx='4.1' ry='2.2' fill='%232b1810' transform='rotate(196 62.7 62.4)'/%3E%3Cellipse cx='50.9' cy='54.1' rx='4.2' ry='2.5' fill='%232b1810' transform='rotate(251 50.9 54.1)'/%3E%3Cellipse cx='59.5' cy='43.2' rx='3.8' ry='2.2' fill='%232b1810' transform='rotate(327 59.5 43.2)'/%3E%3Cellipse cx='70.4' cy='45.8' rx='4.5' ry='3.2' fill='%232b1810' transform='rotate(395 70.4 45.8)'/%3E%3Cellipse cx='58.6' cy='105.9' rx='8.4' ry='6.7' fill='%23a86d3a' transform='rotate(173 58.6 105.9)'/%3E%3Cellipse cx='69.2' cy='109.0' rx='4.2' ry='2.7' fill='%232b1810' transform='rotate(123 69.2 109.0)'/%3E%3Cellipse cx='56.3' cy='115.2' rx='4.5' ry='2.3' fill='%232b1810' transform='rotate(186 56.3 115.2)'/%3E%3Cellipse cx='48.2' cy='102.4' rx='5.0' ry='2.3' fill='%232b1810' transform='rotate(311 48.2 102.4)'/%3E%3Cellipse cx='62.5' cy='97.0' rx='3.4' ry='2.4' fill='%232b1810' transform='rotate(374 62.5 97.0)'/%3E%3Cellipse cx='63.2' cy='135.0' rx='8.3' ry='6.7' fill='%23a86d3a' transform='rotate(118 63.2 135.0)'/%3E%3Cellipse cx='65.2' cy='125.7' rx='4.3' ry='3.0' fill='%232b1810' transform='rotate(380 65.2 125.7)'/%3E%3Cellipse cx='74.3' cy='135.6' rx='4.3' ry='2.1' fill='%232b1810' transform='rotate(459 74.3 135.6)'/%3E%3Cellipse cx='60.7' cy='144.2' rx='5.0' ry='2.5' fill='%232b1810' transform='rotate(540 60.7 144.2)'/%3E%3Cellipse cx='52.2' cy='133.7' rx='4.6' ry='3.0' fill='%232b1810' transform='rotate(637 52.2 133.7)'/%3E%3Cellipse cx='102.3' cy='28.1' rx='7.9' ry='6.3' fill='%23a86d3a' transform='rotate(103 102.3 28.1)'/%3E%3Cellipse cx='95.9' cy='20.9' rx='5.0' ry='2.3' fill='%232b1810' transform='rotate(326 95.9 20.9)'/%3E%3Cellipse cx='111.6' cy='23.9' rx='4.1' ry='2.0' fill='%232b1810' transform='rotate(440 111.6 23.9)'/%3E%3Cellipse cx='108.9' cy='35.1' rx='4.7' ry='2.0' fill='%232b1810' transform='rotate(493 108.9 35.1)'/%3E%3Cellipse cx='93.2' cy='32.6' rx='5.1' ry='2.8' fill='%232b1810' transform='rotate(587 93.2 32.6)'/%3E%3Cellipse cx='111.4' cy='58.1' rx='7.4' ry='5.9' fill='%23a86d3a' transform='rotate(28 111.4 58.1)'/%3E%3Cellipse cx='121.2' cy='59.1' rx='4.1' ry='2.5' fill='%232b1810' transform='rotate(77 121.2 59.1)'/%3E%3Cellipse cx='115.4' cy='65.8' rx='5.5' ry='2.8' fill='%232b1810' transform='rotate(148 115.4 65.8)'/%3E%3Cellipse cx='104.7' cy='64.3' rx='4.0' ry='2.1' fill='%232b1810' transform='rotate(227 104.7 64.3)'/%3E%3Cellipse cx='102.8' cy='54.0' rx='5.4' ry='2.6' fill='%232b1810' transform='rotate(299 102.8 54.0)'/%3E%3Cellipse cx='108.0' cy='50.2' rx='3.9' ry='3.1' fill='%232b1810' transform='rotate(328 108.0 50.2)'/%3E%3Cellipse cx='118.0' cy='51.9' rx='4.8' ry='2.2' fill='%232b1810' transform='rotate(393 118.0 51.9)'/%3E%3Cellipse cx='108.6' cy='91.8' rx='7.2' ry='5.8' fill='%23a86d3a' transform='rotate(158 108.6 91.8)'/%3E%3Cellipse cx='117.3' cy='88.4' rx='4.5' ry='2.8' fill='%232b1810' transform='rotate(430 117.3 88.4)'/%3E%3Cellipse cx='113.0' cy='99.1' rx='4.4' ry='2.4' fill='%232b1810' transform='rotate(519 113.0 99.1)'/%3E%3Cellipse cx='101.4' cy='97.3' rx='3.3' ry='2.1' fill='%232b1810' transform='rotate(584 101.4 97.3)'/%3E%3Cellipse cx='99.0' cy='90.8' rx='5.0' ry='2.7' fill='%232b1810' transform='rotate(648 99.0 90.8)'/%3E%3Cellipse cx='106.3' cy='83.9' rx='5.5' ry='2.5' fill='%232b1810' transform='rotate(692 106.3 83.9)'/%3E%3Cellipse cx='116.5' cy='136.2' rx='7.1' ry='5.7' fill='%23a86d3a' transform='rotate(3 116.5 136.2)'/%3E%3Cellipse cx='125.8' cy='137.4' rx='3.7' ry='3.1' fill='%232b1810' transform='rotate(114 125.8 137.4)'/%3E%3Cellipse cx='118.9' cy='144.0' rx='5.4' ry='3.1' fill='%232b1810' transform='rotate(158 118.9 144.0)'/%3E%3Cellipse cx='109.2' cy='141.4' rx='5.1' ry='2.2' fill='%232b1810' transform='rotate(228 109.2 141.4)'/%3E%3Cellipse cx='107.0' cy='135.3' rx='3.9' ry='2.2' fill='%232b1810' transform='rotate(279 107.0 135.3)'/%3E%3Cellipse cx='116.1' cy='128.1' rx='4.1' ry='2.8' fill='%232b1810' transform='rotate(372 116.1 128.1)'/%3E%3Cellipse cx='124.6' cy='132.1' rx='5.4' ry='2.4' fill='%232b1810' transform='rotate(426 124.6 132.1)'/%3E%3Cellipse cx='133.6' cy='13.1' rx='9.6' ry='7.7' fill='%23a86d3a' transform='rotate(22 133.6 13.1)'/%3E%3Cellipse cx='132.4' cy='2.3' rx='4.4' ry='3.2' fill='%232b1810' transform='rotate(341 132.4 2.3)'/%3E%3Cellipse cx='145.4' cy='8.9' rx='4.8' ry='2.1' fill='%232b1810' transform='rotate(440 145.4 8.9)'/%3E%3Cellipse cx='145.0' cy='18.0' rx='5.4' ry='2.8' fill='%232b1810' transform='rotate(475 145.0 18.0)'/%3E%3Cellipse cx='132.4' cy='23.9' rx='4.8' ry='2.5' fill='%232b1810' transform='rotate(534 132.4 23.9)'/%3E%3Cellipse cx='124.1' cy='20.4' rx='3.3' ry='2.5' fill='%232b1810' transform='rotate(606 124.1 20.4)'/%3E%3Cellipse cx='121.7' cy='9.2' rx='3.6' ry='2.8' fill='%232b1810' transform='rotate(639 121.7 9.2)'/%3E%3Cellipse cx='133.6' cy='173.1' rx='9.6' ry='7.7' fill='%23a86d3a' transform='rotate(22 133.6 173.1)'/%3E%3Cellipse cx='132.4' cy='162.3' rx='4.4' ry='3.2' fill='%232b1810' transform='rotate(341 132.4 162.3)'/%3E%3Cellipse cx='145.4' cy='168.9' rx='4.8' ry='2.1' fill='%232b1810' transform='rotate(440 145.4 168.9)'/%3E%3Cellipse cx='145.0' cy='178.0' rx='5.4' ry='2.8' fill='%232b1810' transform='rotate(475 145.0 178.0)'/%3E%3Cellipse cx='132.4' cy='183.9' rx='4.8' ry='2.5' fill='%232b1810' transform='rotate(534 132.4 183.9)'/%3E%3Cellipse cx='124.1' cy='180.4' rx='3.3' ry='2.5' fill='%232b1810' transform='rotate(606 124.1 180.4)'/%3E%3Cellipse cx='121.7' cy='169.2' rx='3.6' ry='2.8' fill='%232b1810' transform='rotate(639 121.7 169.2)'/%3E%3Cellipse cx='-13.4' cy='65.7' rx='9.7' ry='7.7' fill='%23a86d3a' transform='rotate(39 -13.4 65.7)'/%3E%3Cellipse cx='-2.1' cy='70.9' rx='5.4' ry='2.1' fill='%232b1810' transform='rotate(109 -2.1 70.9)'/%3E%3Cellipse cx='-13.2' cy='76.7' rx='5.2' ry='2.9' fill='%232b1810' transform='rotate(175 -13.2 76.7)'/%3E%3Cellipse cx='-23.6' cy='72.4' rx='5.2' ry='3.1' fill='%232b1810' transform='rotate(248 -23.6 72.4)'/%3E%3Cellipse cx='-23.9' cy='59.3' rx='5.2' ry='2.6' fill='%232b1810' transform='rotate(286 -23.9 59.3)'/%3E%3Cellipse cx='-12.7' cy='54.7' rx='4.1' ry='2.8' fill='%232b1810' transform='rotate(378 -12.7 54.7)'/%3E%3Cellipse cx='-3.1' cy='59.1' rx='5.1' ry='2.8' fill='%232b1810' transform='rotate(430 -3.1 59.1)'/%3E%3Cellipse cx='146.6' cy='65.7' rx='9.7' ry='7.7' fill='%23a86d3a' transform='rotate(39 146.6 65.7)'/%3E%3Cellipse cx='157.9' cy='70.9' rx='5.4' ry='2.1' fill='%232b1810' transform='rotate(109 157.9 70.9)'/%3E%3Cellipse cx='146.8' cy='76.7' rx='5.2' ry='2.9' fill='%232b1810' transform='rotate(175 146.8 76.7)'/%3E%3Cellipse cx='136.4' cy='72.4' rx='5.2' ry='3.1' fill='%232b1810' transform='rotate(248 136.4 72.4)'/%3E%3Cellipse cx='136.1' cy='59.3' rx='5.2' ry='2.6' fill='%232b1810' transform='rotate(286 136.1 59.3)'/%3E%3Cellipse cx='147.3' cy='54.7' rx='4.1' ry='2.8' fill='%232b1810' transform='rotate(378 147.3 54.7)'/%3E%3Cellipse cx='156.9' cy='59.1' rx='5.1' ry='2.8' fill='%232b1810' transform='rotate(430 156.9 59.1)'/%3E%3Cellipse cx='134.3' cy='101.5' rx='7.6' ry='6.1' fill='%23a86d3a' transform='rotate(159 134.3 101.5)'/%3E%3Cellipse cx='141.3' cy='95.3' rx='3.6' ry='2.9' fill='%232b1810' transform='rotate(416 141.3 95.3)'/%3E%3Cellipse cx='141.1' cy='107.9' rx='3.8' ry='2.6' fill='%232b1810' transform='rotate(485 141.1 107.9)'/%3E%3Cellipse cx='127.7' cy='108.1' rx='4.5' ry='2.8' fill='%232b1810' transform='rotate(596 127.7 108.1)'/%3E%3Cellipse cx='127.8' cy='94.8' rx='3.5' ry='2.4' fill='%232b1810' transform='rotate(688 127.8 94.8)'/%3E%3Cellipse cx='-7.5' cy='137.7' rx='8.2' ry='6.6' fill='%23a86d3a' transform='rotate(58 -7.5 137.7)'/%3E%3Cellipse cx='-9.6' cy='146.8' rx='3.8' ry='2.3' fill='%232b1810' transform='rotate(177 -9.6 146.8)'/%3E%3Cellipse cx='-17.0' cy='142.2' rx='5.4' ry='2.7' fill='%232b1810' transform='rotate(256 -17.0 142.2)'/%3E%3Cellipse cx='-15.7' cy='131.5' rx='5.4' ry='2.3' fill='%232b1810' transform='rotate(315 -15.7 131.5)'/%3E%3Cellipse cx='-3.4' cy='129.1' rx='3.4' ry='2.6' fill='%232b1810' transform='rotate(396 -3.4 129.1)'/%3E%3Cellipse cx='2.5' cy='133.9' rx='5.2' ry='2.6' fill='%232b1810' transform='rotate(415 2.5 133.9)'/%3E%3Cellipse cx='0.4' cy='144.1' rx='4.2' ry='3.0' fill='%232b1810' transform='rotate(513 0.4 144.1)'/%3E%3Cellipse cx='152.5' cy='137.7' rx='8.2' ry='6.6' fill='%23a86d3a' transform='rotate(58 152.5 137.7)'/%3E%3Cellipse cx='150.4' cy='146.8' rx='3.8' ry='2.3' fill='%232b1810' transform='rotate(177 150.4 146.8)'/%3E%3Cellipse cx='143.0' cy='142.2' rx='5.4' ry='2.7' fill='%232b1810' transform='rotate(256 143.0 142.2)'/%3E%3Cellipse cx='144.3' cy='131.5' rx='5.4' ry='2.3' fill='%232b1810' transform='rotate(315 144.3 131.5)'/%3E%3Cellipse cx='156.6' cy='129.1' rx='3.4' ry='2.6' fill='%232b1810' transform='rotate(396 156.6 129.1)'/%3E%3Cellipse cx='162.5' cy='133.9' rx='5.2' ry='2.6' fill='%232b1810' transform='rotate(415 162.5 133.9)'/%3E%3Cellipse cx='160.4' cy='144.1' rx='4.2' ry='3.0' fill='%232b1810' transform='rotate(513 160.4 144.1)'/%3E%3Ccircle cx='38.1' cy='87.1' r='1.8' fill='%232b1810'/%3E%3Ccircle cx='96.6' cy='100.1' r='1.5' fill='%232b1810'/%3E%3Ccircle cx='2.1' cy='134.0' r='1.7' fill='%232b1810'/%3E%3Ccircle cx='37.5' cy='159.3' r='1.9' fill='%232b1810'/%3E%3Ccircle cx='133.8' cy='76.2' r='2.0' fill='%232b1810'/%3E%3Ccircle cx='24.1' cy='101.6' r='2.3' fill='%232b1810'/%3E%3Ccircle cx='83.7' cy='118.6' r='2.1' fill='%232b1810'/%3E%3Ccircle cx='10.2' cy='121.3' r='2.0' fill='%232b1810'/%3E%3Ccircle cx='48.2' cy='5.0' r='2.3' fill='%232b1810'/%3E%3Ccircle cx='75.6' cy='115.0' r='2.3' fill='%232b1810'/%3E%3Ccircle cx='114.3' cy='147.4' r='1.8' fill='%232b1810'/%3E%3Ccircle cx='128.1' cy='71.1' r='2.3' fill='%232b1810'/%3E%3Ccircle cx='140.6' cy='15.6' r='1.5' fill='%232b1810'/%3E%3Ccircle cx='34.7' cy='154.5' r='1.8' fill='%232b1810'/%3E%3Ccircle cx='100.3' cy='48.2' r='1.9' fill='%232b1810'/%3E%3Ccircle cx='61.7' cy='56.1' r='2.0' fill='%232b1810'/%3E%3Ccircle cx='93.5' cy='144.7' r='2.1' fill='%232b1810'/%3E%3Ccircle cx='148.6' cy='137.0' r='2.4' fill='%232b1810'/%3E%3C/svg%3E");
+  --zebra: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Crect width='120' height='120' fill='%23f1e6d6'/%3E%3Cpath d='M-10 0.0 C30 -6.8 60 6.8 130 0.0 L130 7.3 C60 11.3 30 3.2 -10 7.3Z' fill='%23211414'/%3E%3Cpath d='M-10 17.9 C30 11.3 60 24.4 130 17.9 L130 25.2 C60 29.1 30 21.3 -10 25.2Z' fill='%23211414'/%3E%3Cpath d='M-10 34.1 C30 27.6 60 40.7 130 34.1 L130 40.1 C60 44.0 30 36.1 -10 40.1Z' fill='%23211414'/%3E%3Cpath d='M-10 49.2 C30 44.8 60 53.7 130 49.2 L130 58.2 C60 60.9 30 55.5 -10 58.2Z' fill='%23211414'/%3E%3Cpath d='M-10 65.7 C30 57.7 60 73.8 130 65.7 L130 71.2 C60 76.0 30 66.3 -10 71.2Z' fill='%23211414'/%3E%3Cpath d='M-10 80.6 C30 71.7 60 89.5 130 80.6 L130 85.8 C60 91.2 30 80.5 -10 85.8Z' fill='%23211414'/%3E%3Cpath d='M-10 96.7 C30 89.6 60 103.7 130 96.7 L130 104.9 C60 109.2 30 100.7 -10 104.9Z' fill='%23211414'/%3E%3Cpath d='M-10 111.7 C30 105.1 60 118.4 130 111.7 L130 116.8 C60 120.8 30 112.8 -10 116.8Z' fill='%23211414'/%3E%3C/svg%3E");
+  --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .12 0 0 0 0 .08 0 0 0 .16 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  --torn: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 24' preserveAspectRatio='none'%3E%3Cpath d='M0 24 L0 12.7 L13 15.1 L29 14.4 L44 4.4 L55 17.2 L67 16.6 L74 10.6 L83 11.6 L95 4.2 L103 7.9 L118 14.7 L125 15.2 L133 12.6 L140 4.0 L155 6.9 L163 17.8 L178 8.1 L193 11.5 L206 6.9 L222 13.7 L237 16.5 L246 9.1 L254 6.0 L260 8.2 L273 4.0 L285 8.7 L294 15.5 L305 8.4 L316 13.9 L323 17.7 L329 14.5 L343 4.3 L357 9.1 L369 4.1 L375 6.5 L391 6.8 L400 10 L400 24Z'/%3E%3C/svg%3E");
   color-scheme: light;
 }
 
@@ -55,58 +68,106 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-size: 1.0625rem;
-  line-height: 1.65;
+  font-weight: 380;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
 
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
-::selection { background: var(--butter); color: var(--ink); }
+::selection { background: var(--rose); color: var(--ink); }
 
 h1, h2, h3 {
   font-family: var(--serif);
   font-weight: 400;
-  font-variation-settings: 'SOFT' 100, 'WONK' 0;
-  line-height: 1.05;
+  font-optical-sizing: auto;
+  line-height: 1;
+  letter-spacing: -0.015em;
   margin: 0;
 }
-h1, h2 { font-family: var(--display); font-variation-settings: normal; letter-spacing: -0.01em; }
 h1 em, h2 em {
   font-family: var(--script);
   font-style: normal;
   font-weight: 400;
-  font-size: 1.3em;
+  font-size: 1.12em;
   line-height: 0.8;
   letter-spacing: 0;
   color: var(--accent);
-  padding-inline: 0.05em 0.12em;
+  padding-inline: 0.04em 0.1em;
 }
 
 .container { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
 
-.section { position: relative; padding-block: clamp(4.5rem, 10vw, 8rem); }
+.section { position: relative; padding-block: clamp(5rem, 11vw, 8.5rem); }
+
+/* Surfaces */
+.paper { background-color: var(--paper); background-image: var(--grain); }
+.velvet {
+  --text: var(--cream);
+  --muted: color-mix(in srgb, var(--cream) 76%, transparent);
+  --line: color-mix(in srgb, var(--cream) 24%, transparent);
+  --accent: var(--gold-light);
+  color: var(--cream);
+  background-color: var(--v, var(--wine));
+  background-image:
+    radial-gradient(120% 80% at 15% 0%, rgb(255 255 255 / 0.09), transparent 55%),
+    radial-gradient(90% 70% at 100% 100%, rgb(0 0 0 / 0.28), transparent 60%),
+    var(--grain);
+}
+.velvet :focus-visible { outline-color: var(--gold-light); }
+
+/* Torn-paper top edge in the section's own colour (set --sc). */
+.torn-top::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -18px;
+  height: 20px;
+  background: var(--sc);
+  -webkit-mask: var(--torn) 0 0 / 400px 100% repeat-x;
+  mask: var(--torn) 0 0 / 400px 100% repeat-x;
+  pointer-events: none;
+}
+
+/* Animal-print trims */
+.leopard { background: var(--leopard) 0 0 / 160px 160px; }
+.zebra { background: var(--zebra) 0 0 / 120px 120px; }
+.trim-leopard { height: 10px; background: var(--leopard) 0 0 / 110px 110px; }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  letter-spacing: 0.24em;
+  display: table;
+  margin: 0 0 1.5rem;
+  padding: 0.3rem 0.75rem 0.25rem;
+  background: linear-gradient(#2b2b2b, #111);
+  color: #f5f5f5;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--accent);
-  margin: 0 0 1rem;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.8), 0 -1px 0 rgb(255 255 255 / 0.35);
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 1px 2px 3px rgb(0 0 0 / 0.35);
+  transform: rotate(-2deg);
 }
-.eyebrow::before {
-  content: '';
-  width: 0.85rem;
-  height: 0.85rem;
-  background: currentColor;
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-}
+.velvet .eyebrow { background: linear-gradient(#cc2f7d, #9c1450); color: #fff; text-shadow: 0 1px 0 rgb(120 0 50 / 0.6); }
 
-.section-title { font-size: clamp(2.4rem, 5.5vw, 4rem); margin-bottom: clamp(2rem, 5vw, 3.25rem); }
+.section-title { font-size: clamp(2.7rem, 6.2vw, 4.6rem); font-weight: 500; text-wrap: balance; margin-bottom: clamp(2.25rem, 5vw, 3.5rem); }
+
+/* Washi-tape strip for taped prints. */
+.tape {
+  position: absolute;
+  z-index: 2;
+  width: 6.5rem;
+  height: 1.6rem;
+  background: color-mix(in srgb, var(--blush) 78%, transparent);
+  box-shadow: 0 1px 2px rgb(0 0 0 / 0.12);
+  clip-path: polygon(0 0, 4% 15%, 0 30%, 4% 45%, 0 60%, 4% 75%, 0 90%, 3% 100%, 97% 100%, 100% 85%, 96% 70%, 100% 55%, 96% 40%, 100% 25%, 96% 10%, 100% 0);
+  pointer-events: none;
+}
+.tape--leopard { background: var(--leopard) 0 0 / 80px 80px; opacity: 0.92; }
 
 .btn {
   display: inline-flex;
@@ -114,76 +175,119 @@ h1 em, h2 em {
   justify-content: center;
   gap: 0.5rem;
   min-height: 3rem;
-  padding: 0.8rem 1.6rem;
-  border: 2px solid var(--ink);
+  padding: 0.8rem 1.75rem;
+  border: 1px solid currentColor;
   border-radius: 999px;
   font-family: var(--sans);
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.14em;
+  font-size: 0.75rem;
+  font-weight: 480;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
-  background: var(--cream);
-  color: var(--ink);
-  box-shadow: var(--shadow);
+  background: transparent;
+  color: var(--text);
   cursor: pointer;
-  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease, background 0.2s ease;
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.btn:hover, .btn:focus-visible { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
-.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
-.btn--solid { background: var(--cherry); color: #fff; }
-.btn--solid:hover, .btn--solid:focus-visible { background: var(--cherry-deep); }
+.btn:hover, .btn:focus-visible { transform: translateY(-2px) rotate(-1deg); }
+.btn--solid { background: var(--burgundy); color: var(--cream); border-color: var(--burgundy); }
+.btn--solid:hover, .btn--solid:focus-visible { background: var(--wine); border-color: var(--wine); }
+.velvet .btn--solid { background: var(--gold-light); color: var(--wine); border-color: var(--gold-light); }
+.velvet .btn--solid:hover, .velvet .btn--solid:focus-visible { background: var(--cream); border-color: var(--cream); }
 
-:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--burgundy); outline-offset: 3px; }
 
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
 }
 
-/* ---------- Patterns ---------- */
-.pat-gingham {
-  background-color: var(--pat-bg);
-  background-image:
-    linear-gradient(90deg, var(--pat-ink) 50%, transparent 50%),
-    linear-gradient(var(--pat-ink) 50%, transparent 50%);
-  background-size: var(--pat-size, 36px) var(--pat-size, 36px);
+/* ---------- Scrapbook kit ---------- */
+.hand { font-family: var(--hand); font-weight: 700; letter-spacing: 0; }
+
+/* Holographic glitter text. */
+.glitter {
+  background:
+    radial-gradient(circle at 20% 30%, #fff 0 1px, transparent 2px) 0 0 / 9px 9px,
+    radial-gradient(circle at 70% 60%, #fff 0 1px, transparent 2px) 0 0 / 13px 13px,
+    linear-gradient(100deg, #ffc2dd, #ff5ea8 25%, #f9d0ff 45%, #c084fc 60%, #ffd6e8 80%, #ff8fc8);
+  background-size: 9px 9px, 13px 13px, 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+  filter: drop-shadow(2px 2px 0 rgb(42 22 23 / 0.45));
 }
-.pat-dots {
-  background-color: var(--pat-bg);
-  background-image:
-    radial-gradient(var(--pat-ink) 22%, transparent 23%),
-    radial-gradient(var(--pat-ink) 22%, transparent 23%);
-  background-size: var(--pat-size, 44px) var(--pat-size, 44px);
-  background-position: 0 0, calc(var(--pat-size, 44px) / 2) calc(var(--pat-size, 44px) / 2);
+@keyframes shimmer { to { background-position: 0 0, 0 0, 220% 0; } }
+
+/* Label-maker tape. */
+.dymo {
+  display: inline-block;
+  padding: 0.3rem 0.75rem 0.25rem;
+  background: linear-gradient(#2b2b2b, #111);
+  color: #f5f5f5;
+  font-family: var(--sans);
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  text-shadow: 0 1px 0 rgb(0 0 0 / 0.8), 0 -1px 0 rgb(255 255 255 / 0.35);
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 1px 2px 3px rgb(0 0 0 / 0.35);
+  transform: rotate(-2deg);
 }
-.pat-stripes {
-  background-color: var(--pat-bg);
-  background-image: repeating-linear-gradient(-45deg, var(--pat-ink) 0 14px, transparent 14px 28px);
+.dymo--pink { background: linear-gradient(#cc2f7d, #9c1450); }
+.dymo--red { background: linear-gradient(#a12542, #6e1427); }
+
+/* Sticky note. */
+.note {
+  position: relative;
+  padding: 1.1rem 1.2rem 1.3rem;
+  background: linear-gradient(#fff6a8, #ffec7a);
+  color: var(--ink);
+  font-family: var(--hand);
+  font-size: 1.4rem;
+  line-height: 1.15;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 0.1), 4px 10px 14px -6px rgb(42 22 23 / 0.45);
+  transform: rotate(var(--r, 2deg));
 }
-.pat-waves {
-  background-color: var(--pat-bg);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='24' viewBox='0 0 80 24'%3E%3Cpath d='M0 12c10 0 10-8 20-8s10 8 20 8 10-8 20-8 10 8 20 8' fill='none' stroke='white' stroke-opacity='.14' stroke-width='3'/%3E%3C/svg%3E");
-  background-size: 80px 24px;
-}
-.pat-checks {
-  background-color: var(--cream);
-  background-image: conic-gradient(var(--ink) 25%, transparent 0 50%, var(--ink) 0 75%, transparent 0);
-  background-size: 20px 20px;
+.note--pink { background: linear-gradient(#ffd6e8, #ffbcd9); }
+
+/* Torn paper scrap behind text. */
+.scrap {
+  background: var(--cream);
+  clip-path: polygon(0 3%, 6% 0, 14% 2%, 25% 0, 37% 3%, 50% 1%, 61% 3%, 74% 0, 86% 2%, 100% 0, 98% 20%, 100% 41%, 98% 62%, 100% 82%, 99% 100%, 88% 97%, 75% 100%, 62% 97%, 49% 100%, 36% 98%, 24% 100%, 12% 97%, 0 100%, 2% 79%, 0 58%, 2% 37%, 0 18%);
 }
 
-/* Scalloped top edge in the section's own colour (set --sc). */
-.scallop-top { position: relative; }
-.scallop-top::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: -17px;
-  height: 18px;
-  background: radial-gradient(circle at 50% 100%, var(--sc) 17px, transparent 18px) 0 0 / 36px 18px repeat-x;
-  pointer-events: none;
+/* Ruled notebook paper. */
+.notebook {
+  background-color: #fbf7ef;
+  background-image:
+    linear-gradient(90deg, transparent 3.2rem, rgb(255 94 168 / 0.45) 3.2rem 3.3rem, transparent 3.3rem),
+    repeating-linear-gradient(transparent 0 2.05rem, rgb(125 211 252 / 0.55) 2.05rem 2.125rem);
 }
+
+/* Glitter dust scattered over a surface. */
+.dust {
+  background-image:
+    radial-gradient(circle, rgb(255 255 255 / 0.55) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgb(255 214 232 / 0.45) 0 1px, transparent 1.5px);
+  background-size: 37px 41px, 53px 47px;
+  background-position: 0 0, 19px 23px;
+}
+
+/* Cursor sparkle trail (script in Base.astro). */
+.trail {
+  position: fixed;
+  z-index: 200;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+  background: var(--c, #ff8fc8);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+  animation: trail 0.9s ease-out forwards;
+}
+@keyframes trail { to { transform: translate(var(--dx), 26px) scale(0.2) rotate(90deg); opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

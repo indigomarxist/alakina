@@ -1,4 +1,6 @@
 ---
+import Cutout from './Cutout.astro';
+import Sticker from './Sticker.astro';
 import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
@@ -35,10 +37,13 @@ const items = await Promise.all(
 );
 ---
 
-<section class="section gallery-section pat-dots" id="portfolio">
+<section class="section gallery-section paper" id="portfolio">
   <div class="container">
+    <Sticker kind="cherry" size="4rem" rotate={-10} style="top:-3rem;right:15rem" />
+    <Sticker kind="flower" size="3.2rem" rotate={12} style="top:5.5rem;right:22%;animation-delay:-2.5s" />
+    <p class="gallery__note note note--pink hand" aria-hidden="true">click to zoom ♡</p>
     <p class="eyebrow">Portfolio</p>
-    <h2 class="section-title">Selected <em>work</em></h2>
+    <h2 class="section-title">Selected <Cutout text="work" /></h2>
     <div class="filters" role="group" aria-label="Filter photos">
       {
         filters.map(([key, label], i) => (
@@ -50,8 +55,10 @@ const items = await Promise.all(
     </div>
     <ul class="masonry">
       {
-        items.map((p) => (
+        items.map((p, i) => (
           <li data-category={p.data.category}>
+            {i % 5 === 1 && <span class="tape" aria-hidden="true" />}
+            {i % 7 === 3 && <span class="tape tape--leopard" aria-hidden="true" />}
             <button class="masonry__item" type="button" data-full={p.full.src} data-alt={p.data.alt} aria-label={`View larger: ${p.data.alt}`}>
               <Image src={p.data.image} alt={p.data.alt} widths={[400, 640, 900]} sizes="(max-width: 800px) 50vw, 33vw" format="avif" />
             </button>
@@ -70,71 +77,86 @@ const items = await Promise.all(
 </section>
 
 <style>
-  .gallery-section { --pat-bg: var(--cream); --pat-ink: rgb(249 224 139 / 0.35); --pat-size: 30px; }
+  .gallery-section .container { position: relative; }
+  .gallery__note { position: absolute; z-index: 3; top: 0.5rem; right: 1rem; margin: 0; width: 9rem; --r: 5deg; font-size: 1.35rem; text-align: center; }
   .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    margin: -0.75rem 0 clamp(1.75rem, 4vw, 2.75rem);
+    gap: 0.7rem;
+    margin: -0.75rem 0 clamp(2.25rem, 4vw, 3rem);
   }
+  /* Filters are label-maker strips. */
   .filters__btn {
     min-height: 2.75rem;
-    padding: 0.5rem 1.15rem;
-    border: 2px solid var(--ink);
-    border-radius: 999px;
-    background: var(--cream);
+    padding: 0.45rem 1rem;
+    border: 0;
+    border-radius: 3px;
+    background: linear-gradient(#2b2b2b, #111);
     font: inherit;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--ink);
+    color: #f5f5f5;
+    text-shadow: 0 1px 0 rgb(0 0 0 / 0.8), 0 -1px 0 rgb(255 255 255 / 0.35);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 1px 2px 3px rgb(0 0 0 / 0.35);
     cursor: pointer;
-    transition: transform 0.2s var(--ease-bounce), background 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.3s var(--ease), background 0.3s var(--ease);
   }
-  .filters__btn:hover { transform: translateY(-2px); }
-  .filters__btn[aria-pressed='true'] { box-shadow: 3px 3px 0 var(--ink); }
-  .filters__btn[data-filter='all'][aria-pressed='true'] { background: var(--ink); color: var(--cream); }
-  .filters__btn[data-filter='digitals'][aria-pressed='true'] { background: var(--sky); }
-  .filters__btn[data-filter='photoshoots'][aria-pressed='true'] { background: var(--butter); }
-  .filters__btn[data-filter='runway'][aria-pressed='true'] { background: var(--sage); }
-  .filters__btn[data-filter='performance'][aria-pressed='true'] { background: var(--tangerine); }
+  .filters__btn:nth-child(odd) { transform: rotate(-2deg); }
+  .filters__btn:nth-child(even) { transform: rotate(1.5deg); }
+  .filters__btn:hover { transform: rotate(0) translateY(-2px); }
+  .filters__btn[aria-pressed='true'] { background: linear-gradient(#cc2f7d, #9c1450); color: #fff; text-shadow: 0 1px 0 rgb(120 0 50 / 0.6); }
 
   .masonry {
     list-style: none;
     margin: 0;
     padding: 0;
     columns: 3;
-    column-gap: clamp(0.75rem, 1.8vw, 1.25rem);
+    column-gap: clamp(1rem, 2.2vw, 1.75rem);
   }
-  @media (max-width: 800px) { .masonry { columns: 2; } }
+  @media (max-width: 800px) { .masonry { columns: 2; } .gallery__note { display: none; } .container > :global(svg.sticker:nth-child(2)) { display: none; } }
+  @media (max-width: 520px) {
+    .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding: 0.4rem var(--gutter); }
+    .filters::-webkit-scrollbar { display: none; }
+    .filters__btn { flex: none; }
+  }
   .masonry li {
+    position: relative;
     break-inside: avoid;
-    margin-bottom: clamp(0.75rem, 1.8vw, 1.25rem);
+    padding: 0.5rem 0.3rem;
+    margin-bottom: clamp(0.6rem, 1.5vw, 1rem);
   }
   .masonry li[hidden] { display: none; }
+  .masonry li > .tape { top: -0.1rem; left: 50%; margin-left: -3.25rem; transform: rotate(-5deg); }
+  .masonry li:nth-child(odd) > .tape { transform: rotate(6deg); }
+  /* Prints on cream stock, scattered at different angles. */
   .masonry__item {
     display: block;
     width: 100%;
-    padding: 0;
+    padding: 0.5rem 0.5rem 1.6rem;
     border: 0;
-    border-radius: var(--radius);
-    background: var(--paper);
+    border-radius: 2px;
+    background: var(--cream);
     cursor: zoom-in;
-    overflow: hidden;
-    transition: transform 0.3s var(--ease-bounce), box-shadow 0.3s ease;
+    box-shadow: 0 1px 2px rgb(54 32 26 / 0.2), 0 12px 24px -12px rgb(54 32 26 / 0.5);
+    transform: rotate(var(--tilt, 0deg));
+    transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
-  .masonry__item :global(img) {
-    display: block;
-    width: 100%;
-    height: auto;
+  li:nth-child(6n + 1) .masonry__item { --tilt: -3deg; }
+  li:nth-child(6n + 2) .masonry__item { --tilt: 2.2deg; }
+  li:nth-child(6n + 3) .masonry__item { --tilt: -1.2deg; }
+  li:nth-child(6n + 4) .masonry__item { --tilt: 3.4deg; }
+  li:nth-child(6n + 5) .masonry__item { --tilt: -2.4deg; }
+  li:nth-child(6n + 6) .masonry__item { --tilt: 1deg; }
+  li:nth-child(4n + 2) .masonry__item { padding-bottom: 0.5rem; }
+  .masonry__item :global(img) { display: block; width: 100%; height: auto; }
+  .masonry__item:hover, .masonry__item:focus-visible {
+    transform: rotate(0deg) scale(1.04);
+    box-shadow: 0 2px 4px rgb(54 32 26 / 0.2), 0 26px 40px -16px rgb(54 32 26 / 0.6);
+    z-index: 2;
+    position: relative;
   }
-  li:nth-child(5n + 1) .masonry__item { --pop: var(--cherry); }
-  li:nth-child(5n + 2) .masonry__item { --pop: var(--cobalt); }
-  li:nth-child(5n + 3) .masonry__item { --pop: var(--butter); }
-  li:nth-child(5n + 4) .masonry__item { --pop: var(--tangerine); }
-  li:nth-child(5n + 5) .masonry__item { --pop: var(--blush); }
-  .masonry__item:hover, .masonry__item:focus-visible { transform: translate(-3px, -3px) rotate(-0.6deg); box-shadow: 6px 6px 0 var(--pop); }
 
   .lightbox {
     width: 100vw;
@@ -144,17 +166,17 @@ const items = await Promise.all(
     margin: 0;
     padding: 0;
     border: 0;
-    background: color-mix(in srgb, var(--ink) 95%, transparent);
+    background: color-mix(in srgb, var(--wine) 94%, black);
   }
   .lightbox::backdrop { background: transparent; }
   .lightbox[open] { display: grid; place-items: center; }
-  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; border-radius: var(--radius); }
+  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; border: 0.5rem solid var(--cream); border-bottom-width: 2rem; transform: rotate(-1deg); }
   .lightbox__btn {
     position: absolute;
     background: none;
     border: 0;
     color: var(--cream);
-    font-size: 2.5rem;
+    font-size: 2.75rem;
     line-height: 1;
     padding: 0.5rem 0.9rem;
     cursor: pointer;

@@ -39,7 +39,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#fff8ee" />
+    <meta name="theme-color" content="#4b1020" />
 
     <meta property="og:type" content="profile" />
     <meta property="og:title" content={title} />
@@ -52,5 +52,24 @@ const jsonLd = {
   </head>
   <body>
     <slot />
+    <script>
+      // Y2K sparkle trail behind the mouse; skipped on touch screens and for reduced motion.
+      if (matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const colors = ['#ff8fc8', '#e4c88f', '#c084fc', '#ffffff', '#7dd3fc'];
+        let last = 0;
+        addEventListener('pointermove', (e) => {
+          if (e.timeStamp - last < 45) return;
+          last = e.timeStamp;
+          const s = document.createElement('span');
+          s.className = 'trail';
+          s.style.left = `${e.clientX - 7}px`;
+          s.style.top = `${e.clientY - 7}px`;
+          s.style.setProperty('--c', colors[Math.floor(Math.random() * colors.length)]);
+          s.style.setProperty('--dx', `${Math.round(Math.random() * 30 - 15)}px`);
+          s.addEventListener('animationend', () => s.remove());
+          document.body.append(s);
+        });
+      }
+    </script>
   </body>
 </html>
