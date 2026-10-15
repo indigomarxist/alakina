@@ -86,7 +86,7 @@ async function listChildren(parent, extraQuery) {
   do {
     const res = await api('/files', {
       q: `'${parent}' in parents and trashed = false and ${extraQuery}`,
-      fields: 'nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, description, thumbnailLink)',
+      fields: 'nextPageToken, files(id, name, mimeType, createdTime, modifiedTime, description, thumbnailLink, md5Checksum)',
       includeItemsFromAllDrives: 'true',
       pageSize: '1000',
       ...(pageToken && { pageToken }),
@@ -116,8 +116,19 @@ async function listPhotos() {
     const images = await listChildren(folder.id, "mimeType contains 'image/'");
     photos.push(...images.map((f) => ({ ...f, category })));
   }
-  // Newest uploads first.
-  return photos.sort((a, b) => b.createdTime.localeCompare(a.createdTime) || a.id.localeCompare(b.id));
+  // Newest uploads first. The same file uploaded twice (same bytes) shows once.
+  photos.sort((a, b) => b.createdTime.localeCompare(a.createdTime) || a.id.localeCompare(b.id));
+  const seen = new Map();
+  return photos.filter((p) => {
+    if (!p.md5Checksum) return true;
+    const first = seen.get(p.md5Checksum);
+    if (first) {
+      console.warn(`[drive] skipping "${p.category}/${p.name}": same file as "${first.category}/${first.name}"`);
+      return false;
+    }
+    seen.set(p.md5Checksum, p);
+    return true;
+  });
 }
 
 // Her Drive "Description" field wins; otherwise the filename, unless it's a camera

@@ -14,7 +14,9 @@ const drivePhotos = driveManifest
   .filter((e) => driveImages[`../assets/photos/drive/${e.file}`])
   .map((e) => ({ id: `drive-${e.id}`, data: { image: driveImages[`../assets/photos/drive/${e.file}`], alt: e.alt, category: e.category } }));
 
-const photos = [...drivePhotos, ...repoPhotos];
+// Once her Drive folder has photos it is the whole gallery; the repo photos are
+// only a fallback for builds without Drive (local dev, or before setup).
+const photos = drivePhotos.length > 0 ? drivePhotos : repoPhotos;
 
 const filters = [
   ['all', 'All'],
