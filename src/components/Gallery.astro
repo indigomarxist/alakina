@@ -115,7 +115,7 @@ const items = await Promise.all(
     columns: 3;
     column-gap: clamp(1rem, 2.2vw, 1.75rem);
   }
-  @media (max-width: 800px) { .masonry { columns: 2; } .gallery__note { display: none; } }
+  @media (max-width: 800px) { .masonry { columns: 2; } .gallery__note { display: none; } .container > :global(svg.sticker:nth-child(2)) { display: none; } }
   @media (max-width: 520px) {
     .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding: 0.4rem var(--gutter); }
     .filters::-webkit-scrollbar { display: none; }
