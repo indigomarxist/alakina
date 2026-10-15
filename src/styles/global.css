@@ -4,41 +4,45 @@
 @import '@fontsource/cormorant-garamond/400-italic.css';
 @import '@fontsource/cormorant-garamond/500.css';
 @import '@fontsource-variable/jost';
+@import '@fontsource/great-vibes';
 
 /*
-  Direction: "chic and moody", grown-up editorial.
-  Warm near-black night, bone text, oxblood and a muted champagne for accents.
-  Cormorant Garamond (light, high-contrast fashion serif) for headings with italic
-  accents, Jost (geometric, Parisian) for text and small caps labels. Hairline rules,
-  square corners and a faint film grain stand in for the old candy patterns.
+  Direction: "whimsical and fun, but grown and chic" (Alakina, round 4).
+  The middle ground between the candy theme and the moody one: ivory paper and
+  plum-black ink, jewel tones instead of pastels (cherry, rose, honey, cobalt,
+  wine), one colour per section. Cormorant Garamond light headings with Great
+  Vibes script accents, Jost for text. Personality comes from scalloped edges,
+  arched photo frames, fine gold sparkles and a cherry ribbon, kept thin and
+  quiet: hairlines and soft pills, no chunky outlines or offset shadows.
 */
 :root {
-  --night: #110c0e;
-  --night-2: #1a1316;
-  --night-3: #241a1e;
-  --wine: #3d0f19;
-  --oxblood: #6e1a28;
-  --bone: #efe7dc;
-  --bone-soft: #b8aca2;
-  --champagne: #cfae7c;
-  --rose: #d29a9c;
-  --paper: #ece4d8;
-  --ink: #1b1316;
-  --ink-soft: #5c4d52;
+  --ivory: #f8f2e9;
+  --paper: #f1e8db;
+  --ink: #2a1a20;
+  --ink-soft: #66525a;
+  --cherry: #a8182f;
+  --cherry-deep: #87122a;
+  --rose: #f0d3d1;
+  --honey: #ecd79e;
+  --cobalt: #22398a;
+  --wine: #4a1320;
+  --gold: #b58a4c;
+  --gold-light: #e2c590;
 
-  --bg: var(--night);
-  --text: var(--bone);
-  --muted: var(--bone-soft);
-  --line: color-mix(in srgb, var(--bone) 18%, transparent);
-  --accent: var(--champagne);
+  --bg: var(--ivory);
+  --text: var(--ink);
+  --muted: var(--ink-soft);
+  --line: color-mix(in srgb, var(--ink) 18%, transparent);
+  --accent: var(--cherry);
 
   --serif: 'Cormorant Garamond', 'Times New Roman', serif;
   --sans: 'Jost Variable', system-ui, -apple-system, sans-serif;
+  --script: 'Great Vibes', 'Cormorant Garamond', cursive;
   --gutter: clamp(1.25rem, 5vw, 4rem);
   --max: 1200px;
-  --radius: 0;
+  --radius: 0.5rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *,
@@ -53,27 +57,15 @@ body {
   color: var(--text);
   font-family: var(--sans);
   font-size: 1.0625rem;
-  font-weight: 350;
+  font-weight: 370;
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   overflow-x: clip;
 }
 
-/* Film grain over the whole page; purely decorative. */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.07;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
-}
-
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
-::selection { background: var(--oxblood); color: var(--bone); }
+::selection { background: var(--rose); color: var(--ink); }
 
 h1, h2, h3 {
   font-family: var(--serif);
@@ -83,36 +75,41 @@ h1, h2, h3 {
   margin: 0;
 }
 h1 em, h2 em {
-  font-style: italic;
-  font-weight: 300;
+  font-family: var(--script);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.15em;
+  line-height: 0.8;
+  letter-spacing: 0;
   color: var(--accent);
+  padding-inline: 0.04em 0.1em;
 }
 
 .container { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
 
-.section { position: relative; padding-block: clamp(5rem, 11vw, 9rem); }
-.section--raised { background: var(--night-2); }
+.section { position: relative; padding-block: clamp(5rem, 11vw, 8.5rem); }
 
 .eyebrow {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem;
   font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.32em;
+  font-weight: 450;
+  letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--muted);
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.25rem;
 }
-.eyebrow::after {
+.eyebrow::before {
   content: '';
-  width: 3.5rem;
-  height: 1px;
-  background: currentColor;
-  opacity: 0.6;
+  flex: none;
+  width: 0.7rem;
+  height: 0.7rem;
+  background: var(--gold);
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
 }
 
-.section-title { font-size: clamp(2.8rem, 6.5vw, 5rem); margin-bottom: clamp(2.5rem, 6vw, 4rem); }
+.section-title { font-size: clamp(2.8rem, 6.5vw, 4.75rem); margin-bottom: clamp(2.25rem, 5vw, 3.5rem); }
 
 .btn {
   display: inline-flex;
@@ -120,29 +117,50 @@ h1 em, h2 em {
   justify-content: center;
   gap: 0.5rem;
   min-height: 3rem;
-  padding: 0.85rem 1.9rem;
-  border: 1px solid color-mix(in srgb, var(--bone) 55%, transparent);
-  border-radius: 0;
+  padding: 0.8rem 1.75rem;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
   font-family: var(--sans);
   font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: 0.24em;
+  font-weight: 450;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
   background: transparent;
-  color: var(--bone);
+  color: var(--ink);
   cursor: pointer;
-  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+  transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
 }
-.btn:hover, .btn:focus-visible { background: var(--bone); color: var(--night); border-color: var(--bone); }
-.btn--solid { background: var(--bone); color: var(--night); border-color: var(--bone); }
-.btn--solid:hover, .btn--solid:focus-visible { background: var(--champagne); border-color: var(--champagne); color: var(--night); }
+.btn:hover, .btn:focus-visible { background: var(--ink); color: var(--ivory); transform: translateY(-2px); }
+.btn--solid { background: var(--cherry); color: #fff; border-color: var(--cherry); }
+.btn--solid:hover, .btn--solid:focus-visible { background: var(--cherry-deep); border-color: var(--cherry-deep); color: #fff; }
 
-:focus-visible { outline: 2px solid var(--champagne); outline-offset: 3px; }
+:focus-visible { outline: 2px solid var(--cobalt); outline-offset: 3px; }
 
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Quiet patterns ---------- */
+.pat-pinstripe {
+  background-image: repeating-linear-gradient(90deg, var(--pat-ink) 0 1px, transparent 1px var(--pat-size, 28px));
+}
+.pat-dots {
+  background-image: radial-gradient(var(--pat-ink) 1.5px, transparent 2px);
+  background-size: var(--pat-size, 26px) var(--pat-size, 26px);
+}
+
+/* Scalloped top edge in the section's own colour (set --sc). */
+.scallop-top::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -13px;
+  height: 14px;
+  background: radial-gradient(circle at 50% 100%, var(--sc) 13px, transparent 14px) 0 0 / 28px 14px repeat-x;
+  pointer-events: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

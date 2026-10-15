@@ -14,11 +14,11 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .footer { padding-block: 2.5rem; background: var(--night); color: var(--muted); border-top: 1px solid var(--line); }
-  .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; }
+  .footer { padding-block: 2.25rem; background: var(--ink); color: color-mix(in srgb, var(--ivory) 75%, transparent); }
+  .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; }
   p { margin: 0; }
-  .footer__name { font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0.36em; color: var(--bone); margin-right: 0.75rem; }
+  .footer__name { font-family: var(--script); font-size: 2.1rem; letter-spacing: 0; text-transform: none; color: var(--ivory); margin-right: 0.6rem; vertical-align: -0.2em; }
   .footer__links { display: flex; gap: 0.5rem; }
-  a { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: none; padding: 0.5rem 0.75rem; transition: color 0.3s var(--ease); }
-  a:hover { color: var(--champagne); }
+  a { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--ivory) 30%, transparent); transition: background 0.3s var(--ease), color 0.3s var(--ease); }
+  a:hover { background: var(--ivory); color: var(--ink); }
 </style>

@@ -2,11 +2,12 @@
 import { Image } from 'astro:assets';
 import portrait from '../assets/photos/headshot-bw.jpg';
 import { profile } from '../data/profile';
+import Sparkle from './Sparkle.astro';
 
 const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 ---
 
-<section class="section contact" id="contact">
+<section class="section contact scallop-top" id="contact">
   <div class:list={["container", "contact__inner", { "contact__inner--single": !formspreeId }]}>
     <div>
       <p class="eyebrow">Contact</p>
@@ -61,6 +62,8 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
         </form>
       ) : (
         <div class="contact__photo">
+          <Sparkle color="var(--gold-light)" size="2rem" style="top:-0.75rem;left:-1.5rem;z-index:1" />
+          <Sparkle color="var(--rose)" size="1.2rem" style="bottom:18%;right:-1.25rem;z-index:1;animation-delay:-2.2s" />
           <Image src={portrait} alt="Alakina Lee, black and white headshot" widths={[400, 640, 900]} sizes="(max-width: 800px) 0px, 36vw" format="avif" />
         </div>
       )
@@ -70,13 +73,15 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
 
 <style>
   .contact {
-    background:
-      radial-gradient(70% 90% at 85% 10%, color-mix(in srgb, var(--oxblood) 70%, transparent), transparent 70%),
-      var(--wine);
-    color: var(--bone);
-    --muted: color-mix(in srgb, var(--bone) 72%, transparent);
-    --line: color-mix(in srgb, var(--bone) 22%, transparent);
+    --sc: var(--wine);
+    --accent: var(--gold-light);
+    --muted: color-mix(in srgb, var(--ivory) 75%, transparent);
+    --line: color-mix(in srgb, var(--ivory) 24%, transparent);
+    background: var(--wine);
+    color: var(--ivory);
   }
+  .contact :global(.eyebrow)::before { background: var(--gold-light); }
+  .contact :focus-visible { outline-color: var(--gold-light); }
   .contact__inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
   .contact__inner--single { grid-template-columns: 7fr 5fr; align-items: center; }
   .contact__photo { position: relative; }
@@ -84,34 +89,39 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
     content: '';
     position: absolute;
     inset: -1.1rem 1.1rem 1.1rem -1.1rem;
-    border: 1px solid color-mix(in srgb, var(--champagne) 55%, transparent);
+    border: 1px solid var(--gold-light);
+    border-radius: 999px 999px var(--radius) var(--radius);
     pointer-events: none;
   }
-  .contact__photo :global(img) { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; filter: contrast(1.05); }
+  .contact__photo :global(img) { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 999px 999px var(--radius) var(--radius); }
   .lead { max-width: 46ch; margin: 0 0 2.25rem; font-family: var(--serif); font-style: italic; font-size: 1.5rem; line-height: 1.4; }
   .details { margin: 0 0 2.5rem; border-top: 1px solid var(--line); }
   .details div { display: grid; grid-template-columns: 8.5rem 1fr; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
-  dt { font-size: 0.68rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); align-self: center; }
+  dt { font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); align-self: center; }
   dd { margin: 0; font-family: var(--serif); font-size: 1.5rem; overflow-wrap: anywhere; }
-  dd a { display: inline-block; padding-block: 0.4rem; text-decoration: none; background: linear-gradient(var(--champagne), var(--champagne)) 0 88% / 0 1px no-repeat; transition: background-size 0.4s var(--ease); }
+  dd a { display: inline-block; padding-block: 0.4rem; text-decoration: none; background: linear-gradient(var(--gold-light), var(--gold-light)) 0 88% / 0 1px no-repeat; transition: background-size 0.4s var(--ease); }
   dd a:hover { background-size: 100% 1px; }
   .downloads { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .contact .btn { color: var(--ivory); border-color: color-mix(in srgb, var(--ivory) 60%, transparent); }
+  .contact .btn:hover, .contact .btn:focus-visible { background: var(--ivory); color: var(--wine); border-color: var(--ivory); }
+  .contact .btn--solid { background: var(--ivory); color: var(--wine); border-color: var(--ivory); }
+  .contact .btn--solid:hover, .contact .btn--solid:focus-visible { background: var(--gold-light); border-color: var(--gold-light); color: var(--wine); }
   .form { display: grid; gap: 1.25rem; }
-  label { display: grid; gap: 0.4rem; font-size: 0.68rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); }
+  label { display: grid; gap: 0.4rem; font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
   input, textarea {
     font: inherit;
     font-size: 1.05rem;
     letter-spacing: normal;
     text-transform: none;
-    color: var(--bone);
+    color: var(--ivory);
     background: transparent;
     border: 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--bone) 45%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--ivory) 50%, transparent);
     border-radius: 0;
     padding: 0.6rem 0;
     resize: vertical;
   }
-  input:focus, textarea:focus { outline: none; border-bottom-color: var(--champagne); }
+  input:focus, textarea:focus { outline: none; border-bottom-color: var(--gold-light); }
   .form button { justify-self: start; margin-top: 0.75rem; }
   @media (max-width: 800px) {
     .contact__inner, .contact__inner--single { grid-template-columns: 1fr; }

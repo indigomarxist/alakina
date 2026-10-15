@@ -2,11 +2,13 @@
 import { Image } from 'astro:assets';
 import hero from '../assets/photos/full-length.jpg';
 import { profile } from '../data/profile';
+import Sparkle from './Sparkle.astro';
 
 const roles = profile.tagline.split('·').map((r) => r.trim());
+const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
 ---
 
-<section class="hero" id="top">
+<section class="hero pat-pinstripe" id="top">
   <div class="container hero__inner">
     <div class="hero__text">
       <p class="eyebrow">{profile.based}</p>
@@ -20,7 +22,8 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
       </div>
     </div>
 
-    <figure class="hero__art">
+    <div class="hero__art">
+      <div class="hero__arch" aria-hidden="true"></div>
       <div class="hero__photo">
         <Image
           src={hero}
@@ -32,18 +35,26 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
           format="avif"
         />
       </div>
-      <figcaption>Portfolio <span>{new Date().getFullYear()}</span></figcaption>
-    </figure>
+      <svg class="hero__badge" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <defs><path id="ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" /></defs>
+        <circle cx="100" cy="100" r="98" />
+        <circle class="hero__badge-inner" cx="100" cy="100" r="52" />
+        <text><textPath href="#ring" textLength="452">{ring}</textPath></text>
+        <path class="hero__badge-star" d="M100 76C101.5 91 109 98.5 124 100C109 101.5 101.5 109 100 124C98.5 109 91 101.5 76 100C91 98.5 98.5 91 100 76Z" />
+      </svg>
+      <Sparkle size="2rem" style="top:4%;left:-7%" />
+      <Sparkle color="var(--cherry)" size="1.1rem" style="top:18%;right:-5%;animation-delay:-1.5s" />
+      <Sparkle size="1.5rem" style="bottom:10%;right:-7%;animation-delay:-3s" />
+    </div>
   </div>
 </section>
 
 <style>
   .hero {
     position: relative;
-    padding-block: clamp(3rem, 7vw, 6rem) clamp(4rem, 8vw, 7rem);
-    background:
-      radial-gradient(60% 70% at 78% 40%, color-mix(in srgb, var(--oxblood) 45%, transparent), transparent 70%),
-      var(--night);
+    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(4rem, 8vw, 6.5rem);
+    --pat-ink: color-mix(in srgb, var(--rose) 55%, transparent);
+    --pat-size: 34px;
   }
   .hero__inner {
     display: grid;
@@ -52,63 +63,71 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
     gap: clamp(2.5rem, 6vw, 6rem);
   }
   h1 {
-    font-size: clamp(4.2rem, 11vw, 9.5rem);
-    line-height: 0.88;
+    font-size: clamp(4.2rem, 10.5vw, 8.75rem);
+    line-height: 0.9;
     letter-spacing: -0.02em;
   }
-  h1 em { display: block; padding-left: 0.9em; }
+  h1 em { display: block; padding-left: 1em; margin-top: 0.05em; font-size: 1.2em; line-height: 0.85; }
   .hero__tagline {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0 1.1rem;
-    margin: 2.5rem 0 2.75rem;
-    font-size: 0.8rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--muted);
+    gap: 0.2rem 0.9rem;
+    margin: 2.25rem 0 2.5rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: clamp(1.35rem, 2.2vw, 1.65rem);
   }
   .hero__tagline span + span::before {
     content: '';
     display: inline-block;
-    width: 1.5rem;
-    height: 1px;
-    margin-right: 1.1rem;
-    vertical-align: middle;
-    background: var(--champagne);
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-right: 0.9rem;
+    vertical-align: 0.2em;
+    background: var(--gold);
+    transform: rotate(45deg);
   }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; }
 
-  .hero__art { position: relative; justify-self: center; width: min(100%, 30rem); margin: 0; }
-  .hero__art::before {
+  .hero__art { position: relative; justify-self: center; width: min(100%, 29rem); }
+  .hero__arch {
+    position: absolute;
+    inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+    border-radius: 999px 999px var(--radius) var(--radius);
+    background: var(--rose);
+  }
+  .hero__arch::after {
     content: '';
     position: absolute;
-    inset: -1.1rem 1.1rem 2.4rem -1.1rem;
-    border: 1px solid color-mix(in srgb, var(--champagne) 55%, transparent);
-    pointer-events: none;
+    inset: -2.5rem 2.5rem 2.5rem -2.5rem;
+    border: 1px solid var(--gold);
+    border-radius: inherit;
   }
-  .hero__photo { position: relative; overflow: hidden; background: var(--night-2); }
-  .hero__photo :global(img) {
-    width: 100%;
-    aspect-ratio: 3 / 4.2;
-    object-fit: cover;
-    object-position: 50% 25%;
-    filter: saturate(0.85) contrast(1.05);
+  .hero__photo {
+    position: relative;
+    border-radius: 999px 999px var(--radius) var(--radius);
+    overflow: hidden;
+    background: var(--paper);
   }
-  figcaption {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    margin-top: 0.9rem;
-    font-size: 0.7rem;
-    letter-spacing: 0.32em;
-    text-transform: uppercase;
-    color: var(--muted);
+  .hero__photo :global(img) { width: 100%; aspect-ratio: 3 / 4.2; object-fit: cover; object-position: 50% 25%; }
+
+  .hero__badge {
+    position: absolute;
+    width: clamp(6rem, 11vw, 7.75rem);
+    left: -2.75rem;
+    bottom: 9%;
+    animation: spin 40s linear infinite;
   }
-  figcaption span { font-family: var(--serif); font-style: italic; font-size: 1rem; letter-spacing: 0.05em; text-transform: none; color: var(--champagne); }
+  .hero__badge circle { fill: var(--cherry); }
+  .hero__badge .hero__badge-inner { fill: none; stroke: var(--gold-light); stroke-width: 1; }
+  .hero__badge text { font-family: var(--sans); font-size: 13px; font-weight: 450; letter-spacing: 1px; fill: var(--ivory); }
+  .hero__badge-star { fill: var(--gold-light); }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   @media (max-width: 800px) {
     .hero__inner { grid-template-columns: 1fr; }
-    .hero__art { order: -1; width: min(74%, 21rem); margin: 1rem 0 0 1rem; }
+    .hero__art { order: -1; width: min(72%, 21rem); margin: 1.5rem 0 1rem 2rem; }
+    .hero__badge { left: -2rem; }
   }
 </style>

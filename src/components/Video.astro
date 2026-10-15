@@ -37,7 +37,7 @@ const items = await Promise.all(
 
 {
   items.length > 0 && (
-    <section class="section video" id="video">
+    <section class="section video scallop-top" id="video">
       <div class="container">
         <p class="eyebrow">Video</p>
         <h2 class="section-title">In <em>motion</em></h2>
@@ -80,18 +80,18 @@ const items = await Promise.all(
   }
   .videos__item { flex: 1 1 32rem; max-width: 48rem; }
   .videos__item--portrait { flex: 0 1 22rem; }
-  .video { background: var(--night-2); text-align: center; }
+  .video { --accent: var(--cherry-deep); --sc: var(--rose); background: var(--rose); text-align: center; }
   .video :global(.eyebrow) { justify-content: center; }
-  .video :global(.eyebrow)::before { content: ''; width: 3.5rem; height: 1px; background: currentColor; opacity: 0.6; }
   .videos__frame {
-    background: var(--night);
+    background: var(--ink);
     aspect-ratio: 16 / 9;
-    border: 1px solid var(--line);
+    border-radius: var(--radius);
     overflow: hidden;
+    box-shadow: 0 18px 40px -20px color-mix(in srgb, var(--wine) 70%, transparent);
   }
-  .videos__item--portrait .videos__frame { aspect-ratio: 9 / 16; }
+  .videos__item--portrait .videos__frame { aspect-ratio: 9 / 16; border-radius: 999px 999px var(--radius) var(--radius); }
   .videos__frame video,
   .videos__frame iframe { display: block; width: 100%; height: 100%; border: 0; object-fit: cover; }
-  .videos__title { font-family: var(--serif); font-style: italic; font-weight: 300; font-size: 1.9rem; line-height: 1.1; margin: 1.25rem 0 0.2rem; }
-  .videos__caption { color: var(--muted); margin: 0; }
+  .videos__title { font-family: var(--script); font-size: 2.4rem; line-height: 1; margin: 1.25rem 0 0.2rem; color: var(--cherry-deep); }
+  .videos__caption { color: var(--ink-soft); margin: 0; }
 </style>

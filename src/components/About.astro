@@ -2,11 +2,14 @@
 import { Image } from 'astro:assets';
 import portrait from '../assets/photos/three-quarter.jpg';
 import { profile } from '../data/profile';
+import Sparkle from './Sparkle.astro';
 ---
 
-<section class="section about-section" id="about">
+<section class="section about-section scallop-top" id="about">
   <div class="container about">
     <div class="about__photo">
+      <Sparkle color="var(--cherry)" size="1.8rem" style="top:-0.5rem;right:6%;z-index:1" />
+      <Sparkle size="1.2rem" style="bottom:14%;left:-1.25rem;z-index:1;animation-delay:-2s" />
       <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
     </div>
     <div>
@@ -29,14 +32,16 @@ import { profile } from '../data/profile';
 </section>
 
 <style>
-  .about-section { background: var(--night); }
+  .about-section { --accent: var(--cherry-deep); --sc: var(--honey); background: var(--honey); }
+  .about :global(.eyebrow)::before { background: var(--cherry-deep); }
   .about { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
   .about__photo { position: relative; }
   .about__photo::before {
     content: '';
     position: absolute;
-    inset: 1.1rem -1.1rem -1.1rem 1.1rem;
-    border: 1px solid color-mix(in srgb, var(--champagne) 55%, transparent);
+    inset: -1rem;
+    border: 1px solid var(--cherry-deep);
+    border-radius: 50% / 42%;
     pointer-events: none;
   }
   .about__photo :global(img) {
@@ -45,24 +50,25 @@ import { profile } from '../data/profile';
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: 50% 20%;
-    filter: saturate(0.85) contrast(1.05);
+    border-radius: 50% / 40%;
   }
-  .about__text { max-width: 58ch; margin: 0 0 1.25rem; color: color-mix(in srgb, var(--bone) 88%, transparent); }
+  .about__text { max-width: 58ch; margin: 0 0 1.25rem; }
   .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin: 2.75rem 0 0;
-    border-top: 1px solid var(--line);
+    gap: 0.6rem;
+    margin: 2.5rem 0 0;
   }
   .stats div {
-    padding: 1rem 1rem 1.1rem 0;
-    border-bottom: 1px solid var(--line);
+    padding: 0.75rem 1rem 0.85rem;
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--ivory) 75%, transparent);
   }
-  dt { font-size: 0.68rem; font-weight: 400; letter-spacing: 0.26em; text-transform: uppercase; color: var(--muted); }
-  dd { margin: 0.2rem 0 0; font-family: var(--serif); font-size: 1.6rem; font-weight: 400; line-height: 1.2; }
+  dt { font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-soft); }
+  dd { margin: 0.15rem 0 0; font-family: var(--serif); font-size: 1.55rem; font-weight: 400; line-height: 1.2; }
   @media (max-width: 800px) {
     .about { grid-template-columns: 1fr; }
-    .about__photo { width: min(85%, 26rem); }
+    .about__photo { width: min(80%, 24rem); margin: 1rem; }
   }
   @media (max-width: 520px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
