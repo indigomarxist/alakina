@@ -9,7 +9,7 @@ const gallery = defineCollection({
       image: image(),
       alt: z.string(),
       order: z.number(),
-      category: z.enum(['headshots', 'digitals', 'editorial', 'runway', 'stage']),
+      category: z.enum(['digitals', 'performance', 'photoshoots', 'runway']),
     }),
 });
 

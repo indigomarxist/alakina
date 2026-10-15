@@ -1,0 +1,73 @@
+# Checks Alakina's Google Drive photo folder every 15 minutes and redeploys only when
+# something in it changed (added, removed, moved between categories, or edited).
+# The check itself just lists the folder, so a quiet run takes a few seconds.
+name: Drive photo sync
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GOOGLE_SERVICE_ACCOUNT_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_KEY }}
+      DRIVE_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
+      INSTAGRAM_ACCESS_TOKEN: ${{ secrets.INSTAGRAM_ACCESS_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Fingerprint the Drive folder
+        id: drive
+        run: |
+          if [ -z "$GOOGLE_SERVICE_ACCOUNT_KEY" ] || [ -z "$DRIVE_FOLDER_ID" ]; then
+            echo "::warning::Drive secrets are not set; nothing to sync."
+            exit 0
+          fi
+          node scripts/sync-drive.mjs --fingerprint
+          echo "${{ github.sha }}" > .drive-fingerprint
+
+      # A cache hit means this exact folder state (on this commit) was already deployed.
+      - name: Already deployed?
+        id: seen
+        if: steps.drive.outputs.fingerprint
+        uses: actions/cache/restore@v4
+        with:
+          path: .drive-fingerprint
+          key: drive-${{ steps.drive.outputs.fingerprint }}-${{ github.sha }}
+          lookup-only: true
+
+      - if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
+        run: npm ci
+
+      - if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
+        run: npm run build
+
+      - name: Deploy to Cloudflare
+        if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Remember this folder state
+        if: steps.drive.outputs.fingerprint && steps.seen.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v4
+        with:
+          path: .drive-fingerprint
+          key: drive-${{ steps.drive.outputs.fingerprint }}-${{ github.sha }}
