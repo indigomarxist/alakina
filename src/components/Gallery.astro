@@ -2,15 +2,27 @@
 import { Image, getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
-const photos = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+const repoPhotos = (await getCollection('gallery')).sort((a, b) => a.data.order - b.data.order);
+
+// Photos Alakina adds to Google Drive, pulled in by scripts/sync-drive.mjs before the
+// build (newest first). Both globs match nothing when Drive isn't configured.
+type DriveEntry = { id: string; file: string; alt: string; category: (typeof repoPhotos)[number]['data']['category'] };
+const driveImages = import.meta.glob<ImageMetadata>('../assets/photos/drive/*/*.jpg', { eager: true, import: 'default' });
+const driveManifest: DriveEntry[] =
+  Object.values(import.meta.glob<DriveEntry[]>('../assets/photos/drive/manifest.json', { eager: true, import: 'default' }))[0] ?? [];
+const drivePhotos = driveManifest
+  .filter((e) => driveImages[`../assets/photos/drive/${e.file}`])
+  .map((e) => ({ id: `drive-${e.id}`, data: { image: driveImages[`../assets/photos/drive/${e.file}`], alt: e.alt, category: e.category } }));
+
+const photos = [...drivePhotos, ...repoPhotos];
 
 const filters = [
   ['all', 'All'],
-  ['headshots', 'Headshots'],
   ['digitals', 'Digitals'],
-  ['editorial', 'Editorial'],
-  ['runway', 'Runway'],
   ['stage', 'Stage'],
+  ['editorial', 'Editorial'],
+  ['commercial', 'Commercial'],
+  ['runway', 'Runway'],
 ].filter(([key]) => key === 'all' || photos.some((p) => p.data.category === key));
 
 // Large versions for the lightbox, generated at build time.
@@ -82,7 +94,7 @@ const items = await Promise.all(
   .filters__btn:hover { transform: translateY(-2px); }
   .filters__btn[aria-pressed='true'] { box-shadow: 3px 3px 0 var(--ink); }
   .filters__btn[data-filter='all'][aria-pressed='true'] { background: var(--ink); color: var(--cream); }
-  .filters__btn[data-filter='headshots'][aria-pressed='true'] { background: var(--blush); }
+  .filters__btn[data-filter='commercial'][aria-pressed='true'] { background: var(--blush); }
   .filters__btn[data-filter='digitals'][aria-pressed='true'] { background: var(--sky); }
   .filters__btn[data-filter='editorial'][aria-pressed='true'] { background: var(--butter); }
   .filters__btn[data-filter='runway'][aria-pressed='true'] { background: var(--sage); }
