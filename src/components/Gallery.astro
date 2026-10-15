@@ -35,7 +35,7 @@ const items = await Promise.all(
 );
 ---
 
-<section class="section gallery-section pat-dots" id="portfolio">
+<section class="section gallery-section paper" id="portfolio">
   <div class="container">
     <p class="eyebrow">Portfolio</p>
     <h2 class="section-title">Selected <em>work</em></h2>
@@ -70,7 +70,6 @@ const items = await Promise.all(
 </section>
 
 <style>
-  .gallery-section { background-color: var(--ivory); --pat-ink: color-mix(in srgb, var(--gold) 28%, transparent); }
   .filters {
     display: flex;
     flex-wrap: wrap;
@@ -82,59 +81,64 @@ const items = await Promise.all(
     padding: 0.5rem 1.2rem;
     border: 1px solid var(--line);
     border-radius: 999px;
-    background: var(--ivory);
+    background: var(--cream);
     font: inherit;
     font-size: 0.75rem;
-    font-weight: 450;
+    font-weight: 480;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--ink);
     cursor: pointer;
-    transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease);
+    transition: background 0.3s var(--ease), color 0.3s var(--ease), border-color 0.3s var(--ease), transform 0.3s var(--ease);
   }
-  .filters__btn:hover { border-color: var(--cherry); color: var(--cherry); }
-  .filters__btn[aria-pressed='true'] { background: var(--cherry); border-color: var(--cherry); color: #fff; }
+  .filters__btn:hover { border-color: var(--burgundy); color: var(--burgundy); transform: rotate(-2deg); }
+  .filters__btn[aria-pressed='true'] { background: var(--burgundy); border-color: var(--burgundy); color: var(--cream); }
 
   .masonry {
     list-style: none;
     margin: 0;
     padding: 0;
     columns: 3;
-    column-gap: clamp(0.7rem, 1.6vw, 1.1rem);
+    column-gap: clamp(0.9rem, 2vw, 1.5rem);
   }
   @media (max-width: 800px) { .masonry { columns: 2; } }
   @media (max-width: 520px) {
-    .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+    .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); padding-block: 0.25rem; }
     .filters::-webkit-scrollbar { display: none; }
     .filters__btn { flex: none; }
   }
   .masonry li {
     break-inside: avoid;
-    margin-bottom: clamp(0.7rem, 1.6vw, 1.1rem);
+    padding: 0.3rem;
+    margin-bottom: clamp(0.6rem, 1.5vw, 1rem);
   }
   .masonry li[hidden] { display: none; }
+  /* Each photo is a small print on cream stock, set slightly askew like a collage. */
   .masonry__item {
     display: block;
     width: 100%;
-    padding: 0;
+    padding: 0.4rem;
     border: 0;
-    border-radius: var(--radius);
-    background: var(--paper);
+    border-radius: 2px;
+    background: var(--cream);
     cursor: zoom-in;
-    overflow: hidden;
+    box-shadow: 0 1px 2px rgb(54 32 26 / 0.18), 0 10px 22px -12px rgb(54 32 26 / 0.45);
+    transform: rotate(var(--tilt, 0deg));
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
+  li:nth-child(4n + 1) .masonry__item { --tilt: -1.2deg; }
+  li:nth-child(4n + 2) .masonry__item { --tilt: 0.9deg; }
+  li:nth-child(4n + 3) .masonry__item { --tilt: -0.5deg; }
+  li:nth-child(4n + 4) .masonry__item { --tilt: 1.4deg; }
   .masonry__item :global(img) {
     display: block;
     width: 100%;
     height: auto;
-    transition: transform 0.9s var(--ease);
   }
   .masonry__item:hover, .masonry__item:focus-visible {
-    transform: translateY(-4px);
-    box-shadow: 0 14px 30px -14px color-mix(in srgb, var(--wine) 55%, transparent);
+    transform: rotate(0deg) scale(1.02);
+    box-shadow: 0 2px 4px rgb(54 32 26 / 0.2), 0 22px 36px -16px rgb(54 32 26 / 0.55);
   }
-  .masonry__item:hover :global(img) { transform: scale(1.03); }
 
   .lightbox {
     width: 100vw;
@@ -144,18 +148,17 @@ const items = await Promise.all(
     margin: 0;
     padding: 0;
     border: 0;
-    background: color-mix(in srgb, var(--wine) 96%, black);
+    background: color-mix(in srgb, var(--wine) 94%, black);
   }
   .lightbox::backdrop { background: transparent; }
   .lightbox[open] { display: grid; place-items: center; }
-  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; border-radius: var(--radius); }
+  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; border: 0.4rem solid var(--cream); }
   .lightbox__btn {
     position: absolute;
     background: none;
     border: 0;
-    color: var(--ivory);
+    color: var(--cream);
     font-size: 2.75rem;
-    font-weight: 300;
     line-height: 1;
     padding: 0.5rem 0.9rem;
     cursor: pointer;

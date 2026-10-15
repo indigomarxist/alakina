@@ -8,7 +8,7 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
 const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
 ---
 
-<section class="hero pat-pinstripe" id="top">
+<section class="hero velvet" id="top">
   <div class="container hero__inner">
     <div class="hero__text">
       <p class="eyebrow">{profile.based}</p>
@@ -23,38 +23,40 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
     </div>
 
     <div class="hero__art">
-      <div class="hero__arch" aria-hidden="true"></div>
-      <div class="hero__photo">
-        <Image
-          src={hero}
-          alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
-          widths={[480, 720, 960, 1280]}
-          sizes="(max-width: 800px) 90vw, 42vw"
-          loading="eager"
-          fetchpriority="high"
-          format="avif"
-        />
+      <div class="hero__arch leopard" aria-hidden="true"></div>
+      <div class="hero__frame">
+        <span class="tape" style="top:-0.7rem;left:50%;transform:translateX(-50%) rotate(-4deg)" aria-hidden="true"></span>
+        <div class="hero__photo">
+          <Image
+            src={hero}
+            alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
+            widths={[480, 720, 960, 1280]}
+            sizes="(max-width: 800px) 90vw, 42vw"
+            loading="eager"
+            fetchpriority="high"
+            format="avif"
+          />
+        </div>
       </div>
       <svg class="hero__badge" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
         <defs><path id="ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" /></defs>
         <circle cx="100" cy="100" r="98" />
         <circle class="hero__badge-inner" cx="100" cy="100" r="52" />
         <text><textPath href="#ring" textLength="452">{ring}</textPath></text>
-        <path class="hero__badge-star" d="M100 76C101.5 91 109 98.5 124 100C109 101.5 101.5 109 100 124C98.5 109 91 101.5 76 100C91 98.5 98.5 91 100 76Z" />
+        <path class="hero__badge-star" d="M100 74C101.5 90 110 98.5 126 100C110 101.5 101.5 110 100 126C98.5 110 90 101.5 74 100C90 98.5 98.5 90 100 74Z" />
       </svg>
-      <Sparkle size="2rem" style="top:4%;left:-7%" />
-      <Sparkle color="var(--cherry)" size="1.1rem" style="top:18%;right:-5%;animation-delay:-1.5s" />
-      <Sparkle size="1.5rem" style="bottom:10%;right:-7%;animation-delay:-3s" />
+      <Sparkle color="var(--gold-light)" size="2.4rem" style="top:6%;left:-9%" />
+      <Sparkle color="var(--blush)" size="1.2rem" style="top:24%;right:-7%;animation-delay:-1.5s" />
+      <Sparkle color="var(--gold-light)" size="1.6rem" style="bottom:6%;right:-8%;animation-delay:-3s" />
     </div>
   </div>
 </section>
+<div class="trim-leopard" aria-hidden="true"></div>
 
 <style>
   .hero {
     position: relative;
     padding-block: clamp(3rem, 7vw, 5.5rem) clamp(4rem, 8vw, 6.5rem);
-    --pat-ink: color-mix(in srgb, var(--rose) 55%, transparent);
-    --pat-size: 34px;
   }
   .hero__inner {
     display: grid;
@@ -63,11 +65,12 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
     gap: clamp(2.5rem, 6vw, 6rem);
   }
   h1 {
-    font-size: clamp(4.2rem, 10.5vw, 8.75rem);
-    line-height: 0.9;
-    letter-spacing: -0.02em;
+    font-size: clamp(4rem, 10vw, 8.25rem);
+    font-weight: 450;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
   }
-  h1 em { display: block; padding-left: 1em; margin-top: 0.05em; font-size: 1.2em; line-height: 0.85; }
+  h1 em { display: block; padding-left: 1em; margin-top: 0.06em; font-size: 1.25em; line-height: 0.85; color: var(--blush); }
   .hero__tagline {
     display: flex;
     flex-wrap: wrap;
@@ -76,58 +79,57 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
     margin: 2.25rem 0 2.5rem;
     font-family: var(--serif);
     font-style: italic;
-    font-size: clamp(1.35rem, 2.2vw, 1.65rem);
+    font-size: clamp(1.3rem, 2.1vw, 1.6rem);
   }
   .hero__tagline span + span::before {
     content: '';
     display: inline-block;
-    width: 0.45rem;
-    height: 0.45rem;
+    width: 0.7rem;
+    height: 0.7rem;
     margin-right: 0.9rem;
-    vertical-align: 0.2em;
-    background: var(--gold);
-    transform: rotate(45deg);
+    vertical-align: 0.05em;
+    background: var(--gold-light);
+    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
   }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; }
 
-  .hero__art { position: relative; justify-self: center; width: min(100%, 29rem); }
+  .hero__art { position: relative; justify-self: center; width: min(100%, 28rem); }
   .hero__arch {
     position: absolute;
-    inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+    inset: 1.5rem -1.5rem -1.5rem 1.5rem;
     border-radius: 999px 999px var(--radius) var(--radius);
-    background: var(--rose);
+    transform: rotate(3deg);
+    box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.6);
   }
-  .hero__arch::after {
-    content: '';
-    position: absolute;
-    inset: -2.5rem 2.5rem 2.5rem -2.5rem;
-    border: 1px solid var(--gold);
-    border-radius: inherit;
-  }
-  .hero__photo {
+  /* Gilt frame: two thin gold lines around a dark mat. */
+  .hero__frame {
     position: relative;
+    padding: 0.55rem;
     border-radius: 999px 999px var(--radius) var(--radius);
-    overflow: hidden;
-    background: var(--paper);
+    background: var(--wine);
+    box-shadow: 0 0 0 1.5px var(--gold), 0 0 0 5px var(--wine), 0 0 0 6px var(--gold-light), 0 24px 50px -20px rgb(0 0 0 / 0.7);
+    transform: rotate(-1.5deg);
   }
+  .hero__photo { overflow: hidden; border-radius: 999px 999px calc(var(--radius) - 0.1rem) calc(var(--radius) - 0.1rem); background: var(--cocoa); }
   .hero__photo :global(img) { width: 100%; aspect-ratio: 3 / 4.2; object-fit: cover; object-position: 50% 25%; }
 
   .hero__badge {
     position: absolute;
+    z-index: 2;
     width: clamp(6rem, 11vw, 7.75rem);
     left: -2.75rem;
     bottom: 9%;
     animation: spin 40s linear infinite;
   }
-  .hero__badge circle { fill: var(--cherry); }
+  .hero__badge circle { fill: var(--olive); }
   .hero__badge .hero__badge-inner { fill: none; stroke: var(--gold-light); stroke-width: 1; }
-  .hero__badge text { font-family: var(--sans); font-size: 13px; font-weight: 450; letter-spacing: 1px; fill: var(--ivory); }
-  .hero__badge-star { fill: var(--gold-light); }
+  .hero__badge text { font-family: var(--sans); font-size: 13px; font-weight: 480; letter-spacing: 1px; fill: var(--cream); }
+  .hero__badge-star { fill: var(--blush); }
   @keyframes spin { to { transform: rotate(360deg); } }
 
   @media (max-width: 800px) {
     .hero__inner { grid-template-columns: 1fr; }
-    .hero__art { order: -1; width: min(72%, 21rem); margin: 1.5rem 0 1rem 2rem; }
-    .hero__badge { left: -2rem; }
+    .hero__art { order: -1; width: min(70%, 20rem); margin: 1.5rem 0 1.25rem 2.25rem; }
+    .hero__badge { left: -2.25rem; }
   }
 </style>

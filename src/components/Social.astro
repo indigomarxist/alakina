@@ -8,7 +8,7 @@ const instagramUrl = `https://www.instagram.com/${profile.instagram}/`;
 const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 ---
 
-<section class="section social-section scallop-top" id="social">
+<section class="section social-section velvet torn-top" id="social">
   <div class="container">
     <p class="eyebrow">Social</p>
     <h2 class="section-title">Follow <em>along</em></h2>
@@ -59,19 +59,19 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 </section>
 
 <style>
-  .social-section { --sc: var(--cobalt); --accent: var(--gold-light); background: var(--cobalt); color: var(--ivory); --muted: color-mix(in srgb, var(--ivory) 78%, transparent); }
-  .social-section :global(.eyebrow)::before { background: var(--gold-light); }
-  .social-section :focus-visible { outline-color: var(--gold-light); }
+  .social-section { --v: var(--teal); --sc: var(--teal); }
   .social { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .social--no-feed { grid-template-columns: minmax(0, 40rem); }
-  .ig__grid { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.35rem, 0.9vw, 0.6rem); }
-  .ig__item { display: block; background: color-mix(in srgb, var(--ivory) 12%, transparent); overflow: hidden; border-radius: var(--radius); }
-  .ig__item :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.9s var(--ease); }
-  .ig__item:hover :global(img) { transform: scale(1.04); }
-  .handle { font-size: 0.75rem; font-weight: 450; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; color: var(--ivory); border-bottom: 1px solid var(--gold-light); padding-bottom: 0.25rem; }
+  .ig__grid { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1.2vw, 0.8rem); }
+  .ig__item { display: block; padding: 0.3rem; background: var(--cream); box-shadow: 0 10px 20px -12px rgb(0 0 0 / 0.6); transition: transform 0.4s var(--ease); }
+  li:nth-child(odd) .ig__item { transform: rotate(-1deg); }
+  li:nth-child(even) .ig__item { transform: rotate(1deg); }
+  .ig__item:hover { transform: rotate(0) scale(1.03); }
+  .ig__item :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; }
+  .handle { font-size: 0.75rem; font-weight: 480; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; color: var(--cream); border-bottom: 1px solid var(--gold-light); padding-bottom: 0.25rem; }
   .handle:hover { color: var(--gold-light); }
   .tt { display: grid; gap: 1.5rem; }
-  .tt__embed { min-height: 22rem; background: var(--ivory); color: var(--ink); border-radius: var(--radius); overflow: hidden; }
+  .tt__embed { min-height: 22rem; background: var(--cream); color: var(--ink); border-radius: var(--radius); overflow: hidden; box-shadow: 0 0 0 1.5px var(--gold), 0 0 0 5px var(--teal), 0 0 0 6px var(--gold-light); }
   .tt__embed :global(blockquote) { margin: 0; }
   @media (max-width: 800px) { .social { grid-template-columns: 1fr; } }
 </style>

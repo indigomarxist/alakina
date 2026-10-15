@@ -5,11 +5,13 @@ import { profile } from '../data/profile';
 import Sparkle from './Sparkle.astro';
 ---
 
-<section class="section about-section scallop-top" id="about">
+<section class="section about-section paper torn-top" id="about">
   <div class="container about">
     <div class="about__photo">
-      <Sparkle color="var(--cherry)" size="1.8rem" style="top:-0.5rem;right:6%;z-index:1" />
-      <Sparkle size="1.2rem" style="bottom:14%;left:-1.25rem;z-index:1;animation-delay:-2s" />
+      <span class="tape tape--leopard" style="top:-0.6rem;left:12%;transform:rotate(-8deg)" aria-hidden="true"></span>
+      <span class="tape" style="bottom:-0.4rem;right:8%;transform:rotate(-6deg)" aria-hidden="true"></span>
+      <Sparkle color="var(--burgundy)" size="1.8rem" style="top:-1.2rem;right:-1rem;z-index:3" />
+      <Sparkle color="var(--gold)" size="1.2rem" style="bottom:16%;left:-1.5rem;z-index:3;animation-delay:-2s" />
       <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
     </div>
     <div>
@@ -32,25 +34,33 @@ import Sparkle from './Sparkle.astro';
 </section>
 
 <style>
-  .about-section { --accent: var(--cherry-deep); --sc: var(--honey); background: var(--honey); }
-  .about :global(.eyebrow)::before { background: var(--cherry-deep); }
+  .about-section { --sc: var(--blush); background-color: var(--blush); }
   .about { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
-  .about__photo { position: relative; }
-  .about__photo::before {
-    content: '';
+  /* A taped polaroid. */
+  .about__photo {
+    position: relative;
+    padding: 0.7rem 0.7rem 3.2rem;
+    background: var(--cream);
+    box-shadow: 0 2px 4px rgb(54 32 26 / 0.15), 0 24px 40px -18px rgb(54 32 26 / 0.5);
+    transform: rotate(-2.5deg);
+  }
+  .about__photo::after {
+    content: 'NYC, 2026';
     position: absolute;
-    inset: -1rem;
-    border: 1px solid var(--cherry-deep);
-    border-radius: 50% / 42%;
-    pointer-events: none;
+    left: 0;
+    right: 0;
+    bottom: 0.7rem;
+    text-align: center;
+    font-family: var(--script);
+    font-size: 1.7rem;
+    line-height: 1;
+    color: var(--ink-soft);
   }
   .about__photo :global(img) {
-    position: relative;
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: 50% 20%;
-    border-radius: 50% / 40%;
   }
   .about__text { max-width: 58ch; margin: 0 0 1.25rem; }
   .stats {
@@ -62,13 +72,16 @@ import Sparkle from './Sparkle.astro';
   .stats div {
     padding: 0.75rem 1rem 0.85rem;
     border-radius: var(--radius);
-    background: color-mix(in srgb, var(--ivory) 75%, transparent);
+    background: var(--cream);
+    box-shadow: 0 1px 2px rgb(54 32 26 / 0.12);
   }
-  dt { font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-soft); }
-  dd { margin: 0.15rem 0 0; font-family: var(--serif); font-size: 1.55rem; font-weight: 400; line-height: 1.2; }
+  .stats div:nth-child(odd) { transform: rotate(-0.6deg); }
+  .stats div:nth-child(even) { transform: rotate(0.5deg); }
+  dt { font-size: 0.68rem; font-weight: 480; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-soft); }
+  dd { margin: 0.15rem 0 0; font-family: var(--serif); font-size: 1.45rem; line-height: 1.2; }
   @media (max-width: 800px) {
     .about { grid-template-columns: 1fr; }
-    .about__photo { width: min(80%, 24rem); margin: 1rem; }
+    .about__photo { width: min(78%, 22rem); margin: 1rem 0 0 1rem; }
   }
   @media (max-width: 520px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
