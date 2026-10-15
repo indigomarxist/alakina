@@ -6,3 +6,5 @@ dist/
 !.env.example
 .DS_Store
 src/assets/photos/drive/
+.cache/
+public/video/drive/

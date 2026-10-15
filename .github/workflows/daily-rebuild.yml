@@ -46,6 +46,13 @@ jobs:
           fi
           echo "Token valid for another $(( $(echo "$res" | jq -r '.expires_in // 0') / 86400 )) days."
 
+      - name: Restore converted video clips
+        uses: actions/cache@v4
+        with:
+          path: .cache/drive-videos
+          key: drive-videos-${{ github.run_id }}
+          restore-keys: drive-videos-
+
       - run: npm run build
 
       - name: Deploy to Cloudflare
