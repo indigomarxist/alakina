@@ -14,12 +14,11 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .footer { position: relative; padding-block: 2.25rem; background: var(--ink); color: var(--cream); }
-  .footer::before { content: ''; position: absolute; inset: 0 0 auto; height: 12px; background: conic-gradient(var(--cream) 25%, transparent 0 50%, var(--cream) 0 75%, transparent 0) 0 0 / 12px 12px; }
-  .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; }
+  .footer { padding-block: 2.5rem; background: var(--night); color: var(--muted); border-top: 1px solid var(--line); }
+  .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase; }
   p { margin: 0; }
-  .footer__name { font-family: var(--script); font-size: 2.2rem; letter-spacing: 0; text-transform: none; margin-right: 0.5rem; }
+  .footer__name { font-family: var(--serif); font-size: 1.05rem; letter-spacing: 0.36em; color: var(--bone); margin-right: 0.75rem; }
   .footer__links { display: flex; gap: 0.5rem; }
-  a { text-decoration: none; padding: 0.6rem 0.9rem; border-radius: 999px; border: 2px solid color-mix(in srgb, var(--cream) 40%, transparent); }
-  a:hover { background: var(--butter); color: var(--ink); border-color: var(--butter); }
+  a { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: none; padding: 0.5rem 0.75rem; transition: color 0.3s var(--ease); }
+  a:hover { color: var(--champagne); }
 </style>

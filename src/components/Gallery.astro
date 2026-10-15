@@ -35,7 +35,7 @@ const items = await Promise.all(
 );
 ---
 
-<section class="section gallery-section pat-dots" id="portfolio">
+<section class="section gallery-section" id="portfolio">
   <div class="container">
     <p class="eyebrow">Portfolio</p>
     <h2 class="section-title">Selected <em>work</em></h2>
@@ -70,47 +70,55 @@ const items = await Promise.all(
 </section>
 
 <style>
-  .gallery-section { --pat-bg: var(--cream); --pat-ink: rgb(249 224 139 / 0.35); --pat-size: 30px; }
+  .gallery-section { background: var(--night); }
   .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.6rem;
-    margin: -0.75rem 0 clamp(1.75rem, 4vw, 2.75rem);
+    gap: 0.25rem 1.75rem;
+    margin: -1.25rem 0 clamp(2rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--line);
   }
   .filters__btn {
+    position: relative;
     min-height: 2.75rem;
-    padding: 0.5rem 1.15rem;
-    border: 2px solid var(--ink);
-    border-radius: 999px;
-    background: var(--cream);
+    padding: 0.5rem 0;
+    border: 0;
+    background: none;
     font: inherit;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.12em;
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    color: var(--ink);
+    color: var(--muted);
     cursor: pointer;
-    transition: transform 0.2s var(--ease-bounce), background 0.2s ease, box-shadow 0.2s ease;
+    transition: color 0.3s var(--ease);
   }
-  .filters__btn:hover { transform: translateY(-2px); }
-  .filters__btn[aria-pressed='true'] { box-shadow: 3px 3px 0 var(--ink); }
-  .filters__btn[data-filter='all'][aria-pressed='true'] { background: var(--ink); color: var(--cream); }
-  .filters__btn[data-filter='digitals'][aria-pressed='true'] { background: var(--sky); }
-  .filters__btn[data-filter='photoshoots'][aria-pressed='true'] { background: var(--butter); }
-  .filters__btn[data-filter='runway'][aria-pressed='true'] { background: var(--sage); }
-  .filters__btn[data-filter='performance'][aria-pressed='true'] { background: var(--tangerine); }
+  .filters__btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: 1px;
+    background: var(--champagne);
+    transform: scaleX(0);
+    transition: transform 0.4s var(--ease);
+  }
+  .filters__btn:hover { color: var(--bone); }
+  .filters__btn[aria-pressed='true'] { color: var(--bone); }
+  .filters__btn[aria-pressed='true']::after { transform: scaleX(1); }
 
   .masonry {
     list-style: none;
     margin: 0;
     padding: 0;
     columns: 3;
-    column-gap: clamp(0.75rem, 1.8vw, 1.25rem);
+    column-gap: clamp(0.6rem, 1.5vw, 1rem);
   }
   @media (max-width: 800px) { .masonry { columns: 2; } }
   .masonry li {
     break-inside: avoid;
-    margin-bottom: clamp(0.75rem, 1.8vw, 1.25rem);
+    margin-bottom: clamp(0.6rem, 1.5vw, 1rem);
   }
   .masonry li[hidden] { display: none; }
   .masonry__item {
@@ -118,23 +126,20 @@ const items = await Promise.all(
     width: 100%;
     padding: 0;
     border: 0;
-    border-radius: var(--radius);
-    background: var(--paper);
+    border-radius: 0;
+    background: var(--night-2);
     cursor: zoom-in;
     overflow: hidden;
-    transition: transform 0.3s var(--ease-bounce), box-shadow 0.3s ease;
   }
   .masonry__item :global(img) {
     display: block;
     width: 100%;
     height: auto;
+    filter: saturate(0.85) brightness(0.9);
+    transition: transform 0.9s var(--ease), filter 0.6s var(--ease);
   }
-  li:nth-child(5n + 1) .masonry__item { --pop: var(--cherry); }
-  li:nth-child(5n + 2) .masonry__item { --pop: var(--cobalt); }
-  li:nth-child(5n + 3) .masonry__item { --pop: var(--butter); }
-  li:nth-child(5n + 4) .masonry__item { --pop: var(--tangerine); }
-  li:nth-child(5n + 5) .masonry__item { --pop: var(--blush); }
-  .masonry__item:hover, .masonry__item:focus-visible { transform: translate(-3px, -3px) rotate(-0.6deg); box-shadow: 6px 6px 0 var(--pop); }
+  .masonry__item:hover :global(img),
+  .masonry__item:focus-visible :global(img) { transform: scale(1.035); filter: saturate(1) brightness(1); }
 
   .lightbox {
     width: 100vw;
@@ -144,17 +149,18 @@ const items = await Promise.all(
     margin: 0;
     padding: 0;
     border: 0;
-    background: color-mix(in srgb, var(--ink) 95%, transparent);
+    background: color-mix(in srgb, var(--night) 96%, transparent);
   }
   .lightbox::backdrop { background: transparent; }
   .lightbox[open] { display: grid; place-items: center; }
-  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; border-radius: var(--radius); }
+  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; }
   .lightbox__btn {
     position: absolute;
     background: none;
     border: 0;
-    color: var(--cream);
-    font-size: 2.5rem;
+    color: var(--bone);
+    font-size: 2.75rem;
+    font-weight: 300;
     line-height: 1;
     padding: 0.5rem 0.9rem;
     cursor: pointer;
