@@ -21,6 +21,10 @@ const run = [...words, ...words];
     background: var(--rose);
     color: var(--wine);
     position: relative;
+    z-index: 2;
+    margin: -0.6rem -2rem;
+    transform: rotate(-1.8deg);
+    box-shadow: 0 10px 20px -10px rgb(0 0 0 / 0.5);
   }
   .marquee::before,
   .marquee::after { content: ''; position: absolute; left: 0; right: 0; height: 9px; background: var(--zebra) 0 0 / 90px 90px; }
@@ -29,8 +33,9 @@ const run = [...words, ...words];
   .marquee__track { display: flex; width: max-content; animation: scroll 50s linear infinite; }
   ul { display: flex; list-style: none; margin: 0; padding: 1.05rem 0 1.25rem; }
   li {
-    font-family: var(--script);
-    font-size: clamp(2rem, 3.6vw, 2.6rem);
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3.2vw, 2.4rem);
     line-height: 1.1;
     white-space: nowrap;
     padding-inline: 1.6rem;

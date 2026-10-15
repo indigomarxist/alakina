@@ -1,43 +1,56 @@
 ---
 import { Image } from 'astro:assets';
 import hero from '../assets/photos/full-length.jpg';
+import second from '../assets/photos/headshot-smile.jpg';
 import { profile } from '../data/profile';
-import Sparkle from './Sparkle.astro';
+import Sticker from './Sticker.astro';
+import Win from './Win.astro';
 
 const roles = profile.tagline.split('·').map((r) => r.trim());
 const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
 ---
 
-<section class="hero velvet" id="top">
+<section class="hero velvet dust" id="top">
   <div class="container hero__inner">
     <div class="hero__text">
-      <p class="eyebrow">{profile.based}</p>
-      <h1>Alakina <em>Lee</em></h1>
-      <p class="hero__tagline">
-        {roles.map((r) => <span>{r}</span>)}
-      </p>
-      <div class="hero__actions">
-        <a class="btn btn--solid" href="#contact">Booking inquiries</a>
-        <a class="btn" href={profile.files.compCard} download>Comp card</a>
-      </div>
+      <p class="hero__eyebrow"><span class="dymo">{profile.based}</span></p>
+      <h1>Alakina <em class="glitter">Lee</em></h1>
+      <ul class="hero__roles">
+        {roles.map((r, i) => <li class={`role role--${i}`}>{r}</li>)}
+      </ul>
+      <Win title="book_alakina.exe" class="hero__win">
+        <p class="hero__win-text">Now booking editorial, runway, stage and screen.</p>
+        <div class="hero__actions">
+          <a class="btn btn--solid" href="#contact">Booking inquiries</a>
+          <a class="btn btn--win" href={profile.files.compCard} download>Comp card</a>
+        </div>
+      </Win>
     </div>
 
     <div class="hero__art">
-      <div class="hero__arch leopard" aria-hidden="true"></div>
-      <div class="hero__frame">
-        <span class="tape" style="top:-0.7rem;left:50%;transform:translateX(-50%) rotate(-4deg)" aria-hidden="true"></span>
-        <div class="hero__photo">
-          <Image
-            src={hero}
-            alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
-            widths={[480, 720, 960, 1280]}
-            sizes="(max-width: 800px) 90vw, 42vw"
-            loading="eager"
-            fetchpriority="high"
-            format="avif"
-          />
-        </div>
-      </div>
+      <div class="hero__scrap leopard" aria-hidden="true"></div>
+      <div class="hero__grid" aria-hidden="true"></div>
+      <figure class="polaroid polaroid--main">
+        <span class="tape" style="top:-0.8rem;left:50%;transform:translateX(-50%) rotate(-4deg)" aria-hidden="true"></span>
+        <Image
+          src={hero}
+          alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
+          widths={[480, 720, 960, 1280]}
+          sizes="(max-width: 800px) 70vw, 34vw"
+          loading="eager"
+          fetchpriority="high"
+          format="avif"
+        />
+        <figcaption class="hand">digitals ♡ 2026</figcaption>
+      </figure>
+      <figure class="polaroid polaroid--small">
+        <span class="tape tape--leopard" style="top:-0.6rem;right:-1rem;transform:rotate(30deg)" aria-hidden="true"></span>
+        <Image src={second} alt="Alakina Lee smiling, headshot" widths={[240, 360, 480]} sizes="(max-width: 800px) 30vw, 13vw" format="avif" />
+      </figure>
+      <p class="hero__note hand" aria-hidden="true">
+        it's me!!
+        <svg viewBox="0 0 120 70" class="hero__arrow"><path d="M6 10c30-8 64 4 78 30 4 8 6 14 6 22M78 52l12 12 10-16" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
+      </p>
       <svg class="hero__badge" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
         <defs><path id="ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" /></defs>
         <circle cx="100" cy="100" r="98" />
@@ -45,80 +58,93 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
         <text><textPath href="#ring" textLength="452">{ring}</textPath></text>
         <path class="hero__badge-star" d="M100 74C101.5 90 110 98.5 126 100C110 101.5 101.5 110 100 126C98.5 110 90 101.5 74 100C90 98.5 98.5 90 100 74Z" />
       </svg>
-      <Sparkle color="var(--gold-light)" size="2.4rem" style="top:6%;left:-9%" />
-      <Sparkle color="var(--blush)" size="1.2rem" style="top:24%;right:-7%;animation-delay:-1.5s" />
-      <Sparkle color="var(--gold-light)" size="1.6rem" style="bottom:6%;right:-8%;animation-delay:-3s" />
+      <Sticker kind="star" size="5.5rem" rotate={-12} style="top:-2.5rem;right:-2rem" />
+      <Sticker kind="star" size="2.6rem" rotate={18} style="top:38%;right:-3.2rem;animation-delay:-2s" />
+      <Sticker kind="heart" size="3.6rem" rotate={-14} style="bottom:-1.5rem;right:18%;animation-delay:-1s" />
+      <Sticker kind="butterfly" size="4.2rem" rotate={16} style="top:12%;left:-3.5rem;animation-delay:-3s" />
+      <Sticker kind="bow" size="3.4rem" rotate={-8} float={false} style="top:-1.4rem;left:10%" />
+      <Sticker kind="cursor" size="2.8rem" rotate={-10} style="bottom:30%;right:-1.8rem;animation-delay:-4s" />
     </div>
   </div>
 </section>
 <div class="trim-leopard" aria-hidden="true"></div>
 
 <style>
-  .hero {
-    position: relative;
-    padding-block: clamp(3rem, 7vw, 5.5rem) clamp(4rem, 8vw, 6.5rem);
-  }
+  .hero { position: relative; padding-block: clamp(3.5rem, 7vw, 6rem) clamp(4.5rem, 8vw, 7rem); overflow-x: clip; }
   .hero__inner {
     display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
+    grid-template-columns: 1.05fr 0.95fr;
     align-items: center;
-    gap: clamp(2.5rem, 6vw, 6rem);
+    gap: clamp(3rem, 7vw, 7rem);
   }
+  .hero__eyebrow { margin: 0 0 1.25rem; }
   h1 {
     font-size: clamp(4rem, 10vw, 8.25rem);
     font-weight: 450;
     line-height: 0.92;
     letter-spacing: -0.03em;
   }
-  h1 em { display: block; padding-left: 1em; margin-top: 0.06em; font-size: 1.25em; line-height: 0.85; color: var(--blush); }
-  .hero__tagline {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 0.2rem 0.9rem;
-    margin: 2.25rem 0 2.5rem;
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: clamp(1.3rem, 2.1vw, 1.6rem);
+  h1 em { display: block; padding-left: 1em; margin-top: 0.06em; font-size: 1.3em; line-height: 0.9; }
+  .hero__roles { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; margin: 2rem 0 2.25rem; padding: 0; }
+  .role {
+    padding: 0.25rem 0.95rem 0.35rem;
+    border-radius: 999px;
+    font-family: var(--hand);
+    font-weight: 700;
+    font-size: 1.45rem;
+    line-height: 1.1;
+    color: var(--ink);
+    box-shadow: 2px 3px 0 rgb(0 0 0 / 0.3);
   }
-  .hero__tagline span + span::before {
-    content: '';
-    display: inline-block;
-    width: 0.7rem;
-    height: 0.7rem;
-    margin-right: 0.9rem;
-    vertical-align: 0.05em;
-    background: var(--gold-light);
-    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-  }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .role--0 { background: #ffbcd9; transform: rotate(-4deg); }
+  .role--1 { background: var(--gold-light); transform: rotate(3deg); }
+  .role--2 { background: #c9f0ff; transform: rotate(-2deg); }
+  .hero__win { max-width: 27rem; transform: rotate(-1.5deg); }
+  .hero__win-text { margin: 0 0 0.9rem; font-family: var(--pixel); font-size: 1.3rem; line-height: 1.2; }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .hero .btn--win { color: var(--ink); border-color: var(--ink); }
 
-  .hero__art { position: relative; justify-self: center; width: min(100%, 28rem); }
-  .hero__arch {
+  .hero__art { position: relative; justify-self: center; width: min(100%, 27rem); }
+  .hero__scrap {
     position: absolute;
-    inset: 1.5rem -1.5rem -1.5rem 1.5rem;
-    border-radius: 999px 999px var(--radius) var(--radius);
-    transform: rotate(3deg);
-    box-shadow: 0 20px 40px -20px rgb(0 0 0 / 0.6);
+    inset: -1.5rem -2rem 3rem 2.5rem;
+    transform: rotate(6deg);
+    clip-path: polygon(0 4%, 9% 0, 22% 3%, 38% 0, 55% 2%, 71% 0, 88% 3%, 100% 0, 97% 25%, 100% 50%, 97% 76%, 100% 100%, 80% 97%, 60% 100%, 40% 97%, 20% 100%, 0 97%, 3% 70%, 0 45%, 3% 20%);
   }
-  /* Gilt frame: two thin gold lines around a dark mat. */
-  .hero__frame {
-    position: relative;
-    padding: 0.55rem;
-    border-radius: 999px 999px var(--radius) var(--radius);
-    background: var(--wine);
-    box-shadow: 0 0 0 1.5px var(--gold), 0 0 0 5px var(--wine), 0 0 0 6px var(--gold-light), 0 24px 50px -20px rgb(0 0 0 / 0.7);
-    transform: rotate(-1.5deg);
+  .hero__grid {
+    position: absolute;
+    inset: 4rem 3rem -2.5rem -2.5rem;
+    transform: rotate(-5deg);
+    background-color: #fdfbf6;
+    background-image: linear-gradient(rgb(125 211 252 / 0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(125 211 252 / 0.5) 1px, transparent 1px);
+    background-size: 18px 18px;
+    box-shadow: 3px 6px 14px -6px rgb(0 0 0 / 0.5);
   }
-  .hero__photo { overflow: hidden; border-radius: 999px 999px calc(var(--radius) - 0.1rem) calc(var(--radius) - 0.1rem); background: var(--cocoa); }
-  .hero__photo :global(img) { width: 100%; aspect-ratio: 3 / 4.2; object-fit: cover; object-position: 50% 25%; }
+  .polaroid { position: relative; margin: 0; background: var(--cream); box-shadow: 0 2px 3px rgb(0 0 0 / 0.2), 0 26px 44px -18px rgb(0 0 0 / 0.65); }
+  .polaroid--main { padding: 0.75rem 0.75rem 3.4rem; transform: rotate(-3deg); }
+  .polaroid--main :global(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 22%; }
+  .polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 0.65rem; text-align: center; font-size: 1.7rem; color: var(--burgundy); }
+  .polaroid--small { position: absolute; z-index: 2; width: 40%; left: -18%; bottom: -12%; padding: 0.45rem 0.45rem 1.6rem; transform: rotate(-11deg); }
+  .polaroid--small :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: 50% 25%; }
+
+  .hero__note {
+    position: absolute;
+    z-index: 4;
+    top: 22%;
+    left: -46%;
+    margin: 0;
+    font-size: 2rem;
+    color: var(--gold-light);
+    transform: rotate(-8deg);
+  }
+  .hero__arrow { display: block; width: 6.5rem; margin: -0.2rem 0 0 2.5rem; }
 
   .hero__badge {
     position: absolute;
-    z-index: 2;
-    width: clamp(6rem, 11vw, 7.75rem);
-    left: -2.75rem;
-    bottom: 9%;
+    z-index: 3;
+    width: clamp(5.5rem, 10vw, 7rem);
+    right: -2.5rem;
+    bottom: 6%;
     animation: spin 40s linear infinite;
   }
   .hero__badge circle { fill: var(--olive); }
@@ -127,9 +153,10 @@ const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
   .hero__badge-star { fill: var(--blush); }
   @keyframes spin { to { transform: rotate(360deg); } }
 
+  @media (max-width: 1100px) { .hero__note { display: none; } }
   @media (max-width: 800px) {
     .hero__inner { grid-template-columns: 1fr; }
-    .hero__art { order: -1; width: min(70%, 20rem); margin: 1.5rem 0 1.25rem 2.25rem; }
-    .hero__badge { left: -2.25rem; }
+    .hero__art { order: -1; width: min(66%, 19rem); margin: 2.5rem 0 3.5rem 22%; }
+    .hero__badge { right: -2rem; }
   }
 </style>

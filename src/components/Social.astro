@@ -1,4 +1,6 @@
 ---
+import Win from './Win.astro';
+import Sticker from './Sticker.astro';
 import { Image } from 'astro:assets';
 import { getInstagramPosts } from '../lib/instagram';
 import { profile } from '../data/profile';
@@ -8,8 +10,10 @@ const instagramUrl = `https://www.instagram.com/${profile.instagram}/`;
 const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 ---
 
-<section class="section social-section velvet torn-top" id="social">
+<section class="section social-section velvet dust torn-top" id="social">
   <div class="container">
+    <Sticker kind="butterfly" size="4rem" rotate={-12} style="top:-1.5rem;right:8%" />
+    <Sticker kind="heart" size="2.8rem" rotate={10} style="top:4rem;right:2%;animation-delay:-2s" />
     <p class="eyebrow">Social</p>
     <h2 class="section-title">Follow <em>along</em></h2>
 
@@ -39,6 +43,7 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
       }
 
       <div class="tt">
+        <Win title="tiktok.exe" class="tt__win">
         <div class="tt__embed">
           <blockquote
             class="tiktok-embed"
@@ -52,6 +57,7 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
             </section>
           </blockquote>
         </div>
+        </Win>
         {posts.length === 0 && <a class="handle" href={instagramUrl} rel="noopener">@{profile.instagram} on Instagram →</a>}
       </div>
     </div>
@@ -60,6 +66,9 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 
 <style>
   .social-section { --v: var(--teal); --sc: var(--teal); }
+  .social-section .container { position: relative; }
+  .tt__win { transform: rotate(1.5deg); }
+  .tt__win :global(.win__body) { padding: 0.4rem; }
   .social { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .social--no-feed { grid-template-columns: minmax(0, 40rem); }
   .ig__grid { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1.2vw, 0.8rem); }
@@ -71,7 +80,7 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
   .handle { font-size: 0.75rem; font-weight: 480; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; color: var(--cream); border-bottom: 1px solid var(--gold-light); padding-bottom: 0.25rem; }
   .handle:hover { color: var(--gold-light); }
   .tt { display: grid; gap: 1.5rem; }
-  .tt__embed { min-height: 22rem; background: var(--cream); color: var(--ink); border-radius: var(--radius); overflow: hidden; box-shadow: 0 0 0 1.5px var(--gold), 0 0 0 5px var(--teal), 0 0 0 6px var(--gold-light); }
+  .tt__embed { min-height: 22rem; background: var(--cream); color: var(--ink); overflow: hidden; }
   .tt__embed :global(blockquote) { margin: 0; }
   @media (max-width: 800px) { .social { grid-template-columns: 1fr; } }
 </style>

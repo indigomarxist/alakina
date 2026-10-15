@@ -1,0 +1,115 @@
+---
+// Die-cut vector stickers for the scrapbook look. Ornamental, hidden from assistive tech.
+interface Props {
+  kind: 'star' | 'heart' | 'butterfly' | 'cherry' | 'cursor' | 'flower' | 'bow' | 'lips';
+  size?: string;
+  rotate?: number;
+  style?: string;
+  float?: boolean;
+}
+const { kind, size = '4rem', rotate = 0, style = '', float = true } = Astro.props;
+const id = `s${Math.random().toString(36).slice(2, 8)}`;
+---
+
+<svg
+  class:list={['sticker', { 'sticker--float': float }]}
+  style={`--s:${size};--r:${rotate}deg;${style}`}
+  viewBox="0 0 100 100"
+  aria-hidden="true"
+  focusable="false"
+>
+  {kind === 'star' && (
+    <>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#ffffff" />
+          <stop offset=".35" stop-color="#c7c9d6" />
+          <stop offset=".5" stop-color="#f7f7fb" />
+          <stop offset=".7" stop-color="#8d8fa3" />
+          <stop offset="1" stop-color="#e9e9f2" />
+        </linearGradient>
+      </defs>
+      <path d="M50 4l13.6 29.4 32 3.6-23.8 21.8 6.6 31.6L50 74.2 21.6 90.4l6.6-31.6L4.4 37l32-3.6z" fill={`url(#${id})`} stroke="#5d5f70" stroke-width="2" stroke-linejoin="round" />
+      <path d="M50 14l9 20" stroke="#fff" stroke-width="4" stroke-linecap="round" opacity=".9" />
+    </>
+  )}
+  {kind === 'heart' && (
+    <>
+      <defs>
+        <radialGradient id={id} cx=".35" cy=".3" r=".8">
+          <stop offset="0" stop-color="#ffd1e3" />
+          <stop offset=".45" stop-color="#ff5ea8" />
+          <stop offset="1" stop-color="#b3125c" />
+        </radialGradient>
+      </defs>
+      <path d="M50 88C20 66 6 50 6 32 6 18 17 8 30 8c9 0 16 5 20 12 4-7 11-12 20-12 13 0 24 10 24 24 0 18-14 34-44 56z" fill={`url(#${id})`} />
+      <ellipse cx="30" cy="27" rx="10" ry="6" fill="#fff" opacity=".75" transform="rotate(-30 30 27)" />
+    </>
+  )}
+  {kind === 'butterfly' && (
+    <>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#f9a8d4" />
+          <stop offset=".5" stop-color="#c084fc" />
+          <stop offset="1" stop-color="#7dd3fc" />
+        </linearGradient>
+      </defs>
+      <path d="M48 50C40 20 14 10 8 22s10 26 40 30c-26 6-34 22-26 30s28-6 26-30zM52 50c8-30 34-40 40-28S82 48 52 52c26 6 34 22 26 30S50 76 52 52z" fill={`url(#${id})`} stroke="#4c1d95" stroke-width="2" />
+      <rect x="47" y="30" width="6" height="44" rx="3" fill="#3b0764" />
+      <path d="M50 32c-4-10-10-14-14-16M50 32c4-10 10-14 14-16" stroke="#3b0764" stroke-width="2" fill="none" />
+      <circle cx="24" cy="30" r="5" fill="#fff" opacity=".6" /><circle cx="76" cy="30" r="5" fill="#fff" opacity=".6" />
+    </>
+  )}
+  {kind === 'cherry' && (
+    <>
+      <path d="M36 64C40 40 52 22 70 10M64 66C62 44 64 26 70 10" stroke="#3f5a1f" stroke-width="4" fill="none" stroke-linecap="round" />
+      <path d="M70 10c10-6 22-2 24 8-10 6-20 2-24-8z" fill="#6b8e23" />
+      <circle cx="32" cy="72" r="18" fill="#c1121f" /><circle cx="66" cy="74" r="18" fill="#a4161a" />
+      <ellipse cx="26" cy="65" rx="5" ry="3.5" fill="#fff" opacity=".7" transform="rotate(-30 26 65)" />
+      <ellipse cx="60" cy="67" rx="5" ry="3.5" fill="#fff" opacity=".7" transform="rotate(-30 60 67)" />
+    </>
+  )}
+  {kind === 'cursor' && (
+    <path d="M18 6v80l20-18 13 28 14-6-13-28h27z" fill="#ff8fc8" stroke="#2a1617" stroke-width="5" stroke-linejoin="round" />
+  )}
+  {kind === 'flower' && (
+    <>
+      {[0, 72, 144, 216, 288].map((r) => <ellipse cx="50" cy="26" rx="17" ry="24" fill="#ff9ec7" stroke="#d6336c" stroke-width="2" transform={`rotate(${r} 50 50)`} />)}
+      <circle cx="50" cy="50" r="15" fill="#ffd43b" stroke="#e67700" stroke-width="2" />
+    </>
+  )}
+  {kind === 'bow' && (
+    <>
+      <path d="M50 46C36 28 12 22 10 36s16 26 40 14zM50 46c14-18 38-24 40-10S74 62 50 50z" fill="#f48fb1" stroke="#ad1457" stroke-width="2.5" />
+      <path d="M46 50l-14 38 10-4 6 8 4-40zM54 50l14 38-10-4-6 8-4-40z" fill="#f06292" stroke="#ad1457" stroke-width="2.5" stroke-linejoin="round" />
+      <circle cx="50" cy="48" r="8" fill="#ec407a" stroke="#ad1457" stroke-width="2.5" />
+    </>
+  )}
+  {kind === 'lips' && (
+    <>
+      <path d="M6 50C18 30 34 26 50 38 66 26 82 30 94 50 80 72 64 80 50 80S20 72 6 50z" fill="#c2185b" />
+      <path d="M8 50c20 6 64 6 84 0-24 4-60 4-84 0z" fill="#6d0f2f" />
+      <ellipse cx="34" cy="64" rx="9" ry="4" fill="#fff" opacity=".45" />
+    </>
+  )}
+</svg>
+
+<style>
+  .sticker {
+    position: absolute;
+    z-index: 3;
+    width: var(--s);
+    height: var(--s);
+    pointer-events: none;
+    overflow: visible;
+    transform: rotate(var(--r));
+    /* White die-cut edge plus a soft drop shadow. */
+    filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(1px 3px 2px rgb(42 22 23 / 0.35));
+  }
+  .sticker--float { animation: bob 5s ease-in-out infinite; }
+  @keyframes bob {
+    0%, 100% { transform: rotate(var(--r)) translateY(0); }
+    50% { transform: rotate(calc(var(--r) + 6deg)) translateY(-6px); }
+  }
+</style>

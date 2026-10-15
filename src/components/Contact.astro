@@ -1,4 +1,7 @@
 ---
+import Cutout from './Cutout.astro';
+import Win from './Win.astro';
+import Sticker from './Sticker.astro';
 import { Image } from 'astro:assets';
 import portrait from '../assets/photos/headshot-bw.jpg';
 import { profile } from '../data/profile';
@@ -11,7 +14,8 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
   <div class:list={["container", "contact__inner", { "contact__inner--single": !formspreeId }]}>
     <div>
       <p class="eyebrow">Contact</p>
-      <h2 class="section-title">Booking &amp; <em>casting</em></h2>
+      <h2 class="section-title">Booking &amp; <Cutout text="casting" /></h2>
+      <Win title="send_love.exe" class="contact__win">
       <p class="lead">For agency, casting, editorial and collaboration inquiries, get in touch directly.</p>
       <dl class="details">
         <div>
@@ -36,6 +40,7 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
         <a class="btn" href={profile.files.compCard} download>Comp card (PDF)</a>
         <a class="btn" href={profile.files.resume} download>Resume (PDF)</a>
       </div>
+      </Win>
     </div>
 
     {
@@ -62,6 +67,9 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
         </form>
       ) : (
         <div class="contact__photo">
+          <Sticker kind="star" size="4.5rem" rotate={-14} style="top:-2rem;right:-1.5rem" />
+          <Sticker kind="bow" size="3.4rem" rotate={10} float={false} style="bottom:-1.2rem;left:-1rem" />
+          <p class="contact__scribble hand" aria-hidden="true">say hi!</p>
           <Sparkle color="var(--gold-light)" size="2rem" style="top:-0.75rem;left:-1.5rem;z-index:1" />
           <Sparkle color="var(--blush)" size="1.2rem" style="bottom:18%;right:-1.25rem;z-index:1;animation-delay:-2.2s" />
           <Image src={portrait} alt="Alakina Lee, black and white headshot" widths={[400, 640, 900]} sizes="(max-width: 800px) 0px, 36vw" format="avif" />
@@ -78,6 +86,9 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
   }
   .contact__inner { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: start; }
   .contact__inner--single { grid-template-columns: 7fr 5fr; align-items: center; }
+  .contact__win { transform: rotate(-1deg); }
+  .contact__win :global(.win__body) { padding: clamp(1.1rem, 3vw, 1.75rem); }
+  .contact__scribble { position: absolute; z-index: 4; top: 42%; left: -4.5rem; margin: 0; font-size: 2.2rem; color: var(--gold-light); transform: rotate(-12deg); }
   .contact__photo { position: relative; }
   .contact__photo::before {
     content: '';
@@ -89,13 +100,13 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
   }
   .contact__photo :global(img) { box-shadow: 0 0 0 1.5px var(--gold), 0 0 0 5px var(--wine), 0 0 0 6px var(--gold-light); }
   .contact__photo :global(img) { position: relative; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; border-radius: 999px 999px var(--radius) var(--radius); }
-  .lead { max-width: 46ch; margin: 0 0 2.25rem; font-family: var(--serif); font-style: italic; font-size: 1.5rem; line-height: 1.4; }
+  .lead { max-width: 46ch; margin: 0 0 1.5rem; font-family: var(--pixel); font-size: 1.45rem; line-height: 1.2; }
   .details { margin: 0 0 2.5rem; border-top: 1px solid var(--line); }
   .details div { display: grid; grid-template-columns: 8.5rem 1fr; padding: 0.85rem 0; border-bottom: 1px solid var(--line); }
   dt { font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); align-self: center; }
-  dd { margin: 0; font-family: var(--serif); font-size: 1.5rem; overflow-wrap: anywhere; }
-  dd a { display: inline-block; padding-block: 0.4rem; text-decoration: none; background: linear-gradient(var(--gold-light), var(--gold-light)) 0 88% / 0 1px no-repeat; transition: background-size 0.4s var(--ease); }
-  dd a:hover { background-size: 100% 1px; }
+  dd { margin: 0; font-family: var(--serif); font-size: 1.35rem; overflow-wrap: anywhere; }
+  dd a { display: inline-block; padding-block: 0.4rem; text-decoration: none; background: linear-gradient(var(--hot), var(--hot)) 0 88% / 0 2px no-repeat; transition: background-size 0.4s var(--ease); }
+  dd a:hover { background-size: 100% 2px; }
   .downloads { display: flex; flex-wrap: wrap; gap: 1rem; }
     .form { display: grid; gap: 1.25rem; }
   label { display: grid; gap: 0.4rem; font-size: 0.68rem; font-weight: 450; letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); }
@@ -117,6 +128,7 @@ const formspreeId = import.meta.env.PUBLIC_FORMSPREE_ID;
   @media (max-width: 800px) {
     .contact__inner, .contact__inner--single { grid-template-columns: 1fr; }
     .contact__photo { display: none; }
+    .contact__win { transform: none; }
   }
   @media (max-width: 420px) { .details div { grid-template-columns: 1fr; gap: 0.2rem; } }
 </style>
