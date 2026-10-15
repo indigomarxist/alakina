@@ -1,6 +1,6 @@
 // Pulls Alakina's photos from a shared Google Drive folder into src/assets/photos/drive/
 // before the build. The Drive folder has one subfolder per gallery category
-// (Digitals, Stage, Editorial, Commercial, Runway); whatever is in them is what the
+// (Digitals, Performance, Photoshoots, Runway); whatever is in them is what the
 // site shows. Photos are downscaled here so Astro's AVIF encoding stays quick.
 //
 // Needs GOOGLE_SERVICE_ACCOUNT_KEY (the service account's JSON key) and
@@ -15,7 +15,7 @@ import { appendFile, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 
 const OUT = 'src/assets/photos/drive';
-const CATEGORIES = ['digitals', 'stage', 'editorial', 'commercial', 'runway'];
+const CATEGORIES = ['digitals', 'performance', 'photoshoots', 'runway'];
 const MAX_EDGE = 2400;
 const API = 'https://www.googleapis.com/drive/v3';
 
@@ -90,7 +90,7 @@ async function listChildren(parent, extraQuery) {
   return files;
 }
 
-// "Digitals", "digital", " Stage " all map to a category; anything else is ignored.
+// "Digitals", "digital", " Runway " all map to a category; anything else is ignored.
 function categoryFor(folderName) {
   const n = folderName.trim().toLowerCase();
   return CATEGORIES.find((c) => c === n || c === `${n}s`);
