@@ -1,0 +1,29 @@
+---
+// Decorative four-point star. Purely ornamental, so hidden from assistive tech.
+interface Props {
+  color?: string;
+  size?: string;
+  class?: string;
+  style?: string;
+}
+const { color = 'var(--butter)', size = '2rem', class: className, style } = Astro.props;
+---
+
+<svg class:list={['sparkle', className]} style={`--c:${color};--s:${size};${style ?? ''}`} viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+  <path d="M50 0C53 30 70 47 100 50C70 53 53 70 50 100C47 70 30 53 0 50C30 47 47 30 50 0Z" />
+</svg>
+
+<style>
+  .sparkle {
+    position: absolute;
+    width: var(--s);
+    height: var(--s);
+    fill: var(--c);
+    pointer-events: none;
+    animation: twinkle 3.6s ease-in-out infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50% { transform: scale(0.82) rotate(18deg); }
+  }
+</style>

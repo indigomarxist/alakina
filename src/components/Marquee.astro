@@ -1,0 +1,54 @@
+---
+import { profile } from '../data/profile';
+
+const words = [...profile.tagline.split('·').map((r) => r.trim()), profile.based, 'Now booking'];
+const run = [...words, ...words];
+---
+
+<div class="marquee-wrap" aria-hidden="true">
+<div class="marquee">
+  <div class="marquee__track">
+    {[0, 1].map(() => (
+      <ul>
+        {run.map((w) => <li>{w}</li>)}
+      </ul>
+    ))}
+  </div>
+</div>
+</div>
+
+<style>
+  .marquee-wrap { overflow: hidden; padding-block: 0.75rem; margin-block: -0.75rem; position: relative; z-index: 1; }
+  .marquee {
+    background: var(--cherry);
+    color: var(--cream);
+    border-block: 2px solid var(--ink);
+    transform: rotate(-1.5deg);
+    margin-inline: -2rem;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+  }
+  .marquee__track { display: flex; width: max-content; animation: scroll 38s linear infinite; }
+  ul { display: flex; list-style: none; margin: 0; padding: 0.7rem 0; }
+  li {
+    font-family: var(--serif);
+    font-style: italic;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
+    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+    white-space: nowrap;
+    padding-inline: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 2.8rem;
+  }
+  li::after {
+    content: '';
+    width: 1rem;
+    height: 1rem;
+    background: var(--butter);
+    clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+    margin-right: -1.4rem;
+  }
+  @keyframes scroll { to { transform: translateX(-50%); } }
+</style>

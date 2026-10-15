@@ -1,19 +1,39 @@
-@import '@fontsource/cormorant-garamond/400.css';
-@import '@fontsource/cormorant-garamond/500.css';
-@import '@fontsource/cormorant-garamond/400-italic.css';
-@import '@fontsource-variable/inter';
+@import '@fontsource-variable/fraunces/full.css';
+@import '@fontsource-variable/fraunces/full-italic.css';
+@import '@fontsource-variable/jost';
 
+/*
+  Direction: "chic, whimsical and timeless, yet still fun and colorful."
+  Cream paper, deep plum ink, and a candy palette used one colour per section.
+  Fraunces (soft, wonky serif) for display; Jost (geometric, Parisian) for text.
+*/
 :root {
-  --bg: #f7f5f2;
-  --surface: #efebe6;
-  --text: #1b1a19;
-  --muted: #6d6863;
-  --line: #d9d3cc;
-  --accent: #8a5a3c;
-  --serif: 'Cormorant Garamond', 'Times New Roman', serif;
-  --sans: 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --cream: #fff8ee;
+  --paper: #fbefdf;
+  --ink: #2b1b24;
+  --ink-soft: #664b57;
+  --cherry: #c21f3a;
+  --cherry-deep: #9e1830;
+  --blush: #f7d3d9;
+  --butter: #f9e08b;
+  --cobalt: #2a46b8;
+  --sky: #cfe0ff;
+  --sage: #c9dcbf;
+  --tangerine: #f2894f;
+
+  --bg: var(--cream);
+  --text: var(--ink);
+  --muted: var(--ink-soft);
+  --line: color-mix(in srgb, var(--ink) 16%, transparent);
+  --accent: var(--cherry);
+
+  --serif: 'Fraunces Variable', 'Times New Roman', serif;
+  --sans: 'Jost Variable', system-ui, -apple-system, sans-serif;
   --gutter: clamp(1.25rem, 5vw, 4rem);
   --max: 1200px;
+  --radius: 1.25rem;
+  --shadow: 4px 4px 0 var(--ink);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
   color-scheme: light;
 }
 
@@ -21,61 +41,95 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
 
 body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--sans);
-  font-size: 1rem;
+  font-size: 1.0625rem;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
 }
 
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; }
+::selection { background: var(--butter); color: var(--ink); }
 
-h1, h2, h3 { font-family: var(--serif); font-weight: 400; line-height: 1.1; margin: 0; }
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-variation-settings: 'SOFT' 100, 'WONK' 0;
+  line-height: 1.05;
+  margin: 0;
+}
+h1 em, h2 em {
+  font-style: italic;
+  font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  color: var(--accent);
+}
 
 .container { width: min(100% - 2 * var(--gutter), var(--max)); margin-inline: auto; }
 
-.section { padding-block: clamp(4rem, 10vw, 8rem); }
-.section + .section { border-top: 1px solid var(--line); }
+.section { position: relative; padding-block: clamp(4.5rem, 10vw, 8rem); }
 
 .eyebrow {
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--accent);
   margin: 0 0 1rem;
 }
+.eyebrow::before {
+  content: '';
+  width: 0.85rem;
+  height: 0.85rem;
+  background: currentColor;
+  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
+}
 
-.section-title { font-size: clamp(2.25rem, 5vw, 3.5rem); margin-bottom: clamp(2rem, 5vw, 3.5rem); }
+.section-title { font-size: clamp(2.6rem, 6vw, 4.25rem); letter-spacing: -0.015em; margin-bottom: clamp(2rem, 5vw, 3.25rem); }
 
 .btn {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.85rem 1.5rem;
-  border: 1px solid var(--text);
-  font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  min-height: 3rem;
+  padding: 0.8rem 1.6rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   text-decoration: none;
-  background: transparent;
-  color: var(--text);
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: var(--shadow);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition: transform 0.2s var(--ease-bounce), box-shadow 0.2s ease, background 0.2s ease;
 }
-.btn:hover, .btn:focus-visible { background: var(--text); color: var(--bg); }
-.btn--solid { background: var(--text); color: var(--bg); }
-.btn--solid:hover, .btn--solid:focus-visible { background: transparent; color: var(--text); }
+.btn:hover, .btn:focus-visible { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--ink); }
+.btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
+.btn--solid { background: var(--cherry); color: #fff; }
+.btn--solid:hover, .btn--solid:focus-visible { background: var(--cherry-deep); }
 
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+:focus-visible { outline: 3px solid var(--cobalt); outline-offset: 3px; border-radius: 4px; }
 
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
   overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition-duration: 0.01ms !important; }
 }

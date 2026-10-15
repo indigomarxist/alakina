@@ -2,54 +2,125 @@
 import { Image } from 'astro:assets';
 import hero from '../assets/photos/full-length.jpg';
 import { profile } from '../data/profile';
+import Sparkle from './Sparkle.astro';
+
+const roles = profile.tagline.split('·').map((r) => r.trim());
+const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
 ---
 
 <section class="hero" id="top">
   <div class="container hero__inner">
     <div class="hero__text">
       <p class="eyebrow">{profile.based}</p>
-      <h1>{profile.name}</h1>
-      <p class="hero__tagline">{profile.tagline}</p>
+      <h1>Alakina <em>Lee</em></h1>
+      <p class="hero__tagline">
+        {roles.map((r, i) => <span class={`role role--${i}`}>{r}</span>)}
+      </p>
       <div class="hero__actions">
         <a class="btn btn--solid" href="#contact">Booking inquiries</a>
         <a class="btn" href={profile.files.compCard} download>Comp card</a>
       </div>
     </div>
-    <div class="hero__photo">
-      <Image
-        src={hero}
-        alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
-        widths={[480, 720, 960, 1280]}
-        sizes="(max-width: 800px) 100vw, 45vw"
-        loading="eager"
-        fetchpriority="high"
-        format="avif"
-      />
+
+    <div class="hero__art">
+      <div class="hero__arch" aria-hidden="true"></div>
+      <div class="hero__photo">
+        <Image
+          src={hero}
+          alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
+          widths={[480, 720, 960, 1280]}
+          sizes="(max-width: 800px) 90vw, 42vw"
+          loading="eager"
+          fetchpriority="high"
+          format="avif"
+        />
+      </div>
+      <svg class="hero__badge" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+        <defs><path id="ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" /></defs>
+        <circle cx="100" cy="100" r="98" />
+        <text><textPath href="#ring" textLength="452">{ring}</textPath></text>
+        <path class="hero__badge-star" d="M100 70C102 88 112 98 130 100C112 102 102 112 100 130C98 112 88 102 70 100C88 98 98 88 100 70Z" />
+      </svg>
+      <Sparkle color="var(--cherry)" size="2.4rem" style="top:6%;left:-4%" />
+      <Sparkle color="var(--cobalt)" size="1.4rem" style="top:22%;right:-3%;animation-delay:-1.2s" />
+      <Sparkle color="var(--tangerine)" size="1.8rem" style="bottom:12%;right:-5%;animation-delay:-2.4s" />
     </div>
   </div>
 </section>
 
 <style>
-  .hero { padding-block: clamp(2.5rem, 6vw, 5rem); }
+  .hero {
+    position: relative;
+    padding-block: clamp(2.5rem, 6vw, 5rem) clamp(3.5rem, 7vw, 6rem);
+    background:
+      radial-gradient(40rem 30rem at 85% 10%, color-mix(in srgb, var(--blush) 80%, transparent), transparent 70%),
+      radial-gradient(30rem 24rem at 0% 100%, color-mix(in srgb, var(--sky) 70%, transparent), transparent 70%);
+  }
   .hero__inner {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.1fr 0.9fr;
     align-items: center;
-    gap: clamp(2rem, 6vw, 6rem);
+    gap: clamp(2.5rem, 6vw, 6rem);
   }
-  h1 { font-size: clamp(3.5rem, 9vw, 7.5rem); letter-spacing: -0.01em; }
+  h1 {
+    font-size: clamp(4rem, 11vw, 9rem);
+    letter-spacing: -0.03em;
+    line-height: 0.92;
+    font-variation-settings: 'SOFT' 100, 'WONK' 0, 'opsz' 144;
+  }
+  h1 em { display: block; padding-left: 0.6em; }
   .hero__tagline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1.75rem 0 2.25rem;
+    padding: 0;
+  }
+  .role {
     font-family: var(--serif);
     font-style: italic;
-    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
-    color: var(--muted);
-    margin: 1rem 0 2.5rem;
+    font-size: clamp(1.15rem, 2vw, 1.4rem);
+    padding: 0.3rem 1rem 0.4rem;
+    border-radius: 999px;
+    border: 2px solid var(--ink);
   }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
-  .hero__photo { background: var(--surface); }
-  .hero__photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 30%; }
+  .role--0 { background: var(--butter); }
+  .role--1 { background: var(--blush); }
+  .role--2 { background: var(--sky); }
+  .hero__actions { display: flex; flex-wrap: wrap; gap: 1rem; }
+
+  .hero__art { position: relative; justify-self: center; width: min(100%, 30rem); }
+  .hero__arch {
+    position: absolute;
+    inset: 1.25rem -1.25rem -1.25rem 1.25rem;
+    border-radius: 999px 999px var(--radius) var(--radius);
+    background: var(--butter);
+    border: 2px solid var(--ink);
+  }
+  .hero__photo {
+    position: relative;
+    border-radius: 999px 999px var(--radius) var(--radius);
+    overflow: hidden;
+    border: 2px solid var(--ink);
+    background: var(--paper);
+  }
+  .hero__photo :global(img) { width: 100%; aspect-ratio: 3 / 4.2; object-fit: cover; object-position: 50% 25%; }
+
+  .hero__badge {
+    position: absolute;
+    width: clamp(6.5rem, 12vw, 8.5rem);
+    left: -2.5rem;
+    bottom: 8%;
+    animation: spin 22s linear infinite;
+  }
+  .hero__badge circle { fill: var(--cherry); stroke: var(--ink); stroke-width: 3; }
+  .hero__badge text { font-family: var(--sans); font-size: 14px; font-weight: 500; letter-spacing: 1px; fill: #fff; }
+  .hero__badge-star { fill: var(--butter); }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   @media (max-width: 800px) {
     .hero__inner { grid-template-columns: 1fr; }
-    .hero__photo { order: -1; }
+    .hero__art { order: -1; width: min(82%, 24rem); margin: 0.5rem 0 1rem; }
+    .hero__badge { left: -1.75rem; }
   }
 </style>

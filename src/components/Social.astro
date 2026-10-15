@@ -8,10 +8,10 @@ const instagramUrl = `https://www.instagram.com/${profile.instagram}/`;
 const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 ---
 
-<section class="section" id="social">
+<section class="section social-section" id="social">
   <div class="container">
     <p class="eyebrow">Social</p>
-    <h2 class="section-title">Follow along</h2>
+    <h2 class="section-title">Follow <em>along</em></h2>
 
     <div class:list={['social', { 'social--no-feed': posts.length === 0 }]}>
       {
@@ -59,16 +59,19 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 </section>
 
 <style>
+  .social-section { background: var(--cobalt); color: var(--cream); border-block: 2px solid var(--ink); }
+  .social-section .eyebrow { color: var(--butter); }
+  .social-section :global(h2 em) { color: var(--butter); }
   .social { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .social--no-feed { grid-template-columns: minmax(0, 40rem); }
   .ig__grid { list-style: none; margin: 0 0 1.25rem; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.35rem, 1vw, 0.6rem); }
-  .ig__item { display: block; background: var(--surface); overflow: hidden; }
+  .ig__item { display: block; background: var(--paper); overflow: hidden; border-radius: 0.9rem; border: 2px solid var(--ink); }
   .ig__item :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; transition: transform 0.6s ease; }
   .ig__item:hover :global(img) { transform: scale(1.04); }
-  .handle { font-size: 0.75rem; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--muted); }
-  .handle:hover { color: var(--text); }
+  .handle { font-size: 0.85rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; text-decoration: none; color: var(--cream); border-bottom: 2px solid var(--butter); padding-bottom: 0.15rem; }
+  .handle:hover { color: var(--butter); }
   .tt { display: grid; gap: 1.25rem; }
-  .tt__embed { min-height: 22rem; }
+  .tt__embed { min-height: 22rem; background: var(--cream); color: var(--ink); border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 8px 8px 0 var(--butter); overflow: hidden; }
   .tt__embed :global(blockquote) { margin: 0; }
   @media (max-width: 800px) { .social { grid-template-columns: 1fr; } }
 </style>

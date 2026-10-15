@@ -5,7 +5,7 @@ const year = new Date().getFullYear();
 
 <footer class="footer">
   <div class="container footer__inner">
-    <p>© {year} {profile.name}</p>
+    <p><span class="footer__name">{profile.name}</span> © {year}</p>
     <div class="footer__links">
       <a href={`https://www.instagram.com/${profile.instagram}/`} rel="noopener">Instagram</a>
       <a href={`https://www.tiktok.com/@${profile.tiktok}`} rel="noopener">TikTok</a>
@@ -14,10 +14,11 @@ const year = new Date().getFullYear();
 </footer>
 
 <style>
-  .footer { padding-block: 2rem; border-top: 1px solid var(--line); }
-  .footer__inner { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .footer { padding-block: 2.25rem; background: var(--ink); color: var(--cream); }
+  .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; }
   p { margin: 0; }
-  .footer__links { display: flex; gap: 1.5rem; }
-  a { text-decoration: none; }
-  a:hover { color: var(--text); }
+  .footer__name { font-family: var(--serif); font-style: italic; font-variation-settings: 'SOFT' 100, 'WONK' 1; font-size: 1.5rem; letter-spacing: 0; text-transform: none; margin-right: 0.5rem; }
+  .footer__links { display: flex; gap: 0.5rem; }
+  a { text-decoration: none; padding: 0.6rem 0.9rem; border-radius: 999px; border: 2px solid color-mix(in srgb, var(--cream) 40%, transparent); }
+  a:hover { background: var(--butter); color: var(--ink); border-color: var(--butter); }
 </style>

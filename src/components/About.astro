@@ -2,16 +2,19 @@
 import { Image } from 'astro:assets';
 import portrait from '../assets/photos/three-quarter.jpg';
 import { profile } from '../data/profile';
+import Sparkle from './Sparkle.astro';
 ---
 
-<section class="section" id="about">
+<section class="section about-section" id="about">
   <div class="container about">
     <div class="about__photo">
+      <Sparkle color="var(--cherry)" size="2.2rem" style="top:-0.75rem;right:8%;z-index:1" />
+      <Sparkle color="var(--cobalt)" size="1.3rem" style="bottom:12%;left:-0.75rem;z-index:1;animation-delay:-1.8s" />
       <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
     </div>
     <div>
       <p class="eyebrow">About</p>
-      <h2 class="section-title">Storytelling first.</h2>
+      <h2 class="section-title">Storytelling <em>first.</em></h2>
       {profile.bio.map((p) => <p class="about__text">{p}</p>)}
 
       <dl class="stats" aria-label="Measurements">
@@ -29,22 +32,42 @@ import { profile } from '../data/profile';
 </section>
 
 <style>
-  .about { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2rem, 6vw, 6rem); align-items: center; }
-  .about__photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
-  .about__text { color: var(--muted); max-width: 58ch; margin: 0 0 1.25rem; }
+  .about-section { --accent: var(--cherry-deep); background: var(--butter); border-block: 2px solid var(--ink); }
+  .about { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 6vw, 6rem); align-items: center; }
+  .about__photo { position: relative; }
+  .about__photo :global(img) {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: 50% 20%;
+    border-radius: 50% / 40%;
+    border: 2px solid var(--ink);
+    box-shadow: 12px 12px 0 var(--blush), 12px 12px 0 2px var(--ink);
+  }
+  .about__text { max-width: 58ch; margin: 0 0 1.25rem; }
   .stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    margin: 2.5rem 0 0;
-    border-top: 1px solid var(--line);
+    gap: 0.6rem;
+    margin: 2.25rem 0 0;
   }
-  .stats div { padding: 1rem 0; border-bottom: 1px solid var(--line); }
-  dt { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  dd { margin: 0.2rem 0 0; font-family: var(--serif); font-size: 1.5rem; }
+  .stats div {
+    padding: 0.7rem 1rem 0.8rem;
+    border: 2px solid var(--ink);
+    border-radius: 1rem;
+    background: var(--cream);
+  }
+  .stats div:nth-child(4n + 2) { background: var(--blush); }
+  .stats div:nth-child(4n + 3) { background: var(--sky); }
+  .stats div:nth-child(4n + 4) { background: var(--sage); }
+  dt { font-size: 0.8rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-soft); }
+  dd { margin: 0.1rem 0 0; font-family: var(--serif); font-size: 1.45rem; line-height: 1.2; }
   @media (max-width: 800px) {
     .about { grid-template-columns: 1fr; }
+    .about__photo { width: min(85%, 26rem); }
   }
-  @media (max-width: 480px) {
+  @media (max-width: 520px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
   }
 </style>
