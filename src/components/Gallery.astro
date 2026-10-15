@@ -116,6 +116,11 @@ const items = await Promise.all(
     column-gap: clamp(0.6rem, 1.5vw, 1rem);
   }
   @media (max-width: 800px) { .masonry { columns: 2; } }
+  @media (max-width: 520px) {
+    .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter); }
+    .filters::-webkit-scrollbar { display: none; }
+    .filters__btn { flex: none; }
+  }
   .masonry li {
     break-inside: avoid;
     margin-bottom: clamp(0.6rem, 1.5vw, 1rem);
