@@ -10,12 +10,15 @@ const instagramUrl = `https://www.instagram.com/${profile.instagram}/`;
 const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 ---
 
-<section class="section social-section velvet dust torn-top" id="social">
+<section class="section social-section plaid torn-top" id="social">
   <div class="container">
     <Sticker kind="butterfly" size="4rem" rotate={-12} style="top:-1.5rem;right:8%" />
     <Sticker kind="heart" size="2.8rem" rotate={10} style="top:4rem;right:2%;animation-delay:-2s" />
-    <p class="eyebrow">Social</p>
-    <h2 class="section-title">Follow <em>along</em></h2>
+    <div class="social__head torn-card paper">
+      <span class="tape tape--leopard" style="top:-0.6rem;left:12%;transform:rotate(-5deg)" aria-hidden="true"></span>
+      <p class="eyebrow">[05] Social</p>
+      <h2 class="section-title">Follow <em>along</em></h2>
+    </div>
 
     <div class:list={['social', { 'social--no-feed': posts.length === 0 }]}>
       {
@@ -65,7 +68,9 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 </section>
 
 <style>
-  .social-section { --v: var(--teal); --sc: var(--teal); }
+  .social-section { --sc: #5a1230; }
+  .social__head { display: inline-block; margin-bottom: clamp(2rem, 4vw, 3rem); transform: rotate(1.4deg); }
+  .social__head .section-title { margin-bottom: 1.25rem; }
   .social-section .container { position: relative; }
   .tt__win { transform: rotate(1.5deg); }
   .tt__win :global(.win__body) { padding: 0.4rem; }

@@ -40,11 +40,11 @@ const items = await Promise.all(
 
 {
   items.length > 0 && (
-    <section class="section video velvet dust torn-top" id="video">
+    <section class="section video velvet vt-olive dust torn-top" id="video">
       <div class="container">
         <Sticker kind="star" size="3.5rem" rotate={14} style="top:-1rem;right:6%" />
         <Sticker kind="lips" size="3.2rem" rotate={-12} style="top:30%;left:-1rem;animation-delay:-2s" />
-        <p class="eyebrow">Video</p>
+        <p class="eyebrow">[02] Video</p>
         <h2 class="section-title">In <Cutout text="motion" /></h2>
         <ul class="videos">
           {items.map(({ id, data, poster }) => (

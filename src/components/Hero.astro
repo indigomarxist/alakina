@@ -1,162 +1,206 @@
 ---
 import { Image } from 'astro:assets';
-import hero from '../assets/photos/full-length.jpg';
+import cutout from '../assets/cutouts/full-length.webp';
 import second from '../assets/photos/headshot-smile.jpg';
 import { profile } from '../data/profile';
 import Sticker from './Sticker.astro';
+import Chain from './Chain.astro';
 import Win from './Win.astro';
 
 const roles = profile.tagline.split('·').map((r) => r.trim());
-const ring = `${roles.join(' • ')} • `.toUpperCase().repeat(2);
+// Chrome star cluster, like the Y2K collage boards: [left%, top%, size rem, rotate]
+const cluster: [number, number, number, number][] = [
+  [0, 18, 4.2, -10], [22, 0, 3, 14], [40, 22, 5, 4], [16, 46, 2.6, 22], [58, 2, 2.4, -18], [66, 38, 3.4, 10], [36, 64, 2.2, -6],
+];
 ---
 
-<section class="hero velvet dust" id="top">
-  <div class="container hero__inner">
-    <div class="hero__text">
-      <p class="hero__eyebrow"><span class="dymo">{profile.based}</span></p>
-      <h1>Alakina <em class="glitter">Lee</em></h1>
-      <ul class="hero__roles">
-        {roles.map((r, i) => <li class={`role role--${i}`}>{r}</li>)}
-      </ul>
-      <Win title="book_alakina.exe" class="hero__win">
-        <p class="hero__win-text">Now booking editorial, runway, stage and screen.</p>
-        <div class="hero__actions">
-          <a class="btn btn--solid" href="#contact">Booking inquiries</a>
-          <a class="btn btn--win" href={profile.files.compCard} download>Comp card</a>
-        </div>
-      </Win>
+<section class="hero velvet vt-wine" id="top">
+  <div class="patch" aria-hidden="true">
+    <span class="patch__b vt-rose velvet p1"></span>
+    <span class="patch__b vt-cocoa velvet p2"></span>
+    <span class="patch__b leopard p3"></span>
+    <span class="patch__b zebra p4"></span>
+    <span class="patch__b vt-olive velvet p5"></span>
+    <span class="patch__b vt-teal velvet p6"></span>
+  </div>
+
+  <div class="container hero__stage">
+    <p class="hero__tags">
+      <span class="dymo">{profile.based}</span>
+      <span class="dymo dymo--pink">now booking</span>
+    </p>
+
+    <h1 class="hero__title">
+      <span class="hero__first">Alakina</span>
+      <em class="hero__last glitter">Lee</em>
+    </h1>
+
+    <figure class="hero__cut">
+      <Image
+        src={cutout}
+        alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
+        widths={[360, 540]}
+        sizes="(max-width: 800px) 62vw, 26vw"
+        loading="eager"
+        fetchpriority="high"
+        format="webp"
+      />
+    </figure>
+
+    <ul class="hero__roles">
+      {roles.map((r, i) => <li class={`role role--${i}`}>{r}</li>)}
+    </ul>
+
+    <Win title="book_alakina.exe" class="hero__win">
+      <p class="hero__win-text">Now booking editorial, runway, stage and screen.</p>
+      <div class="hero__actions">
+        <a class="btn btn--solid" href="#contact">Booking inquiries</a>
+        <a class="btn btn--win" href={profile.files.compCard} download>Comp card</a>
+      </div>
+    </Win>
+
+    <figure class="hero__snap">
+      <span class="tape tape--leopard" style="top:-0.7rem;left:30%;transform:rotate(-6deg)" aria-hidden="true"></span>
+      <Image src={second} alt="Alakina Lee smiling, headshot" widths={[240, 360]} sizes="(max-width: 800px) 34vw, 12vw" format="avif" />
+      <figcaption class="hand">it's me!! ♡</figcaption>
+    </figure>
+
+    <div class="hero__cluster" aria-hidden="true">
+      {cluster.map(([l, t, s, r], i) => (
+        <Sticker kind="chrome" bare size={`${s}rem`} rotate={r} style={`left:${l}%;top:${t}%;animation-delay:-${i * 0.7}s`} />
+      ))}
     </div>
 
-    <div class="hero__art">
-      <div class="hero__scrap leopard" aria-hidden="true"></div>
-      <div class="hero__grid" aria-hidden="true"></div>
-      <figure class="polaroid polaroid--main">
-        <span class="tape" style="top:-0.8rem;left:50%;transform:translateX(-50%) rotate(-4deg)" aria-hidden="true"></span>
-        <Image
-          src={hero}
-          alt="Alakina Lee, full-length portrait in a black bodysuit and jeans"
-          widths={[480, 720, 960, 1280]}
-          sizes="(max-width: 800px) 70vw, 34vw"
-          loading="eager"
-          fetchpriority="high"
-          format="avif"
-        />
-        <figcaption class="hand">digitals ♡ 2026</figcaption>
-      </figure>
-      <figure class="polaroid polaroid--small">
-        <span class="tape tape--leopard" style="top:-0.6rem;right:-1rem;transform:rotate(30deg)" aria-hidden="true"></span>
-        <Image src={second} alt="Alakina Lee smiling, headshot" widths={[240, 360, 480]} sizes="(max-width: 800px) 30vw, 13vw" format="avif" />
-      </figure>
-      <p class="hero__note hand" aria-hidden="true">
-        it's me!!
-        <svg viewBox="0 0 120 70" class="hero__arrow"><path d="M6 10c30-8 64 4 78 30 4 8 6 14 6 22M78 52l12 12 10-16" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
-      </p>
-      <svg class="hero__badge" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
-        <defs><path id="ring" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" /></defs>
-        <circle cx="100" cy="100" r="98" />
-        <circle class="hero__badge-inner" cx="100" cy="100" r="52" />
-        <text><textPath href="#ring" textLength="452">{ring}</textPath></text>
-        <path class="hero__badge-star" d="M100 74C101.5 90 110 98.5 126 100C110 101.5 101.5 110 100 126C98.5 110 90 101.5 74 100C90 98.5 98.5 90 100 74Z" />
-      </svg>
-      <Sticker kind="star" size="5.5rem" rotate={-12} style="top:-2.5rem;right:-2rem" />
-      <Sticker kind="star" size="2.6rem" rotate={18} style="top:38%;right:-3.2rem;animation-delay:-2s" />
-      <Sticker kind="heart" size="3.6rem" rotate={-14} style="bottom:-1.5rem;right:18%;animation-delay:-1s" />
-      <Sticker kind="butterfly" size="4.2rem" rotate={16} style="top:12%;left:-3.5rem;animation-delay:-3s" />
-      <Sticker kind="bow" size="3.4rem" rotate={-8} float={false} style="top:-1.4rem;left:10%" />
-      <Sticker kind="cursor" size="2.8rem" rotate={-10} style="bottom:30%;right:-1.8rem;animation-delay:-4s" />
-    </div>
+    <Sticker kind="phone" bare size="6rem" rotate={-16} float={false} style="left:26%;top:22%" />
+    <Sticker kind="cd" bare size="8rem" rotate={0} float={false} style="right:-2%;top:6%" />
+    <Sticker kind="rose" size="4.6rem" rotate={-14} float={false} style="left:31%;bottom:9%" />
+    <Sticker kind="rose" size="3.4rem" rotate={18} float={false} style="left:36.5%;bottom:4%" />
+    <Sticker kind="butterfly" size="4rem" rotate={16} style="left:36%;top:30%;animation-delay:-2s" />
+    <Sticker kind="cursor" size="3.6rem" rotate={-12} style="right:27%;bottom:30%;animation-delay:-1s" />
+    <Sticker kind="lips" size="4rem" rotate={-10} float={false} style="left:2%;top:36%" />
+    <Sticker kind="heart" size="3rem" rotate={12} style="right:31%;top:12%;animation-delay:-3s" />
+
+    <Chain style="left:-3%;bottom:2%;width:106%" />
   </div>
 </section>
-<div class="trim-leopard" aria-hidden="true"></div>
 
 <style>
-  .hero { position: relative; padding-block: clamp(3.5rem, 7vw, 6rem) clamp(4.5rem, 8vw, 7rem); overflow-x: clip; }
-  .hero__inner {
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    align-items: center;
-    gap: clamp(3rem, 7vw, 7rem);
+  .hero { position: relative; overflow: clip; padding-block: 2.5rem 0; }
+
+  /* Fabric-swatch patchwork, after the velvet palette board. */
+  .patch { position: absolute; inset: 0; pointer-events: none; }
+  .patch__b { position: absolute; display: block; box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.65), inset 0 0 40px rgb(0 0 0 / 0.25); }
+  .p1 { left: 52%; top: -4%; width: 30%; height: 46%; transform: rotate(2deg); }
+  .p2 { left: 74%; top: 30%; width: 30%; height: 54%; transform: rotate(-3deg); }
+  .p3 { left: 60%; top: 36%; width: 15%; height: 24%; transform: rotate(-6deg); }
+  .p4 { left: 66%; top: 58%; width: 13%; height: 22%; transform: rotate(4deg); }
+  .p5 { left: -4%; top: 70%; width: 34%; height: 40%; transform: rotate(-2deg); }
+  .p6 { left: 82%; top: 78%; width: 24%; height: 30%; transform: rotate(3deg); }
+
+  .hero__stage {
+    position: relative;
+    height: clamp(40rem, calc(100vh - 7rem), 54rem);
   }
-  .hero__eyebrow { margin: 0 0 1.25rem; }
-  h1 {
-    font-size: clamp(4rem, 10vw, 8.25rem);
-    font-weight: 450;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
+  .hero__tags { position: absolute; z-index: 5; left: 0; top: 0.5rem; display: flex; gap: 0.75rem; margin: 0; }
+  .hero__tags .dymo:first-child { transform: rotate(-3deg); }
+  .hero__tags .dymo--pink { transform: rotate(2deg); }
+
+  .hero__title { margin: 0; font-weight: 400; line-height: 0.8; }
+  .hero__first {
+    position: absolute;
+    z-index: 1;
+    left: -0.04em;
+    top: 7%;
+    font-size: clamp(5rem, 16.5vw, 17rem);
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-shadow: 0 6px 30px rgb(0 0 0 / 0.45);
   }
-  h1 em { display: block; padding-left: 1em; margin-top: 0.06em; font-size: 1.3em; line-height: 0.9; }
-  .hero__roles { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; margin: 2rem 0 2.25rem; padding: 0; }
+  .hero__last {
+    position: absolute;
+    z-index: 4;
+    right: 5%;
+    top: 31%;
+    font-size: clamp(5rem, 12vw, 12rem);
+    line-height: 1;
+    transform: rotate(-8deg);
+  }
+
+  .hero__cut {
+    position: absolute;
+    z-index: 2;
+    left: 46%;
+    bottom: 0;
+    height: 94%;
+    margin: 0;
+    transform: translateX(-50%) rotate(1.5deg);
+    filter: drop-shadow(10px 18px 22px rgb(0 0 0 / 0.55));
+  }
+  .hero__cut :global(img) { height: 100%; width: auto; }
+
+  .hero__roles { position: absolute; z-index: 5; left: 0; top: 46%; display: flex; flex-direction: column; align-items: flex-start; gap: 0.6rem; list-style: none; margin: 0; padding: 0; }
   .role {
-    padding: 0.25rem 0.95rem 0.35rem;
+    padding: 0.25rem 1rem 0.35rem;
     border-radius: 999px;
     font-family: var(--hand);
     font-weight: 700;
-    font-size: 1.45rem;
+    font-size: 1.6rem;
     line-height: 1.1;
     color: var(--ink);
-    box-shadow: 2px 3px 0 rgb(0 0 0 / 0.3);
+    box-shadow: 2px 3px 0 rgb(0 0 0 / 0.35);
   }
-  .role--0 { background: #ffbcd9; transform: rotate(-4deg); }
-  .role--1 { background: var(--gold-light); transform: rotate(3deg); }
-  .role--2 { background: #c9f0ff; transform: rotate(-2deg); }
-  .hero__win { max-width: 27rem; transform: rotate(-1.5deg); }
+  .role--0 { background: #ffbcd9; transform: rotate(-5deg); }
+  .role--1 { background: var(--gold-light); transform: rotate(3deg); margin-left: 1.5rem; }
+  .role--2 { background: #c9f0ff; transform: rotate(-2deg); margin-left: 0.5rem; }
+
+  .hero :global(.hero__win) { position: absolute; z-index: 6; right: 1%; bottom: 5%; width: min(23rem, 30%); transform: rotate(2.5deg); }
   .hero__win-text { margin: 0 0 0.9rem; font-family: var(--pixel); font-size: 1.3rem; line-height: 1.2; }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .hero .btn--win { color: var(--ink); border-color: var(--ink); }
 
-  .hero__art { position: relative; justify-self: center; width: min(100%, 27rem); }
-  .hero__scrap {
+  .hero__snap {
     position: absolute;
-    inset: -1.5rem -2rem 3rem 2.5rem;
-    transform: rotate(6deg);
-    clip-path: polygon(0 4%, 9% 0, 22% 3%, 38% 0, 55% 2%, 71% 0, 88% 3%, 100% 0, 97% 25%, 100% 50%, 97% 76%, 100% 100%, 80% 97%, 60% 100%, 40% 97%, 20% 100%, 0 97%, 3% 70%, 0 45%, 3% 20%);
-  }
-  .hero__grid {
-    position: absolute;
-    inset: 4rem 3rem -2.5rem -2.5rem;
-    transform: rotate(-5deg);
-    background-color: #fdfbf6;
-    background-image: linear-gradient(rgb(125 211 252 / 0.5) 1px, transparent 1px), linear-gradient(90deg, rgb(125 211 252 / 0.5) 1px, transparent 1px);
-    background-size: 18px 18px;
-    box-shadow: 3px 6px 14px -6px rgb(0 0 0 / 0.5);
-  }
-  .polaroid { position: relative; margin: 0; background: var(--cream); box-shadow: 0 2px 3px rgb(0 0 0 / 0.2), 0 26px 44px -18px rgb(0 0 0 / 0.65); }
-  .polaroid--main { padding: 0.75rem 0.75rem 3.4rem; transform: rotate(-3deg); }
-  .polaroid--main :global(img) { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% 22%; }
-  .polaroid figcaption { position: absolute; left: 0; right: 0; bottom: 0.65rem; text-align: center; font-size: 1.7rem; color: var(--burgundy); }
-  .polaroid--small { position: absolute; z-index: 2; width: 40%; left: -18%; bottom: -12%; padding: 0.45rem 0.45rem 1.6rem; transform: rotate(-11deg); }
-  .polaroid--small :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: 50% 25%; }
-
-  .hero__note {
-    position: absolute;
-    z-index: 4;
-    top: 22%;
-    left: -46%;
+    z-index: 5;
+    left: 13%;
+    top: 49%;
+    width: clamp(7rem, 12vw, 11rem);
     margin: 0;
-    font-size: 2rem;
-    color: var(--gold-light);
-    transform: rotate(-8deg);
+    padding: 0.45rem 0.45rem 2rem;
+    background: var(--cream);
+    transform: rotate(-9deg);
+    box-shadow: 0 22px 34px -14px rgb(0 0 0 / 0.7);
   }
-  .hero__arrow { display: block; width: 6.5rem; margin: -0.2rem 0 0 2.5rem; }
+  .hero__snap :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: 50% 25%; }
+  .hero__snap figcaption { position: absolute; left: 0; right: 0; bottom: 0.3rem; text-align: center; font-size: 1.2rem; color: var(--burgundy); }
 
-  .hero__badge {
-    position: absolute;
-    z-index: 3;
-    width: clamp(5.5rem, 10vw, 7rem);
-    right: -2.5rem;
-    bottom: 6%;
-    animation: spin 40s linear infinite;
+  .hero__cluster { position: absolute; z-index: 7; right: 0; top: 47%; width: 13rem; height: 11rem; }
+
+  @media (max-width: 1100px) {
+    .hero__roles { top: 40%; }
+    .hero__snap { left: 2%; top: 64%; }
   }
-  .hero__badge circle { fill: var(--olive); }
-  .hero__badge .hero__badge-inner { fill: none; stroke: var(--gold-light); stroke-width: 1; }
-  .hero__badge text { font-family: var(--sans); font-size: 13px; font-weight: 480; letter-spacing: 1px; fill: var(--cream); }
-  .hero__badge-star { fill: var(--blush); }
-  @keyframes spin { to { transform: rotate(360deg); } }
-
-  @media (max-width: 1100px) { .hero__note { display: none; } }
   @media (max-width: 800px) {
-    .hero__inner { grid-template-columns: 1fr; }
-    .hero__art { order: -1; width: min(66%, 19rem); margin: 2.5rem 0 3.5rem 22%; }
-    .hero__badge { right: -2rem; }
+    .hero { padding-top: 1.25rem; }
+    .hero__stage { height: auto; min-height: 0; display: flex; flex-direction: column; padding-bottom: 4rem; }
+    .hero__tags { position: relative; top: 0; }
+    .hero__first { top: 3.25rem; font-size: 17.5vw; }
+    .hero :global(svg.sticker) { width: calc(var(--s) * 0.6); height: calc(var(--s) * 0.6); }
+    .hero :global(svg.sticker:has(foreignObject)) { display: none; }
+    .hero__last { top: 9.5rem; right: 2%; font-size: 24vw; }
+    .hero__cut { position: relative; left: 50%; height: auto; width: 64%; margin-top: 5.5rem; }
+    .hero__cut :global(img) { width: 100%; height: auto; }
+    .hero__roles { position: absolute; top: 15rem; left: 0; }
+    .role { font-size: 1.25rem; }
+    .hero__snap { left: auto; right: 0; top: 24rem; width: 8rem; }
+    .hero :global(.hero__win) { position: relative; right: auto; bottom: auto; width: 100%; margin-top: -3rem; transform: rotate(-1.5deg); }
+    .hero__cluster { right: -4%; top: 15rem; width: 8rem; height: 8rem; transform: scale(0.7); transform-origin: top right; }
+    .p1 { left: 40%; width: 64%; height: 30%; }
+    .p2 { left: 62%; top: 26%; width: 44%; height: 26%; }
+    .p3 { left: 74%; top: 46%; width: 30%; height: 12%; }
+    .p4 { display: none; }
+    .p5 { left: -10%; top: 40%; width: 40%; height: 28%; }
+    .p6 { left: 50%; top: 70%; width: 60%; height: 24%; }
+    .hero :global(.sticker--float), .hero :global(svg.sticker) { --s-scale: 0.7; }
   }
 </style>

@@ -6,7 +6,7 @@ import Sparkle from './Sparkle.astro';
 import Sticker from './Sticker.astro';
 ---
 
-<section class="section about-section paper torn-top" id="about">
+<section class="section about-section velvet vt-rose torn-top" id="about">
   <div class="container about">
     <div class="about__photo">
       <span class="tape tape--leopard" style="top:-0.6rem;left:12%;transform:rotate(-8deg)" aria-hidden="true"></span>
@@ -17,8 +17,9 @@ import Sticker from './Sticker.astro';
       <p class="about__scribble hand" aria-hidden="true">mezzo-soprano ♪</p>
       <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
     </div>
-    <div>
-      <p class="eyebrow">About</p>
+    <div class="about__page torn-card notebook">
+      <span class="tape" style="top:-0.2rem;left:40%;transform:rotate(3deg)" aria-hidden="true"></span>
+      <p class="eyebrow">[03] About</p>
       <h2 class="section-title">Storytelling <em>first.</em></h2>
       {profile.bio.map((p) => <p class="about__text">{p}</p>)}
 
@@ -38,7 +39,9 @@ import Sticker from './Sticker.astro';
 </section>
 
 <style>
-  .about-section { --sc: var(--blush); background-color: var(--blush); }
+  .about-section { --sc: #8a4a57; }
+  .about__page { padding: 2.25rem clamp(1.25rem, 3vw, 2.5rem) 2.5rem clamp(3.75rem, 5vw, 4.5rem); transform: rotate(1deg); }
+  .about__page .section-title { margin-bottom: 1.5rem; }
   .about { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
   /* A taped polaroid. */
   .about__photo {
@@ -62,7 +65,7 @@ import Sticker from './Sticker.astro';
     color: var(--burgundy);
   }
   .about__photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
-  .about__scribble { position: absolute; z-index: 3; bottom: -2.6rem; right: -1.5rem; margin: 0; font-size: 1.7rem; color: var(--burgundy); transform: rotate(-6deg); }
+  .about__scribble { position: absolute; z-index: 3; bottom: -2.8rem; right: -1.5rem; margin: 0; font-size: 1.9rem; color: var(--cream); text-shadow: 0 2px 4px rgb(0 0 0 / 0.5); transform: rotate(-6deg); }
   .about__text { max-width: 58ch; margin: 0 0 1.25rem; }
   .stats__label { margin: 2rem 0 0.25rem 0.5rem; font-size: 1.6rem; color: var(--burgundy); transform: rotate(-2deg); }
   /* Each stat is its own sticky note. */

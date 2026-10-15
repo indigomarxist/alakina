@@ -1,0 +1,87 @@
+---
+// A draped gold charm chain (Y2K collage), stretched across its container. Ornamental.
+interface Props {
+  style?: string;
+}
+const { style = '' } = Astro.props;
+const id = `c${Math.random().toString(36).slice(2, 8)}`;
+// Charms hang from points along the curve: [x, y, kind, colour]
+const charms: [number, number, string, string][] = [
+  [150, 74, 'heart', 'green'],
+  [330, 118, 'star', ''],
+  [500, 128, 'heart', 'pink'],
+  [690, 108, 'star', ''],
+  [850, 70, 'heart', 'blue'],
+];
+// Sample the drape (two cubic Béziers) and lay alternating curb links along it.
+type P = [number, number];
+const cubic = (a: P, b: P, c: P, d: P, t: number): P => {
+  const u = 1 - t;
+  return [0, 1].map((k) => u * u * u * a[k] + 3 * u * u * t * b[k] + 3 * u * t * t * c[k] + t * t * t * d[k]) as P;
+};
+const segs: [P, P, P, P][] = [
+  [[-10, 20], [200, 90], [380, 140], [520, 128]],
+  [[520, 128], [660, 116], [820, 70], [1010, 10]],
+];
+const pts: P[] = [];
+for (const sg of segs) for (let i = 0; i < 400; i++) pts.push(cubic(...sg, i / 400));
+const links: { x: number; y: number; a: number; flat: boolean }[] = [];
+let acc = 0;
+for (let i = 1; i < pts.length; i++) {
+  const [x0, y0] = pts[i - 1];
+  const [x1, y1] = pts[i];
+  acc += Math.hypot(x1 - x0, y1 - y0);
+  if (acc >= 13) {
+    acc = 0;
+    links.push({ x: x1, y: y1, a: (Math.atan2(y1 - y0, x1 - x0) * 180) / Math.PI, flat: links.length % 2 === 0 });
+  }
+}
+const jelly = { green: ['#e9ffb0', '#9be22d', '#3f8f0b'], blue: ['#d6f4ff', '#38bdf8', '#0b5f9e'], pink: ['#ffe0ef', '#ff6fb0', '#a3134f'] } as Record<string, string[]>;
+---
+
+<svg class="chain" style={style} viewBox="0 0 1000 220" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id={`${id}g`} x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff3c4" />
+      <stop offset=".45" stop-color="#d9a640" />
+      <stop offset="1" stop-color="#8a5a12" />
+    </linearGradient>
+    {Object.entries(jelly).map(([k, c]) => (
+      <radialGradient id={`${id}${k}`} cx=".35" cy=".3" r=".85">
+        <stop offset="0" stop-color={c[0]} />
+        <stop offset=".45" stop-color={c[1]} stop-opacity=".92" />
+        <stop offset="1" stop-color={c[2]} />
+      </radialGradient>
+    ))}
+  </defs>
+  {links.map(({ x, y, a, flat }) =>
+    flat ? (
+      <ellipse cx={x} cy={y} rx="11" ry="7" transform={`rotate(${a} ${x} ${y})`} fill="none" stroke={`url(#${id}g)`} stroke-width="4.5" />
+    ) : (
+      <ellipse cx={x} cy={y} rx="10" ry="2.6" transform={`rotate(${a} ${x} ${y})`} fill={`url(#${id}g)`} stroke="#6d4610" stroke-width="1" />
+    ),
+  )}
+  {charms.map(([x, y, kind, c]) => (
+    <g transform={`translate(${x} ${y})`}>
+      <path d="M0 0v14" stroke="#c99a3c" stroke-width="3" />
+      <circle cy="15" r="4" fill="none" stroke="#c99a3c" stroke-width="2.5" />
+      {kind === 'heart' ? (
+        <g transform="translate(-26 18) scale(.52)">
+          <path d="M50 92C18 68 6 52 6 33 6 19 17 9 30 9c9 0 16 5 20 12 4-7 11-12 20-12 13 0 24 10 24 24 0 19-12 35-44 59z" fill={`url(#${id}${c})`} />
+          <path d="M22 26c4-7 12-9 18-6" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".75" />
+        </g>
+      ) : (
+        <path transform="translate(0 38) scale(.9)" d="M0-20l6 13 14 1.5-10.5 9.5 3 14L0 11l-12.5 7 3-14L-20-5.5-6-7z" fill={`url(#${id}g)`} stroke="#7a4e0e" stroke-width="1.5" />
+      )}
+    </g>
+  ))}
+</svg>
+
+<style>
+  .chain {
+    position: absolute;
+    z-index: 4;
+    pointer-events: none;
+    filter: drop-shadow(2px 6px 4px rgb(20 6 10 / 0.5));
+  }
+</style>

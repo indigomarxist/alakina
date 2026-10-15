@@ -105,16 +105,23 @@ h1 em, h2 em {
 .paper { background-color: var(--paper); background-image: var(--grain); }
 .velvet {
   --text: var(--cream);
-  --muted: color-mix(in srgb, var(--cream) 76%, transparent);
+  --muted: color-mix(in srgb, var(--cream) 80%, transparent);
   --line: color-mix(in srgb, var(--cream) 24%, transparent);
   --accent: var(--gold-light);
   color: var(--cream);
   background-color: var(--v, var(--wine));
   background-image:
-    radial-gradient(120% 80% at 15% 0%, rgb(255 255 255 / 0.09), transparent 55%),
-    radial-gradient(90% 70% at 100% 100%, rgb(0 0 0 / 0.28), transparent 60%),
-    var(--grain);
+    radial-gradient(120% 70% at 50% 0%, transparent 40%, rgb(0 0 0 / 0.35)),
+    var(--vt, url('/textures/velvet-wine.webp'));
+  background-size: 100% 100%, 1000px 1000px;
 }
+/* Crushed-velvet textures (generated, seamless 1000px tiles). */
+.vt-wine { --v: var(--wine); --vt: url('/textures/velvet-wine.webp'); }
+.vt-rose { --v: var(--rose); --vt: url('/textures/velvet-rose.webp'); }
+.vt-olive { --v: var(--olive); --vt: url('/textures/velvet-olive.webp'); }
+.vt-teal { --v: var(--teal); --vt: url('/textures/velvet-teal.webp'); }
+.vt-cocoa { --v: var(--cocoa); --vt: url('/textures/velvet-cocoa.webp'); }
+.vt-pink { --v: #951a55; --vt: url('/textures/velvet-pink.webp'); }
 .velvet :focus-visible { outline-color: var(--gold-light); }
 
 /* Torn-paper top edge in the section's own colour (set --sc). */
@@ -267,14 +274,49 @@ h1 em, h2 em {
     repeating-linear-gradient(transparent 0 2.05rem, rgb(125 211 252 / 0.55) 2.05rem 2.125rem);
 }
 
-/* Glitter dust scattered over a surface. */
-.dust {
+/* Torn scrap of paper that carries ink text over velvet or plaid. */
+.torn-card {
+  position: relative;
+  padding: 1.75rem clamp(1.25rem, 3vw, 2.25rem) 0.5rem;
+  color: var(--ink);
+  --text: var(--ink);
+  --muted: var(--ink-soft);
+  --line: color-mix(in srgb, var(--ink) 18%, transparent);
+  --accent: var(--burgundy);
+  box-shadow: 0 18px 30px -16px rgb(0 0 0 / 0.6);
+  clip-path: polygon(0 3%, 6% 0, 18% 2%, 31% 0, 47% 2%, 62% 0, 78% 2%, 92% 0, 100% 2%, 99% 50%, 100% 97%, 85% 100%, 70% 98%, 52% 100%, 36% 98%, 20% 100%, 4% 98%, 0 100%, 1% 50%);
+}
+.torn-card .eyebrow { background: linear-gradient(#2b2b2b, #111); color: #f5f5f5; text-shadow: none; }
+
+/* Tartan, after the plaid on the Canva site she likes. */
+.plaid {
+  --text: var(--cream);
+  --muted: color-mix(in srgb, var(--cream) 80%, transparent);
+  --line: color-mix(in srgb, var(--cream) 24%, transparent);
+  --accent: var(--gold-light);
+  color: var(--cream);
+  background-color: #5a1230;
   background-image:
-    radial-gradient(circle, rgb(255 255 255 / 0.55) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgb(255 214 232 / 0.45) 0 1px, transparent 1.5px);
+    repeating-linear-gradient(90deg, rgb(255 94 168 / 0.5) 0 22px, transparent 22px 34px, rgb(15 60 58 / 0.7) 34px 64px, transparent 64px 74px, rgb(255 246 200 / 0.45) 74px 77px, transparent 77px 104px, rgb(20 8 12 / 0.55) 104px 116px, transparent 116px 128px),
+    repeating-linear-gradient(0deg, rgb(255 94 168 / 0.5) 0 22px, transparent 22px 34px, rgb(15 60 58 / 0.7) 34px 64px, transparent 64px 74px, rgb(255 246 200 / 0.45) 74px 77px, transparent 77px 104px, rgb(20 8 12 / 0.55) 104px 116px, transparent 116px 128px),
+    repeating-linear-gradient(45deg, rgb(0 0 0 / 0.12) 0 1px, transparent 1px 4px);
+}
+
+/* Glitter dust scattered over a surface. */
+.dust::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle, rgb(255 255 255 / 0.5) 0 1px, transparent 1.5px),
+    radial-gradient(circle, rgb(255 214 232 / 0.4) 0 1px, transparent 1.5px);
   background-size: 37px 41px, 53px 47px;
   background-position: 0 0, 19px 23px;
+  mix-blend-mode: screen;
+  opacity: 0.6;
 }
+.dust > :not(dialog) { position: relative; z-index: 1; }
 
 /* Cursor sparkle trail (script in Base.astro). */
 .trail {

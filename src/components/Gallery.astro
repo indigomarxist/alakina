@@ -28,6 +28,9 @@ const filters = [
   ['runway', 'Runway'],
 ].filter(([key]) => key === 'all' || photos.some((p) => p.data.category === key));
 
+// Desktop-folder colours for the category filters.
+const folderColors: Record<string, string> = { all: '#f2c35b', digitals: '#ff7a6b', performance: '#8f8cf7', photoshoots: '#ff8fc8', runway: '#5fd3c4' };
+
 // Large versions for the lightbox, generated at build time.
 const items = await Promise.all(
   photos.map(async (p) => ({
@@ -37,18 +40,22 @@ const items = await Promise.all(
 );
 ---
 
-<section class="section gallery-section paper" id="portfolio">
+<section class="section gallery-section velvet vt-pink dust torn-top" id="portfolio">
   <div class="container">
     <Sticker kind="cherry" size="4rem" rotate={-10} style="top:-3rem;right:15rem" />
     <Sticker kind="flower" size="3.2rem" rotate={12} style="top:5.5rem;right:22%;animation-delay:-2.5s" />
     <p class="gallery__note note note--pink hand" aria-hidden="true">click to zoom ♡</p>
-    <p class="eyebrow">Portfolio</p>
-    <h2 class="section-title">Selected <Cutout text="work" /></h2>
+    <div class="gallery__head torn-card paper">
+      <span class="tape" style="top:-0.9rem;left:44%;transform:rotate(-3deg)" aria-hidden="true"></span>
+      <p class="eyebrow">[01] Portfolio</p>
+      <h2 class="section-title">Selected <Cutout text="work" /></h2>
+    </div>
     <div class="filters" role="group" aria-label="Filter photos">
       {
         filters.map(([key, label], i) => (
-          <button class="filters__btn" type="button" data-filter={key} aria-pressed={i === 0 ? 'true' : 'false'}>
-            {label}
+          <button class="filters__btn" type="button" data-filter={key} aria-pressed={i === 0 ? 'true' : 'false'} style={`--f:${folderColors[key]}`}>
+            <span class="folder" aria-hidden="true"></span>
+            <span class="filters__label">{label}</span>
           </button>
         ))
       }
@@ -77,36 +84,66 @@ const items = await Promise.all(
 </section>
 
 <style>
+  .gallery-section { --sc: #8a1a50; }
   .gallery-section .container { position: relative; }
-  .gallery__note { position: absolute; z-index: 3; top: 0.5rem; right: 1rem; margin: 0; width: 9rem; --r: 5deg; font-size: 1.35rem; text-align: center; }
+  .gallery__head { display: inline-block; max-width: 100%; transform: rotate(-1.2deg); }
+  .gallery__note { position: absolute; z-index: 3; top: 0.5rem; right: 1rem; margin: 0; width: 9rem; --r: 5deg; font-size: 1.35rem; text-align: center; color: var(--ink); }
+
+  /* Category filters as desktop folders (after the Canva site she likes). */
   .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.7rem;
-    margin: -0.75rem 0 clamp(2.25rem, 4vw, 3rem);
+    gap: clamp(0.75rem, 2.5vw, 2rem);
+    margin: clamp(1.75rem, 4vw, 2.75rem) 0 clamp(2.25rem, 4vw, 3rem);
   }
-  /* Filters are label-maker strips. */
   .filters__btn {
-    min-height: 2.75rem;
-    padding: 0.45rem 1rem;
-    border: 0;
-    border-radius: 3px;
-    background: linear-gradient(#2b2b2b, #111);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    min-width: 6.5rem;
+    padding: 0.5rem 0.5rem 0.4rem;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    background: none;
     font: inherit;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: #f5f5f5;
-    text-shadow: 0 1px 0 rgb(0 0 0 / 0.8), 0 -1px 0 rgb(255 255 255 / 0.35);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.18), 1px 2px 3px rgb(0 0 0 / 0.35);
+    color: var(--cream);
     cursor: pointer;
-    transition: transform 0.3s var(--ease), background 0.3s var(--ease);
+    transition: transform 0.25s var(--ease), background 0.25s var(--ease);
   }
-  .filters__btn:nth-child(odd) { transform: rotate(-2deg); }
-  .filters__btn:nth-child(even) { transform: rotate(1.5deg); }
-  .filters__btn:hover { transform: rotate(0) translateY(-2px); }
-  .filters__btn[aria-pressed='true'] { background: linear-gradient(#cc2f7d, #9c1450); color: #fff; text-shadow: 0 1px 0 rgb(120 0 50 / 0.6); }
+  .folder {
+    position: relative;
+    display: block;
+    width: 4.6rem;
+    height: 3.4rem;
+    margin-top: 0.5rem;
+    border-radius: 0 6px 6px 6px;
+    background: linear-gradient(color-mix(in srgb, var(--f) 80%, white), var(--f));
+    box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--f) 70%, black), 2px 4px 6px rgb(0 0 0 / 0.35);
+  }
+  .folder::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -0.55rem;
+    width: 45%;
+    height: 0.75rem;
+    border-radius: 5px 5px 0 0;
+    background: color-mix(in srgb, var(--f) 85%, black);
+  }
+  .filters__label {
+    padding: 0.1rem 0.4rem;
+    font-family: var(--hand);
+    font-size: 1.35rem;
+    font-weight: 700;
+    line-height: 1.1;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 0.7);
+  }
+  .filters__btn:hover { transform: translateY(-3px) rotate(-2deg); }
+  .filters__btn[aria-pressed='true'] { background: rgb(255 255 255 / 0.18); border-color: rgb(255 255 255 / 0.55); border-style: dotted; }
+  .filters__btn[aria-pressed='true'] .filters__label { background: #2f6db5; text-decoration: none; text-shadow: none; }
 
   .masonry {
     list-style: none;
@@ -117,6 +154,8 @@ const items = await Promise.all(
   }
   @media (max-width: 800px) { .masonry { columns: 2; } .gallery__note { display: none; } .container > :global(svg.sticker:nth-child(2)) { display: none; } }
   @media (max-width: 520px) {
+    .filters__btn { min-width: 5.25rem; }
+    .folder { width: 3.6rem; height: 2.7rem; }
     .filters { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-inline: calc(-1 * var(--gutter)); padding: 0.4rem var(--gutter); }
     .filters::-webkit-scrollbar { display: none; }
     .filters__btn { flex: none; }
@@ -139,7 +178,7 @@ const items = await Promise.all(
     border-radius: 2px;
     background: var(--cream);
     cursor: zoom-in;
-    box-shadow: 0 1px 2px rgb(54 32 26 / 0.2), 0 12px 24px -12px rgb(54 32 26 / 0.5);
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 26px -12px rgb(0 0 0 / 0.7);
     transform: rotate(var(--tilt, 0deg));
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
