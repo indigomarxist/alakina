@@ -2,9 +2,9 @@
 // before the build. The Drive folder has one subfolder per gallery category
 // (Digitals, Performance, Photoshoots, Runway); whatever is in them is what the
 // site shows. Photos are downscaled here so Astro's AVIF encoding stays quick.
-// A Google Doc in the top folder with "video" or "link" in its name lists YouTube
-// links, one per line (optionally "Title - link"); those become embeds in the
-// video section.
+// Google Docs in the top folder or in a "Videos" folder can list YouTube links,
+// one per line (optionally "Title - link"); those become embeds in the video
+// section. Docs without YouTube links are simply ignored.
 //
 // Needs GOOGLE_SERVICE_ACCOUNT_KEY (the service account's JSON key) and
 // DRIVE_FOLDER_ID. Without them it does nothing, so local builds keep working.
@@ -33,9 +33,11 @@ if (!keyJson || !folderId) {
 
 const token = await getAccessToken(JSON.parse(keyJson));
 const photos = await listPhotos();
-const linkDocs = await listChildren(folderId, "mimeType = 'application/vnd.google-apps.document'").then((docs) =>
-  docs.filter((d) => /video|youtube|link/i.test(d.name)),
+const DOC = "mimeType = 'application/vnd.google-apps.document'";
+const videoFolders = (await listChildren(folderId, "mimeType = 'application/vnd.google-apps.folder'")).filter((f) =>
+  /^\s*vid(eo)?s?\s*$/i.test(f.name),
 );
+const linkDocs = (await Promise.all([folderId, ...videoFolders.map((f) => f.id)].map((id) => listChildren(id, DOC)))).flat();
 
 if (fingerprintOnly) {
   const hash = createHash('sha256');
@@ -110,7 +112,8 @@ async function listPhotos() {
   for (const folder of folders) {
     const category = categoryFor(folder.name);
     if (!category) {
-      console.warn(`[drive] ignoring folder "${folder.name}" (not one of: ${CATEGORIES.join(', ')})`);
+      if (!/^\s*vid(eo)?s?\s*$/i.test(folder.name))
+        console.warn(`[drive] ignoring folder "${folder.name}" (not one of: ${CATEGORIES.join(', ')})`);
       continue;
     }
     const images = await listChildren(folder.id, "mimeType contains 'image/'");
