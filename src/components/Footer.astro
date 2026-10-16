@@ -3,23 +3,22 @@ import { profile } from '../data/profile';
 const year = new Date().getFullYear();
 ---
 
-<div class="trim-leopard" aria-hidden="true"></div>
-<footer class="footer">
+<footer class="footer velvet vt-wine">
   <div class="container footer__inner">
-    <p><span class="footer__name glitter">{profile.name}</span> © {year}</p>
+    <p><span class="footer__name">{profile.name}</span> © {year}</p>
     <div class="footer__links">
-      <a href={`https://www.instagram.com/${profile.instagram}/`} rel="noopener">Instagram</a>
-      <a href={`https://www.tiktok.com/@${profile.tiktok}`} rel="noopener">TikTok</a>
+      <a href={`https://www.instagram.com/${profile.instagram}/`} rel="noopener">[ Instagram ]</a>
+      <a href={`https://www.tiktok.com/@${profile.tiktok}`} rel="noopener">[ TikTok ]</a>
     </div>
   </div>
 </footer>
 
 <style>
-  .footer { padding-block: 2.25rem; background: var(--cocoa); color: color-mix(in srgb, var(--cream) 78%, transparent); }
-  .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-size: 0.7rem; letter-spacing: 0.22em; text-transform: uppercase; }
+  .footer { padding-block: 2.25rem; border-top: 3px solid var(--gold); }
+  .footer__inner { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; font-family: var(--mono); font-size: 0.8rem; color: var(--blush); }
   p { margin: 0; }
-  .footer__name { font-family: var(--script); font-size: 2.1rem; letter-spacing: 0; text-transform: none; color: var(--blush); margin-right: 0.6rem; vertical-align: -0.2em; }
-  .footer__links { display: flex; gap: 0.5rem; }
-  a { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: none; padding: 0.5rem 1rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--cream) 30%, transparent); transition: background 0.3s var(--ease), color 0.3s var(--ease); }
-  a:hover { background: var(--cream); color: var(--cocoa); }
+  .footer__name { font-family: var(--serif); font-style: italic; font-size: 2.2rem; color: var(--blush); margin-right: 0.6rem; vertical-align: -0.15em; }
+  .footer__links { display: flex; gap: 1.25rem; }
+  a { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--blush); }
+  a:hover { color: var(--bubble); }
 </style>

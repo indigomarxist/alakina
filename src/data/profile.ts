@@ -21,7 +21,7 @@ export const profile = {
     ['Voice', 'Mezzo-Soprano'],
   ] as const,
   skills: [
-    'Stylized singing (mezzo-soprano)',
+    'Stylized singing',
     'Scene study',
     'Character development',
     'Jazz and musical theater dance',

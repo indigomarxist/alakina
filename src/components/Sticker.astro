@@ -1,18 +1,23 @@
 ---
 // Die-cut vector stickers for the scrapbook look. Ornamental, hidden from assistive tech.
 interface Props {
-  kind: 'star' | 'heart' | 'butterfly' | 'cherry' | 'cursor' | 'flower' | 'bow' | 'lips';
+  kind: 'star' | 'heart' | 'butterfly' | 'cherry' | 'cursor' | 'flower' | 'bow' | 'lips' | 'chrome' | 'cd' | 'phone' | 'rose' | 'jelly';
+  /** jelly heart colour */
+  tint?: 'green' | 'blue' | 'pink';
+  /** skip the white die-cut edge */
+  bare?: boolean;
   size?: string;
   rotate?: number;
   style?: string;
   float?: boolean;
 }
-const { kind, size = '4rem', rotate = 0, style = '', float = true } = Astro.props;
+const { kind, size = '4rem', rotate = 0, style = '', float = true, tint = 'green', bare = false } = Astro.props;
+const jelly = { green: ['#e9ffb0', '#9be22d', '#3f8f0b'], blue: ['#d6f4ff', '#38bdf8', '#0b5f9e'], pink: ['#ffe0ef', '#ff6fb0', '#a3134f'] }[tint];
 const id = `s${Math.random().toString(36).slice(2, 8)}`;
 ---
 
 <svg
-  class:list={['sticker', { 'sticker--float': float }]}
+  class:list={['sticker', { 'sticker--float': float, 'sticker--bare': bare }]}
   style={`--s:${size};--r:${rotate}deg;${style}`}
   viewBox="0 0 100 100"
   aria-hidden="true"
@@ -93,6 +98,81 @@ const id = `s${Math.random().toString(36).slice(2, 8)}`;
       <ellipse cx="34" cy="64" rx="9" ry="4" fill="#fff" opacity=".45" />
     </>
   )}
+  {kind === 'chrome' && (
+    <>
+      <defs>
+        <radialGradient id={id} cx=".38" cy=".32" r=".75">
+          <stop offset="0" stop-color="#ffffff" />
+          <stop offset=".28" stop-color="#e4e6ef" />
+          <stop offset=".55" stop-color="#7f8396" />
+          <stop offset=".72" stop-color="#d9dbe6" />
+          <stop offset="1" stop-color="#4a4d5e" />
+        </radialGradient>
+      </defs>
+      <path d="M50 3C54 30 60 42 97 50 60 58 54 70 50 97 46 70 40 58 3 50 40 42 46 30 50 3z" fill={`url(#${id})`} stroke="#3b3d4a" stroke-width="1.2" />
+      <path d="M45 22c2 10 4 16 12 20" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85" />
+      <circle cx="62" cy="62" r="3" fill="#fff" opacity=".7" />
+    </>
+  )}
+  {kind === 'cd' && (
+    <>
+      <defs>
+        <radialGradient id={`${id}s`} cx=".5" cy=".5" r=".5">
+          <stop offset=".2" stop-color="#fff" stop-opacity="0" />
+          <stop offset="1" stop-color="#fff" stop-opacity=".35" />
+        </radialGradient>
+      </defs>
+      <foreignObject x="2" y="2" width="96" height="96">
+        <div xmlns="http://www.w3.org/1999/xhtml" style="width:100%;height:100%;border-radius:50%;background:conic-gradient(from 20deg,#f0abfc,#93c5fd,#a7f3d0,#fde68a,#fbcfe8,#c4b5fd,#f0abfc,#99f6e4,#fda4af,#f0abfc)" />
+      </foreignObject>
+      <circle cx="50" cy="50" r="48" fill={`url(#${id}s)`} stroke="#b9a3c9" stroke-width="1" />
+      <circle cx="50" cy="50" r="16" fill="#e9e3ef" stroke="#a093ad" stroke-width="1" />
+      <circle cx="50" cy="50" r="7" fill="#1a0d12" />
+      <path d="M20 30a36 36 0 0 1 22-14" stroke="#fff" stroke-width="3" fill="none" opacity=".8" stroke-linecap="round" />
+    </>
+  )}
+  {kind === 'phone' && (
+    <>
+      <defs>
+        <linearGradient id={id} x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#c2185b" />
+          <stop offset=".4" stop-color="#ff7ab8" />
+          <stop offset=".6" stop-color="#ffb3d6" />
+          <stop offset="1" stop-color="#b0124f" />
+        </linearGradient>
+      </defs>
+      <rect x="28" y="4" width="44" height="44" rx="9" fill={`url(#${id})`} stroke="#6d0f2f" stroke-width="2" />
+      <rect x="35" y="11" width="30" height="24" rx="3" fill="#b9f27c" stroke="#3a5a12" stroke-width="1.5" />
+      <path d="M38 17h18M38 22h12M38 27h20" stroke="#2f4a0c" stroke-width="2" stroke-linecap="round" />
+      <rect x="26" y="49" width="48" height="47" rx="10" fill={`url(#${id})`} stroke="#6d0f2f" stroke-width="2" />
+      {[0, 1, 2, 3].map((r) => [0, 1, 2].map((c) => <rect x={34 + c * 11} y={58 + r * 9} width="8" height="6" rx="2" fill="#ffe0ef" stroke="#a3134f" stroke-width=".8" />))}
+      <path d="M33 8c6-2 10-2 14-2" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".8" />
+    </>
+  )}
+  {kind === 'rose' && (
+    <>
+      <path d="M22 70c-14-2-20 8-18 14 10 2 18-4 18-14zM78 72c14-4 20 6 18 12-10 2-18-2-18-12z" fill="#2f5d1e" />
+      <path d="M50 92C26 92 12 76 14 56 16 40 30 26 50 26s34 14 36 30c2 20-12 36-36 36z" fill="#8b0d1d" />
+      <path d="M50 84c-18 0-28-12-26-26 2-12 12-20 26-20s24 8 26 20c2 14-8 26-26 26z" fill="#b5121b" />
+      <path d="M50 74c-11 0-17-8-16-17 1-8 8-12 16-12s15 4 16 12c1 9-5 17-16 17z" fill="#d42a35" />
+      <path d="M40 58c2-8 14-10 18-2-2 6-8 8-12 6 4-1 6-3 6-5-3-3-9-2-12 1z" fill="#7a0a17" />
+      <path d="M26 50c4-10 12-16 22-18" stroke="#ff8a95" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".7" />
+    </>
+  )}
+  {kind === 'jelly' && (
+    <>
+      <defs>
+        <radialGradient id={id} cx=".35" cy=".3" r=".85">
+          <stop offset="0" stop-color={jelly[0]} />
+          <stop offset=".45" stop-color={jelly[1]} stop-opacity=".92" />
+          <stop offset="1" stop-color={jelly[2]} />
+        </radialGradient>
+      </defs>
+      <path d="M50 92C18 68 6 52 6 33 6 19 17 9 30 9c9 0 16 5 20 12 4-7 11-12 20-12 13 0 24 10 24 24 0 19-12 35-44 59z" fill={`url(#${id})`} />
+      <path d="M22 26c4-7 12-9 18-6" stroke="#fff" stroke-width="6" stroke-linecap="round" fill="none" opacity=".75" />
+      <ellipse cx="66" cy="62" rx="7" ry="4" fill="#fff" opacity=".3" transform="rotate(-35 66 62)" />
+    </>
+  )}
 </svg>
 
 <style>
@@ -107,6 +187,7 @@ const id = `s${Math.random().toString(36).slice(2, 8)}`;
     /* White die-cut edge plus a soft drop shadow. */
     filter: drop-shadow(2px 0 0 #fff) drop-shadow(-2px 0 0 #fff) drop-shadow(0 2px 0 #fff) drop-shadow(0 -2px 0 #fff) drop-shadow(1px 3px 2px rgb(42 22 23 / 0.35));
   }
+  .sticker--bare { filter: drop-shadow(1px 4px 3px rgb(20 6 10 / 0.45)); }
   .sticker--float { animation: bob 5s ease-in-out infinite; }
   @keyframes bob {
     0%, 100% { transform: rotate(var(--r)) translateY(0); }

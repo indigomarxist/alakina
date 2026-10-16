@@ -6,7 +6,7 @@ import Sparkle from './Sparkle.astro';
 import Sticker from './Sticker.astro';
 ---
 
-<section class="section about-section paper torn-top" id="about">
+<section class="section about-section velvet vt-teal torn-top" id="about">
   <div class="container about">
     <div class="about__photo">
       <span class="tape tape--leopard" style="top:-0.6rem;left:12%;transform:rotate(-8deg)" aria-hidden="true"></span>
@@ -14,15 +14,18 @@ import Sticker from './Sticker.astro';
       <Sticker kind="heart" size="3.8rem" rotate={12} style="top:-1.8rem;right:-1.6rem" />
       <Sticker kind="star" size="2.6rem" rotate={-14} style="bottom:18%;left:-1.8rem;animation-delay:-2s" />
       <Sparkle color="var(--burgundy)" size="1.4rem" style="top:40%;right:-1.4rem;z-index:3" />
-      <p class="about__scribble hand" aria-hidden="true">mezzo-soprano ♪</p>
       <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
     </div>
-    <div>
-      <p class="eyebrow">About</p>
+    <div class="about__col">
+    <div class="about__page torn-card paper">
+      <span class="tape" style="top:-0.2rem;left:40%;transform:rotate(3deg)" aria-hidden="true"></span>
+      <p class="eyebrow">[ 03 ] About</p>
       <h2 class="section-title">Storytelling <em>first.</em></h2>
       {profile.bio.map((p) => <p class="about__text">{p}</p>)}
 
-      <p class="stats__label hand" aria-hidden="true">the stats ↓</p>
+    </div>
+    <div class="stats-card velvet vt-rose">
+      <p class="stats-card__head"><span class="stats-card__label">Comp card · measurements</span><span class="stats-card__script" aria-hidden="true">vital stats</span></p>
       <dl class="stats" aria-label="Measurements">
         {
           profile.stats.map(([label, value]) => (
@@ -34,18 +37,22 @@ import Sticker from './Sticker.astro';
         }
       </dl>
     </div>
+    </div>
   </div>
 </section>
 
 <style>
-  .about-section { --sc: var(--blush); background-color: var(--blush); }
+  .about-section { --sc: var(--teal); }
   .about { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(2.5rem, 7vw, 7rem); align-items: center; }
+  .about__col { display: grid; gap: 0; }
+  .about__page { padding: 2.5rem clamp(1.5rem, 3.5vw, 3rem) 2.75rem; transform: rotate(-1deg); }
+  .about__page .section-title { margin-bottom: 1.5rem; }
   /* A taped polaroid. */
   .about__photo {
     position: relative;
     padding: 0.7rem 0.7rem 3.4rem;
-    background: var(--cream);
-    box-shadow: 0 2px 4px rgb(54 32 26 / 0.15), 0 24px 40px -18px rgb(54 32 26 / 0.5);
+    background: var(--white);
+    box-shadow: 6px 8px 0 var(--cocoa);
     transform: rotate(-3.5deg);
   }
   .about__photo::after {
@@ -53,34 +60,27 @@ import Sticker from './Sticker.astro';
     position: absolute;
     left: 0;
     right: 0;
-    bottom: 0.7rem;
+    bottom: 0.6rem;
     text-align: center;
-    font-family: var(--hand);
-    font-weight: 700;
-    font-size: 1.8rem;
+    font-family: var(--script);
+    font-size: 2rem;
     line-height: 1;
-    color: var(--burgundy);
+    color: var(--wine);
   }
   .about__photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
-  .about__scribble { position: absolute; z-index: 3; bottom: -2.6rem; right: -1.5rem; margin: 0; font-size: 1.7rem; color: var(--burgundy); transform: rotate(-6deg); }
   .about__text { max-width: 58ch; margin: 0 0 1.25rem; }
-  .stats__label { margin: 2rem 0 0.25rem 0.5rem; font-size: 1.6rem; color: var(--burgundy); transform: rotate(-2deg); }
-  /* Each stat is its own sticky note. */
-  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.9rem; margin: 0; }
-  .stats div {
-    padding: 0.7rem 0.85rem 0.85rem;
-    background: linear-gradient(#fff6a8, #ffec7a);
-    box-shadow: 0 1px 1px rgb(0 0 0 / 0.1), 3px 8px 12px -6px rgb(42 22 23 / 0.45);
-  }
-  .stats div:nth-child(4n + 1) { transform: rotate(-3deg); }
-  .stats div:nth-child(4n + 2) { transform: rotate(2deg); background: linear-gradient(#ffd6e8, #ffbcd9); }
-  .stats div:nth-child(4n + 3) { transform: rotate(-1deg); background: linear-gradient(#d8f3ff, #b9e8ff); }
-  .stats div:nth-child(4n + 4) { transform: rotate(3deg); background: linear-gradient(#e7f5c9, #d3ecab); }
-  dt { font-size: 0.66rem; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); }
-  dd { margin: 0.1rem 0 0; font-family: var(--hand); font-weight: 700; font-size: 1.8rem; line-height: 1.05; }
+  /* Comp-card stats panel in velvet rose, stitched seam at the foot. */
+  .stats-card { position: relative; z-index: 1; margin: -1.25rem 1.5rem 0 clamp(1rem, 6vw, 4rem); padding: 1.75rem; transform: rotate(1.5deg); box-shadow: 8px 8px 0 var(--cocoa); }
+  .stats-card__head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem 1rem; margin: 0 0 1.1rem; }
+  .stats-card__label { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--blush); }
+  .stats-card__script { font-family: var(--script); font-size: 2rem; line-height: 1; color: var(--bubble); }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem 1.25rem; margin: 0; padding-bottom: 1rem; border-bottom: 1px dashed var(--blush); }
+  dt { font-family: var(--mono); font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in srgb, var(--blush) 88%, transparent); }
+  dd { margin: 0.2rem 0 0; font-family: var(--serif); font-size: 1.6rem; line-height: 1.1; color: var(--blush); }
   @media (max-width: 800px) {
     .about { grid-template-columns: 1fr; }
     .about__photo { width: min(76%, 22rem); margin: 1.5rem 0 2rem 1.5rem; }
+    .stats-card { margin-inline: 0.5rem; }
   }
   @media (max-width: 520px) { .stats { grid-template-columns: repeat(2, 1fr); } }
 </style>

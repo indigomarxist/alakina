@@ -1,9 +1,13 @@
 # Checks Alakina's Google Drive photo folder every 15 minutes and redeploys only when
 # something in it changed (added, removed, moved between categories, or edited).
 # The check itself just lists the folder, so a quiet run takes a few seconds.
+# It also deploys every push to main, since Cloudflare's own Git build for this
+# Worker fails before it starts.
 name: Drive photo sync
 
 on:
+  push:
+    branches: [main]
   schedule:
     - cron: '*/15 * * * *'
   workflow_dispatch:
