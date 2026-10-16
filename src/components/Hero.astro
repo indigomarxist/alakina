@@ -4,7 +4,6 @@ import cutout from '../assets/cutouts/full-length.webp';
 import second from '../assets/photos/headshot-smile.jpg';
 import { profile } from '../data/profile';
 import Sticker from './Sticker.astro';
-import Chain from './Chain.astro';
 import Win from './Win.astro';
 
 const roles = profile.tagline.split('·').map((r) => r.trim());
@@ -73,16 +72,13 @@ const cluster: [number, number, number, number][] = [
       ))}
     </div>
 
-    <Sticker kind="phone" bare size="6rem" rotate={-16} float={false} style="left:26%;top:22%" />
     <Sticker kind="cd" bare size="8rem" rotate={0} float={false} style="right:-2%;top:6%" />
     <Sticker kind="rose" size="4.6rem" rotate={-14} float={false} style="left:31%;bottom:9%" />
     <Sticker kind="rose" size="3.4rem" rotate={18} float={false} style="left:36.5%;bottom:4%" />
-    <Sticker kind="butterfly" size="4rem" rotate={16} style="left:36%;top:30%;animation-delay:-2s" />
     <Sticker kind="cursor" size="3.6rem" rotate={-12} style="right:27%;bottom:30%;animation-delay:-1s" />
     <Sticker kind="lips" size="4rem" rotate={-10} float={false} style="left:2%;top:36%" />
     <Sticker kind="heart" size="3rem" rotate={12} style="right:31%;top:12%;animation-delay:-3s" />
 
-    <Chain style="left:-3%;bottom:2%;width:106%" />
   </div>
 </section>
 
