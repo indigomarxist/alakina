@@ -29,7 +29,7 @@ const filters = [
 ].filter(([key]) => key === 'all' || photos.some((p) => p.data.category === key));
 
 // Desktop-folder colours for the category filters.
-const folderColors: Record<string, string> = { all: '#f2c35b', digitals: '#ff7a6b', performance: '#8f8cf7', photoshoots: '#ff8fc8', runway: '#5fd3c4' };
+const folderColors: Record<string, string> = { all: '#c9a24a', digitals: '#f28db8', performance: '#e0457b', photoshoots: '#d8d8de', runway: '#b8864b' };
 
 // Large versions for the lightbox, generated at build time.
 const items = await Promise.all(
@@ -40,14 +40,14 @@ const items = await Promise.all(
 );
 ---
 
-<section class="section gallery-section velvet vt-pink dust torn-top" id="portfolio">
+<section class="section gallery-section velvet vt-mauve torn-top" id="portfolio">
   <div class="container">
     <Sticker kind="cherry" size="4rem" rotate={-10} style="top:-3rem;right:15rem" />
     <Sticker kind="flower" size="3.2rem" rotate={12} style="top:5.5rem;right:22%;animation-delay:-2.5s" />
-    <p class="gallery__note note note--pink hand" aria-hidden="true">click to zoom ♡</p>
+    <p class="gallery__note note" aria-hidden="true">click to zoom ♡</p>
     <div class="gallery__head torn-card paper">
       <span class="tape" style="top:-0.9rem;left:44%;transform:rotate(-3deg)" aria-hidden="true"></span>
-      <p class="eyebrow">[01] Portfolio</p>
+      <p class="eyebrow">[ 01 ] Portfolio</p>
       <h2 class="section-title">Selected <Cutout text="work" /></h2>
     </div>
     <div class="filters" role="group" aria-label="Filter photos">
@@ -84,10 +84,10 @@ const items = await Promise.all(
 </section>
 
 <style>
-  .gallery-section { --sc: #8a1a50; }
+  .gallery-section { --sc: var(--rose); }
   .gallery-section .container { position: relative; }
   .gallery__head { display: inline-block; max-width: 100%; transform: rotate(-1.2deg); }
-  .gallery__note { position: absolute; z-index: 3; top: 0.5rem; right: 1rem; margin: 0; width: 9rem; --r: 5deg; font-size: 1.35rem; text-align: center; color: var(--ink); }
+  .gallery__note { position: absolute; z-index: 3; top: 0.5rem; right: 1rem; margin: 0; width: 10rem; --r: 5deg; text-align: center; }
 
   /* Category filters as desktop folders (after the Canva site she likes). */
   .filters {
@@ -119,7 +119,7 @@ const items = await Promise.all(
     margin-top: 0.5rem;
     border-radius: 0 6px 6px 6px;
     background: linear-gradient(color-mix(in srgb, var(--f) 80%, white), var(--f));
-    box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--f) 70%, black), 2px 4px 6px rgb(0 0 0 / 0.35);
+    box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--f) 70%, black), 3px 3px 0 var(--wine);
   }
   .folder::before {
     content: '';
@@ -133,17 +133,15 @@ const items = await Promise.all(
   }
   .filters__label {
     padding: 0.1rem 0.4rem;
-    font-family: var(--hand);
-    font-size: 1.35rem;
-    font-weight: 700;
-    line-height: 1.1;
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    line-height: 1.4;
     text-decoration: underline;
     text-underline-offset: 3px;
-    text-shadow: 0 1px 2px rgb(0 0 0 / 0.7);
   }
   .filters__btn:hover { transform: translateY(-3px) rotate(-2deg); }
-  .filters__btn[aria-pressed='true'] { background: rgb(255 255 255 / 0.18); border-color: rgb(255 255 255 / 0.55); border-style: dotted; }
-  .filters__btn[aria-pressed='true'] .filters__label { background: #2f6db5; text-decoration: none; text-shadow: none; }
+  .filters__btn[aria-pressed='true'] { background: rgb(255 255 255 / 0.16); border-color: var(--blush); border-style: dashed; }
+  .filters__btn[aria-pressed='true'] .filters__label { background: var(--wine); color: var(--blush); text-decoration: none; }
 
   .masonry {
     list-style: none;
@@ -175,10 +173,10 @@ const items = await Promise.all(
     width: 100%;
     padding: 0.5rem 0.5rem 1.6rem;
     border: 0;
-    border-radius: 2px;
-    background: var(--cream);
+    border-radius: 0;
+    background: var(--white);
     cursor: zoom-in;
-    box-shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 16px 26px -12px rgb(0 0 0 / 0.7);
+    box-shadow: 6px 6px 0 var(--wine);
     transform: rotate(var(--tilt, 0deg));
     transition: transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
   }
@@ -192,7 +190,7 @@ const items = await Promise.all(
   .masonry__item :global(img) { display: block; width: 100%; height: auto; }
   .masonry__item:hover, .masonry__item:focus-visible {
     transform: rotate(0deg) scale(1.04);
-    box-shadow: 0 2px 4px rgb(54 32 26 / 0.2), 0 26px 40px -16px rgb(54 32 26 / 0.6);
+    box-shadow: 9px 9px 0 var(--wine);
     z-index: 2;
     position: relative;
   }
@@ -209,7 +207,7 @@ const items = await Promise.all(
   }
   .lightbox::backdrop { background: transparent; }
   .lightbox[open] { display: grid; place-items: center; }
-  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; border: 0.5rem solid var(--cream); border-bottom-width: 2rem; transform: rotate(-1deg); }
+  .lightbox__img { max-width: calc(100vw - 7rem); max-height: calc(100dvh - 4rem); width: auto; height: auto; object-fit: contain; border: 0.5rem solid var(--white); border-bottom-width: 2rem; transform: rotate(-1deg); }
   .lightbox__btn {
     position: absolute;
     background: none;

@@ -39,7 +39,7 @@ const jsonLd = {
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <meta name="theme-color" content="#4b1020" />
+    <meta name="theme-color" content="#3a0f18" />
 
     <meta property="og:type" content="profile" />
     <meta property="og:title" content={title} />
@@ -55,7 +55,7 @@ const jsonLd = {
     <script>
       // Y2K sparkle trail behind the mouse; skipped on touch screens and for reduced motion.
       if (matchMedia('(pointer: fine)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        const colors = ['#ff8fc8', '#e4c88f', '#c084fc', '#ffffff', '#7dd3fc'];
+        const colors = ['#f28db8', '#e4c77a', '#e0457b', '#fffdf8', '#d8d8de'];
         let last = 0;
         addEventListener('pointermove', (e) => {
           if (e.timeStamp - last < 45) return;

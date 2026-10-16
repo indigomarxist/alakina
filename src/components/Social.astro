@@ -16,7 +16,7 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
     <Sticker kind="heart" size="2.8rem" rotate={10} style="top:4rem;right:2%;animation-delay:-2s" />
     <div class="social__head torn-card paper">
       <span class="tape tape--leopard" style="top:-0.6rem;left:12%;transform:rotate(-5deg)" aria-hidden="true"></span>
-      <p class="eyebrow">[05] Social</p>
+      <p class="eyebrow">[ 05 ] Social</p>
       <h2 class="section-title">Follow <em>along</em></h2>
     </div>
 
@@ -68,7 +68,7 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 </section>
 
 <style>
-  .social-section { --sc: #5a1230; }
+  .social-section { --sc: var(--wine); }
   .social__head { display: inline-block; margin-bottom: clamp(2rem, 4vw, 3rem); transform: rotate(1.4deg); }
   .social__head .section-title { margin-bottom: 1.25rem; }
   .social-section .container { position: relative; }
@@ -77,13 +77,13 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
   .social { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(2rem, 5vw, 4rem); align-items: start; }
   .social--no-feed { grid-template-columns: minmax(0, 40rem); }
   .ig__grid { list-style: none; margin: 0 0 1.5rem; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(0.5rem, 1.2vw, 0.8rem); }
-  .ig__item { display: block; padding: 0.3rem; background: var(--cream); box-shadow: 0 10px 20px -12px rgb(0 0 0 / 0.6); transition: transform 0.4s var(--ease); }
+  .ig__item { display: block; padding: 0.3rem; background: var(--white); box-shadow: 4px 4px 0 var(--cocoa); transition: transform 0.4s var(--ease); }
   li:nth-child(odd) .ig__item { transform: rotate(-1deg); }
   li:nth-child(even) .ig__item { transform: rotate(1deg); }
   .ig__item:hover { transform: rotate(0) scale(1.03); }
   .ig__item :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; }
-  .handle { font-size: 0.75rem; font-weight: 480; letter-spacing: 0.22em; text-transform: uppercase; text-decoration: none; color: var(--cream); border-bottom: 1px solid var(--gold-light); padding-bottom: 0.25rem; }
-  .handle:hover { color: var(--gold-light); }
+  .handle { font-family: var(--mono); font-size: 0.85rem; color: var(--cream); }
+  .handle:hover { color: var(--bubble); }
   .tt { display: grid; gap: 1.5rem; }
   .tt__embed { min-height: 22rem; background: var(--cream); color: var(--ink); overflow: hidden; }
   .tt__embed :global(blockquote) { margin: 0; }
