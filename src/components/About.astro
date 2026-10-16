@@ -14,7 +14,6 @@ import Sticker from './Sticker.astro';
       <Sticker kind="heart" size="3.8rem" rotate={12} style="top:-1.8rem;right:-1.6rem" />
       <Sticker kind="star" size="2.6rem" rotate={-14} style="bottom:18%;left:-1.8rem;animation-delay:-2s" />
       <Sparkle color="var(--burgundy)" size="1.4rem" style="top:40%;right:-1.4rem;z-index:3" />
-      <p class="about__scribble hand" aria-hidden="true">mezzo-soprano ♪</p>
       <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
     </div>
     <div class="about__page torn-card notebook">
@@ -65,7 +64,6 @@ import Sticker from './Sticker.astro';
     color: var(--burgundy);
   }
   .about__photo :global(img) { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 20%; }
-  .about__scribble { position: absolute; z-index: 3; bottom: -2.8rem; right: -1.5rem; margin: 0; font-size: 1.9rem; color: var(--cream); text-shadow: 0 2px 4px rgb(0 0 0 / 0.5); transform: rotate(-6deg); }
   .about__text { max-width: 58ch; margin: 0 0 1.25rem; }
   .stats__label { margin: 2rem 0 0.25rem 0.5rem; font-size: 1.6rem; color: var(--burgundy); transform: rotate(-2deg); }
   /* Each stat is its own sticky note. */
