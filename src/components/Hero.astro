@@ -11,13 +11,13 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
 
 <section class="hero velvet vt-wine" id="top">
   <div class="patch" aria-hidden="true">
-    <span class="patch__b vt-rose velvet p1"></span>
-    <span class="patch__b vt-mauve velvet p2"></span>
-    <span class="patch__b leopard p3"></span>
-    <span class="patch__b zebra p4"></span>
-    <span class="patch__b vt-olive velvet p5"></span>
-    <span class="patch__b vt-teal velvet p6"></span>
-    <span class="patch__b vt-chestnut velvet p7"></span>
+    <span class="patch__b p1" style="--f:url('/fabrics/rose.webp')"></span>
+    <span class="patch__b p2" style="--f:url('/fabrics/mauve.webp')"></span>
+    <span class="patch__b p3" style="--f:url('/fabrics/leopard.webp')"></span>
+    <span class="patch__b p4" style="--f:url('/fabrics/zebra.webp')"></span>
+    <span class="patch__b p5" style="--f:url('/fabrics/olive.webp')"></span>
+    <span class="patch__b p6" style="--f:url('/fabrics/peacock.webp')"></span>
+    <span class="patch__b p7" style="--f:url('/fabrics/chestnut.webp')"></span>
   </div>
 
   <div class="container hero__stage">
@@ -70,11 +70,37 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
 </section>
 
 <style>
-  .hero { position: relative; overflow: clip; padding-block: 2.5rem 0; }
+  .hero {
+    position: relative;
+    overflow: clip;
+    padding-block: 2.5rem 0;
+    /* Real oxblood velvet, darkened at the edges so the blush title keeps its contrast. */
+    background-image:
+      radial-gradient(120% 80% at 30% 30%, rgb(30 6 12 / 0.25), rgb(20 3 8 / 0.7)),
+      url('/fabrics/oxblood.webp');
+    background-size: 100% 100%, cover;
+    background-position: center;
+  }
 
-  /* Fabric-swatch patchwork, after the velvet palette board. */
-  .patch { position: absolute; inset: 0; pointer-events: none; }
-  .patch__b { position: absolute; display: block; }
+  /*
+    Fabric-swatch patchwork, after the velvet palette board: photographs of real
+    velvets and prints (public/fabrics, credits in CREDITS.md), each cut with
+    pinking shears top and bottom. The shadow sits on the wrapper because a
+    filter on the masked swatch would be masked away with it.
+  */
+  .patch { position: absolute; inset: 0; pointer-events: none; filter: drop-shadow(6px 6px 0 rgb(20 3 8 / 0.55)); }
+  .patch__b {
+    --zz: 9px;
+    position: absolute;
+    display: block;
+    background: var(--wine) var(--f) center / cover no-repeat;
+    -webkit-mask:
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% 0 / calc(2 * var(--zz)) 51% repeat-x,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% 100% / calc(2 * var(--zz)) 51% repeat-x;
+    mask:
+      conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) 50% 0 / calc(2 * var(--zz)) 51% repeat-x,
+      conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) 50% 100% / calc(2 * var(--zz)) 51% repeat-x;
+  }
   .p1 { left: 52%; top: -4%; width: 30%; height: 46%; transform: rotate(2deg); }
   .p2 { left: 74%; top: 30%; width: 30%; height: 54%; transform: rotate(-3deg); }
   .p3 { left: 60%; top: 36%; width: 15%; height: 24%; transform: rotate(-6deg); }
