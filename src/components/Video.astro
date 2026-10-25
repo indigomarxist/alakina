@@ -1,7 +1,6 @@
 ---
 import Cutout from './Cutout.astro';
 import Win from './Win.astro';
-import Sticker from './Sticker.astro';
 import { getImage } from 'astro:assets';
 import { getCollection } from 'astro:content';
 
@@ -42,14 +41,12 @@ const items = await Promise.all(
   items.length > 0 && (
     <section class="section video velvet vt-olive torn-top" id="video">
       <div class="container">
-        <Sticker kind="star" size="3.5rem" rotate={14} style="top:-1rem;right:6%" />
-        <Sticker kind="lips" size="3.2rem" rotate={-12} style="top:30%;left:-1rem;animation-delay:-2s" />
         <p class="eyebrow">[ 02 ] Video</p>
         <h2 class="section-title">In <Cutout text="motion" /></h2>
         <ul class="videos">
           {items.map(({ id, data, poster }) => (
             <li class:list={['videos__item', data.kind === 'file' && `videos__item--${data.orientation}`]}>
-              <Win title={`${data.title.toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '')}.${data.kind === 'file' ? 'mov' : 'avi'}`} class="videos__win">
+              <Win title={data.title} status={data.kind === 'file' ? 'clip' : 'YouTube'} class="videos__win">
               <div class="videos__frame">
                 {data.kind === 'file' ? (
                   <video src={data.src} poster={poster} controls playsinline preload="none" aria-label={data.title} />
