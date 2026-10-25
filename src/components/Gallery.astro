@@ -42,7 +42,6 @@ const items = await Promise.all(
 
 <section class="section gallery-section velvet vt-mauve torn-top" id="portfolio">
   <div class="container">
-    <Sticker kind="cherry" size="4rem" rotate={-10} style="top:-3rem;right:15rem" />
     <Sticker kind="flower" size="3.2rem" rotate={12} style="top:5.5rem;right:22%;animation-delay:-2.5s" />
     <p class="gallery__note note" aria-hidden="true">click to zoom ♡</p>
     <div class="gallery__head torn-card paper">
@@ -150,7 +149,7 @@ const items = await Promise.all(
     columns: 3;
     column-gap: clamp(1rem, 2.2vw, 1.75rem);
   }
-  @media (max-width: 800px) { .masonry { columns: 2; } .gallery__note { display: none; } .container > :global(svg.sticker:nth-child(2)) { display: none; } }
+  @media (max-width: 800px) { .masonry { columns: 2; } .gallery__note { display: none; } .container > :global(svg.sticker) { display: none; } }
   @media (max-width: 520px) {
     .filters__btn { min-width: 5.25rem; }
     .folder { width: 3.6rem; height: 2.7rem; }

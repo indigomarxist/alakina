@@ -7,10 +7,6 @@ import Sticker from './Sticker.astro';
 import Win from './Win.astro';
 
 const roles = profile.tagline.split('·').map((r) => r.trim());
-// Chrome star cluster, like the Y2K collage boards: [left%, top%, size rem, rotate]
-const cluster: [number, number, number, number][] = [
-  [0, 18, 4.2, -10], [22, 0, 3, 14], [40, 22, 5, 4], [16, 46, 2.6, 22], [58, 2, 2.4, -18], [66, 38, 3.4, 10], [36, 64, 2.2, -6],
-];
 ---
 
 <section class="hero velvet vt-wine" id="top">
@@ -52,7 +48,7 @@ const cluster: [number, number, number, number][] = [
       {roles.map((r, i) => <li class={`role role--${i}`}>{r}</li>)}
     </ul>
 
-    <Win title="book_alakina.exe" class="hero__win">
+    <Win title="Bookings" skin="leopard" status={`now booking · ${profile.based}`} class="hero__win">
       <p class="hero__win-text">Now booking editorial, runway, stage and screen.</p>
       <div class="hero__actions">
         <a class="btn btn--solid" href="#contact">Booking inquiries</a>
@@ -66,18 +62,9 @@ const cluster: [number, number, number, number][] = [
       <figcaption class="hand">it's me!! ♡</figcaption>
     </figure>
 
-    <div class="hero__cluster" aria-hidden="true">
-      {cluster.map(([l, t, s, r], i) => (
-        <Sticker kind="chrome" bare size={`${s}rem`} rotate={r} style={`left:${l}%;top:${t}%;animation-delay:-${i * 0.7}s`} />
-      ))}
-    </div>
 
-    <Sticker kind="cd" bare size="8rem" rotate={0} float={false} style="right:-2%;top:6%" />
-    <Sticker kind="rose" size="4.6rem" rotate={-14} float={false} style="left:31%;bottom:9%" />
-    <Sticker kind="rose" size="3.4rem" rotate={18} float={false} style="left:36.5%;bottom:4%" />
-    <Sticker kind="cursor" size="3.6rem" rotate={-12} style="right:27%;bottom:30%;animation-delay:-1s" />
-    <Sticker kind="lips" size="4rem" rotate={-10} float={false} style="left:2%;top:36%" />
-    <Sticker kind="heart" size="3rem" rotate={12} style="right:31%;top:12%;animation-delay:-3s" />
+    <Sticker kind="rose" size="4.6rem" rotate={-14} float={false} style="left:63%;bottom:7%" />
+    <Sticker kind="rose" size="3.4rem" rotate={18} float={false} style="left:88%;bottom:3%" />
 
   </div>
 </section>
@@ -132,8 +119,8 @@ const cluster: [number, number, number, number][] = [
   .hero__last {
     position: absolute;
     z-index: 4;
-    right: 5%;
-    top: 31%;
+    left: 36%;
+    top: 33%;
     font-size: clamp(5.5rem, 14vw, 14rem);
     line-height: 1;
     transform: rotate(-8deg);
@@ -142,7 +129,7 @@ const cluster: [number, number, number, number][] = [
   .hero__cut {
     position: absolute;
     z-index: 2;
-    left: 46%;
+    left: 80%;
     bottom: 0;
     height: 94%;
     margin: 0;
@@ -167,7 +154,7 @@ const cluster: [number, number, number, number][] = [
   .role--1 { background: var(--gold-light); transform: rotate(3deg); margin-left: 1.5rem; }
   .role--2 { background: var(--chrome); transform: rotate(-2deg); margin-left: 0.5rem; }
 
-  .hero :global(.hero__win) { position: absolute; z-index: 6; right: 1%; bottom: 5%; width: min(23rem, 30%); transform: rotate(2.5deg); }
+  .hero :global(.hero__win) { position: absolute; z-index: 6; left: 30%; bottom: 5%; width: min(23rem, 32%); transform: rotate(-1.5deg); }
   .hero__win-text { margin: 0 0 1rem; font-family: var(--serif); font-size: 1.2rem; line-height: 1.3; }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .hero .btn--win { color: var(--ink); border-color: var(--ink); }
@@ -175,8 +162,8 @@ const cluster: [number, number, number, number][] = [
   .hero__snap {
     position: absolute;
     z-index: 5;
-    left: 13%;
-    top: 49%;
+    left: 14%;
+    top: 60%;
     width: clamp(7rem, 12vw, 11rem);
     margin: 0;
     padding: 0.45rem 0.45rem 2rem;
@@ -187,7 +174,6 @@ const cluster: [number, number, number, number][] = [
   .hero__snap :global(img) { width: 100%; aspect-ratio: 1; object-fit: cover; object-position: 50% 25%; }
   .hero__snap figcaption { position: absolute; left: 0; right: 0; bottom: 0.2rem; text-align: center; font-size: 1.5rem; line-height: 1.2; color: var(--wine); }
 
-  .hero__cluster { position: absolute; z-index: 7; right: 0; top: 47%; width: 13rem; height: 11rem; }
 
   @media (max-width: 1100px) {
     .hero__roles { top: 40%; }
@@ -201,14 +187,13 @@ const cluster: [number, number, number, number][] = [
     .hero__pre { display: none; }
     .hero :global(svg.sticker) { width: calc(var(--s) * 0.6); height: calc(var(--s) * 0.6); }
     .hero :global(svg.sticker:has(foreignObject)) { display: none; }
-    .hero__last { top: 9.5rem; right: 2%; font-size: 24vw; }
+    .hero__last { top: 9.5rem; left: auto; right: 2%; font-size: 24vw; }
     .hero__cut { position: relative; left: 50%; height: auto; width: 64%; margin-top: 5.5rem; }
     .hero__cut :global(img) { width: 100%; height: auto; }
     .hero__roles { position: absolute; top: 15rem; left: 0; }
     .role { font-size: 1.25rem; }
     .hero__snap { left: auto; right: 0; top: 24rem; width: 8rem; }
-    .hero :global(.hero__win) { position: relative; right: auto; bottom: auto; width: 100%; margin-top: -3rem; transform: rotate(-1.5deg); }
-    .hero__cluster { right: -4%; top: 15rem; width: 8rem; height: 8rem; transform: scale(0.7); transform-origin: top right; }
+    .hero :global(.hero__win) { position: relative; left: auto; right: auto; bottom: auto; width: 100%; margin-top: -3rem; transform: rotate(-1.5deg); }
     .p1 { left: 40%; width: 64%; height: 30%; }
     .p2 { left: 62%; top: 26%; width: 44%; height: 26%; }
     .p3 { left: 74%; top: 46%; width: 30%; height: 12%; }

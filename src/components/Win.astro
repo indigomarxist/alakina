@@ -1,46 +1,100 @@
 ---
-// A Y2K desktop pop-up window frame.
+// A pop-up window in the spirit of a 1999 desktop, dressed in the site's fabrics:
+// pinstriped title bar with close / zoom / shade boxes (Mac OS 8 style), a centred
+// Bodoni title plate, an optional status line and a resize grip.
 interface Props {
   title: string;
   class?: string;
   style?: string;
+  /** Title bar fabric. */
+  skin?: 'pinstripe' | 'leopard' | 'velvet';
+  /** Small mono text in the bottom status bar; omit for no status bar. */
+  status?: string;
 }
-const { title, class: className, style } = Astro.props;
+const { title, class: className, style, skin = 'pinstripe', status } = Astro.props;
 ---
 
-<div class:list={['win', className]} style={style}>
+<div class:list={['win', `win--${skin}`, className]} style={style}>
   <div class="win__bar">
+    <span class="win__box win__box--close" aria-hidden="true"></span>
     <span class="win__title">{title}</span>
-    <span class="win__btns" aria-hidden="true">_ □ ×</span>
+    <span class="win__boxes" aria-hidden="true"><span class="win__box win__box--zoom"></span><span class="win__box win__box--shade"></span></span>
   </div>
   <div class="win__body"><slot /></div>
+  {status && <div class="win__status"><span>{status}</span><span class="win__grip" aria-hidden="true"></span></div>}
 </div>
 
 <style>
-  /* The design system's Y2K window: hot pink frame, hard oxblood shadow. */
   .win {
     position: relative;
-    background: #fff5f8;
+    background: #fff8f4;
     --text: var(--wine);
     --muted: var(--ink-soft);
     --line: color-mix(in srgb, var(--wine) 22%, transparent);
     --accent: var(--burgundy);
     color: var(--wine);
-    border: 3px solid var(--hot);
-    box-shadow: var(--hard);
+    border: 2px solid var(--wine);
+    /* Bevel inside, hard drop shadow outside. */
+    box-shadow: inset 2px 2px 0 #fff, inset -2px -2px 0 #e8c9cf, var(--hard);
+    padding: 3px;
   }
   .win__bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 0.6rem;
+    height: 1.9rem;
+    padding: 0 0.45rem;
+    border: 1px solid var(--wine);
+    background:
+      repeating-linear-gradient(180deg, var(--hot) 0 2px, var(--bubble) 2px 4px) 0 50% / 100% 60% no-repeat,
+      var(--blush);
+  }
+  .win--leopard .win__bar { background: #b8864b var(--leopard) 0 0 / 120px 120px; }
+  .win--velvet .win__bar { background: var(--wine) url('/textures/ds-rose.webp') 0 0 / 420px auto; }
+  .win__title {
+    justify-self: center;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0.05rem 0.7rem 0.15rem;
+    background: #fff8f4;
+    border: 1px solid var(--wine);
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.2;
+    color: var(--wine);
+  }
+  .win__boxes { display: flex; gap: 0.3rem; }
+  .win__box {
+    position: relative;
+    display: block;
+    width: 0.95rem;
+    height: 0.95rem;
+    background: linear-gradient(135deg, #fff, var(--chrome));
+    border: 1px solid var(--wine);
+    box-shadow: inset -1px -1px 0 #a9a9b3;
+  }
+  .win__box--zoom::after { content: ''; position: absolute; left: 1px; top: 1px; width: 55%; height: 55%; border: 1px solid var(--wine); }
+  .win__box--shade::after { content: ''; position: absolute; left: 1px; right: 1px; top: 40%; height: 2px; border-block: 1px solid var(--wine); }
+  .win__body { padding: 1.1rem; }
+  .win__status {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 0.5rem;
-    padding: 0.4rem 0.7rem;
-    background: var(--hot);
-    color: #fff5f8;
+    gap: 1rem;
+    padding: 0.25rem 0.2rem 0.1rem 0.5rem;
+    border-top: 1px solid var(--line);
     font-family: var(--mono);
-    font-size: 0.8rem;
-    line-height: 1.3;
+    font-size: 0.7rem;
+    color: var(--ink-soft);
   }
-  .win__btns { white-space: nowrap; }
-  .win__body { padding: 1.1rem; }
+  .win__grip {
+    width: 0.8rem;
+    height: 0.8rem;
+    background: repeating-linear-gradient(135deg, transparent 0 2px, var(--wine) 2px 3px);
+    clip-path: polygon(100% 0, 100% 100%, 0 100%);
+  }
 </style>
