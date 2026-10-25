@@ -5,7 +5,8 @@ const words = [...profile.tagline.split('·').map((r) => r.trim()), profile.base
 const run = [...words, ...words];
 ---
 
-<div class="marquee" aria-hidden="true">
+<div class="marquee-wrap" aria-hidden="true">
+<div class="marquee">
   <div class="marquee__track">
     {[0, 1].map(() => (
       <ul>
@@ -14,8 +15,12 @@ const run = [...words, ...words];
     ))}
   </div>
 </div>
+</div>
 
 <style>
+  /* The tilted band is wider than the page; clip it here so it can't widen the
+     mobile layout viewport (older iOS Safari ignores overflow-x on the root). */
+  .marquee-wrap { position: relative; z-index: 2; overflow: hidden; padding-block: 1.5rem; margin-block: -1.5rem; pointer-events: none; }
   .marquee {
     overflow: hidden;
     background: var(--hot);

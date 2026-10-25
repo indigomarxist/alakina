@@ -7,17 +7,21 @@ import Sticker from './Sticker.astro';
 import Win from './Win.astro';
 
 const roles = profile.tagline.split('·').map((r) => r.trim());
+// Chrome star cluster, like the Y2K collage boards: [left%, top%, size rem, rotate]
+const cluster: [number, number, number, number][] = [
+  [0, 18, 4.2, -10], [22, 0, 3, 14], [40, 22, 5, 4], [16, 46, 2.6, 22], [58, 2, 2.4, -18], [66, 38, 3.4, 10], [36, 64, 2.2, -6],
+];
 ---
 
 <section class="hero velvet vt-wine" id="top">
   <div class="patch" aria-hidden="true">
-    <span class="patch__b vt-rose velvet p1"></span>
-    <span class="patch__b vt-mauve velvet p2"></span>
-    <span class="patch__b leopard p3"></span>
-    <span class="patch__b zebra p4"></span>
-    <span class="patch__b vt-olive velvet p5"></span>
-    <span class="patch__b vt-teal velvet p6"></span>
-    <span class="patch__b vt-chestnut velvet p7"></span>
+    <span class="patch__b p1" style="--f:url('/fabrics/rose.webp')"></span>
+    <span class="patch__b p2" style="--f:url('/fabrics/mauve.webp')"></span>
+    <span class="patch__b p3" style="--f:url('/fabrics/leopard.webp')"></span>
+    <span class="patch__b p4" style="--f:url('/fabrics/zebra.webp')"></span>
+    <span class="patch__b p5" style="--f:url('/fabrics/olive.webp')"></span>
+    <span class="patch__b p6" style="--f:url('/fabrics/peacock.webp')"></span>
+    <span class="patch__b p7" style="--f:url('/fabrics/chestnut.webp')"></span>
   </div>
 
   <div class="container hero__stage">
@@ -63,18 +67,40 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
     </figure>
 
 
-    <Sticker kind="rose" size="4.6rem" rotate={-14} float={false} style="left:63%;bottom:7%" />
-    <Sticker kind="rose" size="3.4rem" rotate={18} float={false} style="left:88%;bottom:3%" />
+    <div class="hero__cluster" aria-hidden="true">
+      {cluster.map(([l, t, s, r], i) => (
+        <Sticker kind="chrome" bare size={`${s}rem`} rotate={r} style={`left:${l}%;top:${t}%;animation-delay:-${i * 0.7}s`} />
+      ))}
+    </div>
 
   </div>
 </section>
 
 <style>
-  .hero { position: relative; overflow: clip; padding-block: 2.5rem 0; }
+  .hero {
+    position: relative;
+    overflow: hidden;
+    overflow: clip;
+    padding-block: 2.5rem 0;
+    /* Real oxblood velvet, darkened at the edges so the blush title keeps its contrast. */
+    background-image:
+      radial-gradient(120% 80% at 30% 30%, rgb(30 6 12 / 0.25), rgb(20 3 8 / 0.7)),
+      url('/fabrics/oxblood.webp');
+    background-size: 100% 100%, cover;
+    background-position: center;
+  }
 
-  /* Fabric-swatch patchwork, after the velvet palette board. */
+  /*
+    Fabric-swatch patchwork, after the velvet palette board: photographs of real
+    velvets and prints (public/fabrics, credits in CREDITS.md).
+  */
   .patch { position: absolute; inset: 0; pointer-events: none; }
-  .patch__b { position: absolute; display: block; }
+  .patch__b {
+    position: absolute;
+    display: block;
+    background: var(--wine) var(--f) center / cover no-repeat;
+    box-shadow: 6px 6px 0 rgb(20 3 8 / 0.55);
+  }
   .p1 { left: 52%; top: -4%; width: 30%; height: 46%; transform: rotate(2deg); }
   .p2 { left: 74%; top: 30%; width: 30%; height: 54%; transform: rotate(-3deg); }
   .p3 { left: 60%; top: 36%; width: 15%; height: 24%; transform: rotate(-6deg); }
@@ -159,6 +185,8 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
   .hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
   .hero .btn--win { color: var(--ink); border-color: var(--ink); }
 
+  .hero__cluster { position: absolute; z-index: 7; left: 60%; top: 4%; width: 13rem; height: 11rem; }
+
   .hero__snap {
     position: absolute;
     z-index: 5;
@@ -191,6 +219,7 @@ const roles = profile.tagline.split('·').map((r) => r.trim());
     .hero__cut { position: relative; left: 50%; height: auto; width: 64%; margin-top: 5.5rem; }
     .hero__cut :global(img) { width: 100%; height: auto; }
     .hero__roles { position: absolute; top: 15rem; left: 0; }
+    .hero__cluster { left: auto; right: -4%; top: 3rem; width: 8rem; height: 8rem; transform: scale(0.7); transform-origin: top right; }
     .role { font-size: 1.25rem; }
     .hero__snap { left: auto; right: 0; top: 24rem; width: 8rem; }
     .hero :global(.hero__win) { position: relative; left: auto; right: auto; bottom: auto; width: 100%; margin-top: -3rem; transform: rotate(-1.5deg); }

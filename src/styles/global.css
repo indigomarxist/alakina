@@ -67,7 +67,13 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+/*
+  Rotated marquees and hero swatches deliberately run past the edges. Clip
+  sideways overflow on the root, not just body: iOS Safari ignores body
+  overflow when sizing the layout viewport and zooms the whole page out to fit
+  whatever pokes out. `hidden` is the fallback for Safari < 16 (no `clip`).
+*/
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; overflow-x: hidden; overflow-x: clip; }
 
 body {
   margin: 0;
