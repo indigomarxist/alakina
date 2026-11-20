@@ -45,6 +45,7 @@ const run = [...words, ...words];
     align-items: center;
     gap: 2.8rem;
   }
-  li::after { content: '✦'; margin-right: -1.4rem; }
+  /* Plain hairline between words. */
+  li::after { content: ''; width: 1.6rem; height: 1px; background: currentColor; opacity: 0.7; margin-right: -1.4rem; }
   @keyframes scroll { to { transform: translateX(-50%); } }
 </style>
