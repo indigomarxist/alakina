@@ -67,7 +67,13 @@
 *::before,
 *::after { box-sizing: border-box; }
 
-html { scroll-behavior: smooth; scroll-padding-top: 5rem; }
+/*
+  Rotated marquees and hero swatches deliberately run past the edges. Clip
+  sideways overflow on the root, not just body: iOS Safari ignores body
+  overflow when sizing the layout viewport and zooms the whole page out to fit
+  whatever pokes out. `hidden` is the fallback for Safari < 16 (no `clip`).
+*/
+html { scroll-behavior: smooth; scroll-padding-top: 5rem; overflow-x: hidden; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -295,34 +301,6 @@ h1 em, h2 em {
     repeating-linear-gradient(45deg, rgb(0 0 0 / 0.12) 0 1px, transparent 1px 4px);
 }
 
-/* Glitter dust scattered over a surface. */
-.dust::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    radial-gradient(circle, rgb(255 255 255 / 0.5) 0 1px, transparent 1.5px),
-    radial-gradient(circle, rgb(255 214 232 / 0.4) 0 1px, transparent 1.5px);
-  background-size: 37px 41px, 53px 47px;
-  background-position: 0 0, 19px 23px;
-  mix-blend-mode: screen;
-  opacity: 0.35;
-}
-.dust > :not(dialog) { position: relative; z-index: 1; }
-
-/* Cursor sparkle trail (script in Base.astro). */
-.trail {
-  position: fixed;
-  z-index: 200;
-  width: 14px;
-  height: 14px;
-  pointer-events: none;
-  background: var(--c, #f28db8);
-  clip-path: polygon(50% 0, 61% 39%, 100% 50%, 61% 61%, 50% 100%, 39% 61%, 0 50%, 39% 39%);
-  animation: trail 0.9s ease-out forwards;
-}
-@keyframes trail { to { transform: translate(var(--dx), 26px) scale(0.2) rotate(90deg); opacity: 0; } }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

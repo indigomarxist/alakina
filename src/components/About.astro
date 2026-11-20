@@ -2,8 +2,6 @@
 import { Image } from 'astro:assets';
 import portrait from '../assets/photos/three-quarter.jpg';
 import { profile } from '../data/profile';
-import Sparkle from './Sparkle.astro';
-import Sticker from './Sticker.astro';
 ---
 
 <section class="section about-section velvet vt-teal torn-top" id="about">
@@ -11,9 +9,6 @@ import Sticker from './Sticker.astro';
     <div class="about__photo">
       <span class="tape tape--leopard" style="top:-0.6rem;left:12%;transform:rotate(-8deg)" aria-hidden="true"></span>
       <span class="tape" style="bottom:-0.4rem;right:8%;transform:rotate(-6deg)" aria-hidden="true"></span>
-      <Sticker kind="heart" size="3.8rem" rotate={12} style="top:-1.8rem;right:-1.6rem" />
-      <Sticker kind="star" size="2.6rem" rotate={-14} style="bottom:18%;left:-1.8rem;animation-delay:-2s" />
-      <Sparkle color="var(--burgundy)" size="1.4rem" style="top:40%;right:-1.4rem;z-index:3" />
       <Image src={portrait} alt="Alakina Lee, three-quarter length portrait" widths={[480, 720, 960]} sizes="(max-width: 800px) 100vw, 40vw" format="avif" />
     </div>
     <div class="about__col">

@@ -11,7 +11,7 @@ export const profile = {
     "Trained at the American Musical and Dramatic Academy in New York, she has performed on stage, worked in runway, editorial and commercial modeling, and appeared in film. She is building a career across theater, film, television and fashion, and is always looking for new collaborators.",
   ],
   stats: [
-    ['Height', `5′7″`],
+    ['Height', `5′8″`],
     ['Bust', '33″'],
     ['Waist', '25″'],
     ['Hips', '33″'],

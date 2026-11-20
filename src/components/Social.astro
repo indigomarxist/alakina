@@ -1,6 +1,5 @@
 ---
 import Win from './Win.astro';
-import Sticker from './Sticker.astro';
 import { Image } from 'astro:assets';
 import { getInstagramPosts } from '../lib/instagram';
 import { profile } from '../data/profile';
@@ -12,8 +11,6 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
 
 <section class="section social-section plaid torn-top" id="social">
   <div class="container">
-    <Sticker kind="butterfly" size="4rem" rotate={-12} style="top:-1.5rem;right:8%" />
-    <Sticker kind="heart" size="2.8rem" rotate={10} style="top:4rem;right:2%;animation-delay:-2s" />
     <div class="social__head torn-card paper">
       <span class="tape tape--leopard" style="top:-0.6rem;left:12%;transform:rotate(-5deg)" aria-hidden="true"></span>
       <p class="eyebrow">[ 05 ] Social</p>
@@ -46,7 +43,7 @@ const tiktokUrl = `https://www.tiktok.com/@${profile.tiktok}`;
       }
 
       <div class="tt">
-        <Win title="tiktok.exe" class="tt__win">
+        <Win title={`TikTok · @${profile.tiktok}`} status="plays right here" class="tt__win">
         <div class="tt__embed">
           <blockquote
             class="tiktok-embed"
